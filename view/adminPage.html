@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Main page</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <section>
+        <div class="col-12 d-flex topbar pl-0 pr-0">
+            <div class="col-2" style="border-right: 1px solid #e5e7eb;">
+                <img class="avata" src="img/avatar.png" width="40" height="40" />
+                <a class="text-info" href="facebook.com">Nguyen van A - CTV</a>
+            </div>
+            <div class="col-10 text-right">
+                <button href="btn btn-primary">Thông tin tài khoản</button>
+                <button href="btn btn-primary">Đăng xuất</button>
+                <a class="text-info" href="facebook.com">Hỗ trợ - 090xxxxxx</a>
+            </div>
+        </div>
+    </section>
+    <!-- Content Bar -->
+    <section>
+        <div class="col-12 pl-0 pr-0 d-flex">
+            <div class="col-2 menu">
+                <div class="menu_left" data-id="notice">
+                    <i class="fa fa-newspaper-o" aria-hidden="true"></i> Thông báo
+                </div>
+                <div class="menu_left" data-id="">
+                    <i class="fa fa-user-circle" aria-hidden="true"></i> Nhân viên
+                </div>
+                <div class="menu_left" data-id="">
+                    <i class="fa fa-gift" aria-hidden="true"></i> Sản phẩm
+                </div>
+                <div class="menu_left" data-id="">
+                    <i class="fa fa-area-chart" aria-hidden="true"></i> Báo cáo
+                </div>
+                <div class="menu_left" data-id="user" data-role="user">
+                    <i class="fa fa-key" aria-hidden="true"></i> Tài khoản
+                </div>
+                <div class="menu_left" data-id="">
+                    <i class="fa fa-inbox" aria-hidden="true"></i> Tin nhắn
+                </div>
+                <div class="menu_left" data-id="">
+                    <i class="fa fa-cogs" aria-hidden="true"></i> Cài đặt
+                </div>
+            </div>
+            <div class="col-10" >
+                <div class="link_map" id="linkmenu">
+                    <a></a>
+                </div>
+                <div id="content"></div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer Bar -->
+    <section>
+
+    </section>
+    <!-- Optional JavaScript -->
+    <script>
+        var current_menu = '';
+
+        function set_link_menu(m,t){
+            var ae = document.createElement('a');
+            ae.href = '/';
+            ae.innerText = 'Trang chủ';
+            var me = document.createElement('a');
+            me.href = `/home/${m}`;
+            me.innerText = t||m;
+        }
+
+    </script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+    <!-- <script src="js/main.js"></script> -->
+    <script src="js/menu_function.js"></script>
+</body>
+
+</html>

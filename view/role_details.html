@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Chức vụ</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/table.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <section>
+        <div class="col-12 d-flex topbar pl-0 pr-0">
+            <div class="col-2" style="border-right: 1px solid #e5e7eb;">
+                <img class="avata" src="../img/avatar.png" width="40" height="40" />
+                <a class="text-info" id="user_info" href="facebook.com">Nguyen van A - CTV</a>
+            </div>
+            <div class="col-10 text-right">
+                <button href="btn btn-primary">Thông tin tài khoản</button>
+                <button href="btn btn-primary" onclick="acc_logout()" >Đăng xuất</button>
+                <a class="text-info" href="facebook.com">Hỗ trợ - 090xxxxxx</a>
+            </div>
+        </div>
+    </section>
+    <!-- Content Bar -->
+    <section>
+        <div class="col-12 pl-0 pr-0 d-flex">
+            <div id="main_menu" class="col-2 menu">
+            </div>
+            <div class="col-10">
+                <div class="link_map" id="linkmenu">
+                </div>
+                <div class="text_title">
+                    Danh sách chức vụ
+                </div>
+                <div id="content">
+                    <!-- <div class="col-12 d-flex p-2" style="border: 1px solid black;">
+                        <div class="col-3" style="border-right: 1px solid black;">
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" name="mainrole" id="mainrole" value="">
+                                Main role
+                              </label>
+                            </div>
+                        </div>
+                        <div class="col-9 d-flex flex-wrap">
+                            <div class="w-25">
+                                <div class="form-check">
+                                  <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" name="mainrole" id="mainrole" value="">
+                                    Main role
+                                  </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+
+    </section>
+    <!-- Optional JavaScript -->
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/menu_function.js"></script>
+    <script>
+        this.load();
+        async function load() {
+            var url = new URL(location.href);
+            var role_id = url.searchParams.get("id");
+            var acc_id = url.searchParams.get("account_id");
+            var cr_role = await role_get_detail(role_id);
+            var cr_acc = await acc_get_detail(acc_id);
+            set_link_menu(cr_acc === undefined?cr_role.name:cr_acc.user);
+            let lst_role = await role_get_all_template();
+            var ct = document.getElementById('content');
+            ct.innerHTML = '';
+            for(var i = 0;i<lst_role.length;i++){
+                var e = lst_role[i];
+                if(e.par_id == 0){
+                    ct.innerHTML += `<div class="col-12 d-flex p-2" style="border: 1px solid black;">
+                        <div class="col-3" style="border-right: 1px solid black;">
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" name="${e.action}" id="${e.action}" value="">
+                                ${e.name}
+                              </label>
+                            </div>
+                        </div>
+                        <div class="col-9 d-flex flex-wrap">
+                            ${getHtmlChild(e,lst_role)}
+                        </div>
+                    </div>`;
+                }
+            }
+            
+        }
+
+        function getHtmlChild(par,lst){
+            var str = '';
+            for(var i = 0;i<lst.length;i++){
+                var e = lst[i];
+                if(e.par_id == par.id){
+                    str+= `<div class="w-25">
+                                <div class="form-check">
+                                  <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" name="${e.action}" id="${e.action}" value="">
+                                    ${e.name}
+                                  </label>
+                                </div>
+                            </div>`;
+                }
+            }
+            return str;
+        }
+
+        function set_link_menu(info) {
+            var ae = document.createElement('a');
+            ae.href = '/';
+            ae.innerText = 'Trang chủ';
+            var me = document.createElement('a');
+            me.href = `/home/role_type`;
+            me.innerText = 'QUẢN LÝ CHỨC VỤ';
+            var sign = document.createElement('span');
+            sign.innerText = ' > ';
+            var sign1 = document.createElement('span');
+            sign1.innerText = ' > ';
+            var ct = document.getElementById('linkmenu');
+            ct.innerHTML = '';
+            var me1 = document.createElement('a');
+            me1.href = location.href;
+            me1.innerText = `Danh sách quyền của ${info}`;
+            ct.appendChild(ae);
+            ct.appendChild(sign);
+            ct.appendChild(me);
+            ct.appendChild(sign1);
+            ct.appendChild(me1);
+            document.querySelector('div[class="text_title"]').innerText = `Các quyền của ${info}`;
+        }
+    </script>
+</body>
+
+</html>

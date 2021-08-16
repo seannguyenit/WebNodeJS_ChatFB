@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Nhóm kinh doanh</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/table.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <section>
+        <div class="col-12 d-flex topbar pl-0 pr-0">
+            <div class="col-2" style="border-right: 1px solid #e5e7eb;">
+                <img class="avata" src="../img/avatar.png" width="40" height="40" />
+                <a class="text-info" id="user_info" href="facebook.com">Nguyen van A - CTV</a>
+            </div>
+            <div class="col-10 text-right">
+                <button href="btn btn-primary">Thông tin tài khoản</button>
+                <button href="btn btn-primary" onclick="acc_logout()">Đăng xuất</button>
+                <a class="text-info" href="facebook.com">Hỗ trợ - 090xxxxxx</a>
+            </div>
+        </div>
+    </section>
+    <!-- Content Bar -->
+    <section>
+        <div class="col-12 pl-0 pr-0 d-flex">
+            <div id="main_menu" class="col-2 menu">
+            </div>
+            <div class="col-10">
+                <div class="link_map" id="linkmenu">
+                </div>
+                <div class="text_title">
+                    Danh sách Nhóm kinh doanh
+                </div>
+                <div id="content">
+                    <table id="mainData" class="tablemanager table table-striped table-bordered table-sm"
+                        cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th class="disableSort">id</th>
+                                <th>Nhóm kinh doanh</th>
+                                <th class="disableFilterBy">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary" data-toggle="modal" onclick="clearModal('detailId')"
+                        data-target="#detailId">Tạo mới</button>
+                    <!-- <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detailId">Tạo mới</button> -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer Bar -->
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="detailId" tabindex="-1" group="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" group="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thông tin Nhóm kinh doanh</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body d-flex flex-wrap text-center" style="justify-content: space-between;">
+                    <input hidden id="group_id" value="0" />
+                    <div class="form-group w-100">
+                        <label for="name">Nhóm kinh doanh</label>
+                        <input type="text" class="form-control" name="name" id="name" required aria-describedby="helpId"
+                            placeholder="">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="save_acc()" data-dismiss="modal"
+                        class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section>
+
+    </section>
+    <!-- Optional JavaScript -->
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/menu_function.js"></script>
+    <script src="../js/table.js"></script>
+    <script>
+        var is_first = true;
+        //var current_menu = '';
+        load_group();
+        //load_list_group();
+        function set_link_menu(m, t) {
+            var ae = document.createElement('a');
+            ae.href = '/';
+            ae.innerText = 'Trang chủ';
+            var me = document.createElement('a');
+            me.href = `/home/${m}`;
+            me.innerText = t || m;
+            var sign = document.createElement('span');
+            sign.innerText = ' > ';
+            var ct = document.getElementById('linkmenu');
+            ct.innerHTML = '';
+            ct.appendChild(ae);
+            ct.appendChild(sign);
+            ct.appendChild(me);
+        }
+
+        async function load_group() {
+            set_link_menu('group', 'Quản lý Nhóm kinh doanh');
+            var tb = document.getElementById('mainData').querySelector('tbody');
+            tb.innerHTML = '';
+            let rs = await group_get_all();
+            tb.innerHTML += allRow(rs, tb, ['id', 'name'], true).innerHTML;
+            if (is_first) {
+                $('.tablemanager').tablemanager({
+                    firstSort: [[3, 0], [2, 0], [1, 'asc']],
+                    disable: ["last"],
+                    appendFilterby: true,
+                    dateFormat: [[4, "mm-dd-yyyy"]],
+                    debug: true,
+                    vocabulary: {
+                        voc_filter_by: 'Lọc theo',
+                        voc_type_here_filter: 'từ khóa',
+                        voc_show_rows: 'Số dòng mỗi trang'
+                    },
+                    pagination: true,
+                    showrows: [20, 50, 100, 200],
+                    disableFilterBy: [1]
+                });
+            }
+            is_first = false;
+        }
+
+        function open_group(id = 0, acc_id = 0) {
+            location.href = `/group/group?id=${id}&account_id=${acc_id}`;
+        }
+
+        // async function load_list_group() {
+        //     var tb = document.getElementById('group');
+        //     await fetch(`/api/group` /*, options */)
+        //         .then((response) => response.json())
+        //         .then((data) => {
+        //             data.forEach(row => {
+        //                 tb.innerHTML += `<option value="${row.id}">${row.name}</option>`;
+        //             });
+        //         })
+        //         .catch((error) => {
+        //             console.warn(error);
+        //         });
+        // }
+
+        async function load_detail(id) {
+            let rs = await group_get_detail(id);
+            document.getElementById('group_id').value = rs.id || 0;
+            document.getElementById('name').value = rs.name;
+            // document.getElementById('level').level = rs.level;
+        }
+
+        async function clearModal(modal_id) {
+            var modal = document.getElementById(modal_id);
+            modal.querySelectorAll('input').forEach(e => { e.value = '' });
+        }
+
+        async function save_acc(changeActive, change_id) {
+            if (confirm('Bạn có chắc chắn muốn thay đổi dữ liệu ?')) {
+            } else {
+                return;
+            }
+            var id = change_id || document.getElementById('group_id').value;
+            var name = document.getElementById('name').value;
+            // var level = document.getElementById('level').value;
+
+            var url = `/api/group`;
+            var meth = 'POST';
+            const formData = new FormData();
+
+            if (id != 0) {
+                meth = 'PUT';
+                url = `/api/group/${id}`;
+            }
+            var data = {};
+            if (changeActive == null || changeActive == undefined) {
+                if (!validateField(name, 'Tên Nhóm kinh doanh')) {
+                    return;
+                }
+                // if (!validateField(level, 'Cấp bậc')) {
+                //     return;
+                // }
+                data = { name: name };
+            } else {
+                data = { is_active: !changeActive };
+            }
+            let rs = await group_save(url, data, meth);
+            console.log('Success:', rs);
+            load_group();
+        }
+
+        async function del_acc(id) {
+            if (confirm('Bạn có chắc chắn muốn thay đổi dữ liệu ?')) {
+            } else {
+                return;
+            }
+            let rs = await group_del(id);
+            console.log('Success:', rs);
+            load_group();
+        }
+    </script>
+</body>
+
+</html>
