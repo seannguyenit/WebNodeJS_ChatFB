@@ -502,6 +502,69 @@ async function fast_reply_del(id) {
 /* end fast_reply end */
 
 
+/* product */
+async function product_get_all() {
+    return await fetch(`/api/product` /*, options */)
+    .then((response) => response.json())
+    .then((data) => {
+        if (data != undefined) {
+            return data;
+        }
+        //covertTrueFalse(tb, 6, 'Hiện', 'Ẩn');
+    })
+    .catch((error) => {
+        console.warn(error);
+    });
+}
+
+
+async function product_get_detail(id) {
+    return await fetch(`/api/product/${id}` /*, options */)
+        .then((response) => response.json())
+        .then((data) => {
+            return data;
+        })
+        .catch((error) => {
+            console.warn(error);
+        });
+}
+
+async function product_save(url, data, meth) {
+    return await fetch(url, {
+        method: meth, // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.json())
+        .then(result => {
+            return result;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+async function product_del(id) {
+    var url = `/api/product/${id}`;
+    var meth = 'DELETE';
+    return await fetch(url, {
+        method: meth, // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+        .then(response => response.json())
+        .then(result => {
+          return result;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+/* product - end */
 
 /* call api method - end */
 

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Nhóm kinh doanh</title>
+    <title>Sản phẩm</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -39,7 +39,7 @@
                 <div class="link_map" id="linkmenu">
                 </div>
                 <div class="text_title">
-                    Danh sách Nhóm kinh doanh
+                    Danh sách Sản phẩm
                 </div>
                 <div id="content">
                     <table id="mainData" class="tablemanager table table-striped table-bordered table-sm"
@@ -47,7 +47,11 @@
                         <thead>
                             <tr>
                                 <th class="disableSort">id</th>
-                                <th>Nhóm kinh doanh</th>
+                                <th>Sản phẩm</th>
+                                <th>Mã</th>
+                                <th>Price</th>
+                                <th>ck</th>
+                                <th>Trạng thái</th>
                                 <th class="disableFilterBy">Thao tác</th>
                             </tr>
                         </thead>
@@ -65,21 +69,44 @@
     <!-- Footer Bar -->
     <!-- Button trigger modal -->
     <!-- Modal -->
-    <div class="modal fade" id="detailId" tabindex="-1" group="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal fade" id="detailId" tabindex="-1" group="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
         <div class="modal-dialog" group="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Thông tin Nhóm kinh doanh</h5>
+                    <h5 class="modal-title">Thông tin Sản phẩm</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body d-flex flex-wrap text-center" style="justify-content: space-between;">
-                    <input hidden id="group_id" value="0" />
+                    <input hidden id="product_id" value="0" />
                     <div class="form-group w-100">
-                        <label for="name">Nhóm kinh doanh</label>
+                        <label for="name">Tên</label>
                         <input type="text" class="form-control" name="name" id="name" required aria-describedby="helpId"
                             placeholder="">
+                    </div>
+                    <div class="form-group w-100">
+                        <label for="code">Code</label>
+                        <input type="text" class="form-control" name="code" id="code" required aria-describedby="helpId"
+                            placeholder="">
+                    </div>
+                    <div class="form-group w-50">
+                        <label for="ck">CK (%)</label>
+                        <input type="number" class="form-control" name="ck" id="ck" required aria-describedby="helpId"
+                            placeholder="">
+                    </div>
+                    <div class="form-group w-50">
+                        <label for="price">Giá</label>
+                        <input type="number" class="form-control" name="price" id="price" required
+                            aria-describedby="helpId" placeholder="">
+                    </div>
+                    <div class="form-check w-25">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" name="is_active" id="is_active"
+                                value="checkedValue" checked>
+                            Hiện
+                        </label>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -110,8 +137,8 @@
     <script>
         var is_first = true;
         //var current_menu = '';
-        load_group();
-        //load_list_group();
+        load_product();
+        //load_list_product();
         function set_link_menu(m, t) {
             var ae = document.createElement('a');
             ae.href = '/';
@@ -128,12 +155,13 @@
             ct.appendChild(me);
         }
 
-        async function load_group() {
-            set_link_menu('group', 'Quản lý Nhóm kinh doanh');
+        async function load_product() {
+            set_link_menu('product', 'Quản lý Sản phẩm');
             var tb = document.getElementById('mainData').querySelector('tbody');
             tb.innerHTML = '';
-            let rs = await group_get_all();
-            tb.innerHTML += allRow(rs, tb, ['id', 'name'], true).innerHTML;
+            let rs = await product_get_all();
+            tb.innerHTML += allRow(rs, tb, ['id', 'name','code','price','ck','is_active']).innerHTML;
+            covertTrueFalse(tb, 5, 'Hiện', 'Ẩn');
             if (is_first) {
                 $('.tablemanager').tablemanager({
                     firstSort: [[3, 0], [2, 0], [1, 'asc']],
@@ -154,13 +182,13 @@
             is_first = false;
         }
 
-        function open_group(id = 0, acc_id = 0) {
-            location.href = `/group/group?id=${id}&account_id=${acc_id}`;
+        function open_product(id = 0, acc_id = 0) {
+            location.href = `/product/product?id=${id}`;
         }
 
-        // async function load_list_group() {
-        //     var tb = document.getElementById('group');
-        //     await fetch(`/api/group` /*, options */)
+        // async function load_list_product() {
+        //     var tb = document.getElementById('product');
+        //     await fetch(`/api/product` /*, options */)
         //         .then((response) => response.json())
         //         .then((data) => {
         //             data.forEach(row => {
@@ -173,9 +201,13 @@
         // }
 
         async function load_detail(id) {
-            let rs = await group_get_detail(id);
-            document.getElementById('group_id').value = rs.id || 0;
+            let rs = await product_get_detail(id);
+            document.getElementById('product_id').value = rs.id || 0;
             document.getElementById('name').value = rs.name;
+            document.getElementById('code').value = rs.code;
+            document.getElementById('is_active').checked = rs.is_active;
+            document.getElementById('price').value = rs.price;
+            document.getElementById('ck').value = rs.ck;
             // document.getElementById('level').level = rs.level;
         }
 
@@ -189,33 +221,37 @@
             } else {
                 return;
             }
-            var id = change_id || document.getElementById('group_id').value;
+            var id = change_id || document.getElementById('product_id').value;
             var name = document.getElementById('name').value;
+            var is_active = document.getElementById('is_active').checked;
+            var code = document.getElementById('code').value;
+            var price = document.getElementById('price').value;
+            var ck = document.getElementById('ck').value;
             // var level = document.getElementById('level').value;
 
-            var url = `/api/group`;
+            var url = `/api/product`;
             var meth = 'POST';
             const formData = new FormData();
 
             if (id != 0) {
                 meth = 'PUT';
-                url = `/api/group/${id}`;
+                url = `/api/product/${id}`;
             }
             var data = {};
             if (changeActive == null || changeActive == undefined) {
-                if (!validateField(name, 'Tên Nhóm kinh doanh')) {
+                if (!validateField(name, 'Tên Sản phẩm')) {
                     return;
                 }
                 // if (!validateField(level, 'Cấp bậc')) {
                 //     return;
                 // }
-                data = { name: name };
+                data = { name: name, is_active: is_active, code: code, price: price, ck: ck };
             } else {
                 data = { is_active: !changeActive };
             }
-            let rs = await group_save(url, data, meth);
+            let rs = await product_save(url, data, meth);
             console.log('Success:', rs);
-            load_group();
+            load_product();
         }
 
         async function del_acc(id) {
@@ -223,9 +259,9 @@
             } else {
                 return;
             }
-            let rs = await group_del(id);
+            let rs = await product_del(id);
             console.log('Success:', rs);
-            load_group();
+            load_product();
         }
     </script>
 </body>

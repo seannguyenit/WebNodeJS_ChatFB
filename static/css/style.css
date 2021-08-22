@@ -2,10 +2,16 @@
 /* gray #939597 */
 body{
     background-color: rgb(243, 244, 246) !important;
+    font-family: Roboto,Helvetica,Arial,sans-serif !important;
+    font-size: 14px !important;
 }
 button{
     border-width: 0px;
 }
+
+/* thead > tr :last-child{
+    width: 200px;
+} */
 
 .avata{
     border-radius: 50%;
@@ -20,46 +26,60 @@ button{
     border-color: #e5e7eb;
     background-color: #fff;
 }
+
 .menu{
-    background-color: #fff;
-    padding-top: 20px;
-    padding-bottom: 10px;
-    padding-left: unset !important;
-    padding-right: unset !important;
-    text-align: center;
-    height: 100vw;
+    padding-top: unset;
+    padding-bottom: unset;
+}
+
+.section_header{
+    border: 0px;
+    background-color: #506dad;
+    padding: 0px;
+    color: white;
+    /* position: fixed !important; */
+}
+
+#main_menu{
+    /* text-align: center; */
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .menu_left{
-    padding-top: 10px;
-    padding-bottom: 10px;
-    /* border-radius: 10px; */
-    margin-top: 10px;
-    width: 100%;
-    color: rgb(107, 114, 128);
-    /* border: 1px solid #e5e7eb; */
+    /* color: white; */
+    height: 100%;
+    line-height: 60px;
+    padding-left: 10px;
+    padding-right: 10px;
+    /* padding: 10px 12px 11px 12px; */
+    text-align: center;
 }
 
 .menu_active{
-    /* width: 110% !important; */
-    overflow: visible !important;
-    background-color: rgb(243, 244, 246) !important;
-    border: unset !important;
-    border-radius: unset !important;
+    background-color: #364c7d;
 }
 
 .menu_left:hover{
     text-decoration: none;
     cursor: pointer;
+    background-color: #364c7d;
 }
 
 .menu_left:active{
-    background-color: rgb(207, 250, 254);
+    background-color: #364c7d;
 }
 
 .menu_left:hover{
-    background-color: rgb(207, 250, 254);
+    background-color: #364c7d;
+}
+
+.header_account{
+    color: #fff;
+    line-height: 60px;
 }
 
 .link_map{

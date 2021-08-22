@@ -6,7 +6,7 @@ module.exports = {
         res.sendFile(path.join(__dirname,'../../view/loginpage.html'))
     },
     get: (req, res) => {
-        res.sendFile(path.join(__dirname,'../../view/adminPage.html'))
+        res.sendFile(path.join(__dirname,'../../view/notice.html'))
     },
     notice: (req, res) => {
         res.sendFile(path.join(__dirname,'../../view/notice.html'))
@@ -31,6 +31,9 @@ module.exports = {
     },
     fast_reply: (req, res) => {
         res.sendFile(path.join(__dirname,'../../view/fast_reply.html'))
+    },
+    product: (req, res) => {
+        res.sendFile(path.join(__dirname,'../../view/product.html'))
     },
     // get_partial: (req,res)=>{
     //     let action = [req.params.action];

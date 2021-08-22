@@ -60,8 +60,8 @@ module.exports = {
     },
 
     detail_group: (req, res) => {
-        let sql = 'CALL get_all_chat_group(?,?)'
-        db.query(sql, [req.params.group_id, req.params.user_id], (err, response) => {
+        let sql = 'CALL get_all_chat_group(?,0)'
+        db.query(sql, [req.params.group_id], (err, response) => {
             if (err) throw err
             res.json(response[0])
         })
@@ -76,7 +76,7 @@ module.exports = {
     },
     update_group: (req, res) => {
         let data = req.body;
-        let chat_groupId = req.params.id;
+        let chat_groupId = req.params.group_id;
         let sql = 'UPDATE `chat_group` SET ? WHERE id = ?'
         db.query(sql, [data, chat_groupId], (err, response) => {
             if (err) throw err

@@ -5,6 +5,7 @@ module.exports = function(app) {
   let configCtrl = require('./controllers/configsController');
   let groupCtrl = require('./controllers/groupscontroller');
   let messCtrl = require('./controllers/messController');
+  let productCtrl = require('./controllers/productsController');
 
   // todoList Routes
   app.route('/api/login')
@@ -83,12 +84,27 @@ module.exports = function(app) {
   app.route('/api/mess_group')
   .post(messCtrl.store_group);
 
-  app.route('/api/mess_group/:id')
+  app.route('/api/mess_group_details/:group_id')
   .get(messCtrl.detail_group)
   .put(messCtrl.update_group)
   .delete(messCtrl.delete_group);
 
   app.route('/api/mess_chat/:group_id')
-  .get(messCtrl.get_chat_in_group)
+  .get(messCtrl.get_chat_in_group);
+
+  app.route('/api/product')
+  .get(productCtrl.get)
+  .post(productCtrl.store);
+
+  app.route('/api/product/:id')
+  .get(productCtrl.detail)
+  .put(productCtrl.update)
+  .delete(productCtrl.delete);
+
+  app.route('/api/product_group/:group_id')
+  .get(productCtrl.get_by_group);
+
+  app.route('/api/product_group')
+  .post(productCtrl.save_group_product);
 };
 

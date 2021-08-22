@@ -67,14 +67,14 @@ function run_main(a) {
 }
 
 function run_action_view(action) {
-    switch (action) {
-        case 'chat':
-            window.open('/home/chat', '_blank');
-            break;
-        default:
+    // switch (action) {
+    //     case 'chat':
+    //         window.open('/home/chat', '_blank');
+    //         break;
+    //     default:
             location.href = `/home/${action}`;
         // code block
-    }
+    // }
 };
 
 function getCookie(cname) {

@@ -1,7 +1,7 @@
-
+/* 
 html{
     font-size: smaller !important;
-}
+} */
 
 body{
     background-color: #5900ff !important;
@@ -16,6 +16,9 @@ option{
     font-size: 11px !important;
 }
 
+.hide{
+    display: none !important;
+}
 
 .chat_input{
     height: 15vh;
@@ -30,7 +33,7 @@ option{
     padding-right: 0px;
     padding-top: 0px;
     padding-bottom: 0px;
-    height: fit-content;
+    height: 100%;
     display: block;
     /* width: 100%; */
     /* height: calc(1.5em + .75rem + 2px);
@@ -47,7 +50,8 @@ option{
 }
 
 .custom_scroll::-webkit-scrollbar {
-    width: 12px;               /* width of the entire scrollbar */
+    width: 8px;               /* width of the entire scrollbar */
+    height: 8px;
   }
   
   .custom_scroll::-webkit-scrollbar-track {
@@ -56,8 +60,8 @@ option{
   
   .custom_scroll::-webkit-scrollbar-thumb {
     background-color: gray;    /* color of the scroll thumb */
-    border-radius: 20px;       /* roundness of the scroll thumb */
-    border: 3px solid gainsboro;  /* creates padding around scroll thumb */
+    border-radius: 10px;       /* roundness of the scroll thumb */
+    border: 1px solid gainsboro;  /* creates padding around scroll thumb */
   }
 
 .avata{
@@ -97,7 +101,7 @@ option{
 
 .userchat{
     width: 100%;
-    font-size: smaller;
+    /* font-size: smaller; */
     /* border-radius: 10px; */
     padding-top: 5px;
     padding-bottom: 5px;
@@ -105,19 +109,50 @@ option{
     background-color: #fff;
     border-top: 1px solid rgba(12, 11, 11, 0.466);
     border-bottom: 1px solid rgba(12, 11, 11, 0.466);
+    height: 86px;
 }
+.userchat > div{
+    height: 100%;
+}
+
+.userchat.active{
+    background-color: #e3f2fd
+}
+
 .userchat:hover{
-    background-color: cornflowerblue;
-    color: white;
+    background-color: #e3f2fd
 }
 
 .userchat:active{
-    background-color: rgb(243, 244, 246);
-    color: black;
+    background-color: #e3f2fd
 }
 
 .tag_chat_select{
     cursor: pointer;
+    opacity: 0.5;
+}
+.tag_chat_select.active{
+    opacity: 1;
+}
+
+.avatar_in_chat{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.avatar_user{
+    width: 50px;
+    height: 50px;
+    margin: auto;
+}
+
+.avatar_user > img{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: auto;
 }
 
 .chatcontent{
@@ -137,15 +172,15 @@ option{
     display: flex;
 }
 .tomess > .mess{
-    background-color: grey;
+    background-color: #fff;
     color: black;
     margin-left: 5px;
-    font-size: smaller;
+    /* font-size: smaller; */
 }
 .frommess > .mess{
-    background-color: #007bff;
-    font-size: smaller;
-    color: white;
+    background-color: rgb(220, 248, 198);
+    /* font-size: smaller; */
+    color: black;
     margin-right: 5px;
 }
 
@@ -159,9 +194,13 @@ option{
 }
 
 .tag_user{
-    height: auto;
-    max-height: 20vh;
-    overflow-y: auto;
+    width: 100%;
+    height: fit-content;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-top: 1px solid #007bff;
+    border-bottom: 1px solid #007bff;
+    display: flex;
 }
 
 .tag_list{
@@ -175,25 +214,61 @@ option{
     text-align: center;
     font-size: 11px;
 }
+.chat_group_tags{
+    display: flex;
+    position: absolute;
+    bottom: 0px;
+    right: 10px;
+    z-index: 1;
+}
+.tags_details{
+    width: 11px;
+    height: 12px;
+    border-radius: 50%;
+    padding: 0px;
+    margin-left: 5px;
+}
 
 .content{
     padding-left: unset !important;
     padding-right: unset !important;
-    height: 97vh !important;
+    height: 88vh !important;
 }
 
 .chat_group{
     display: flex;
     flex-direction: column;
-    justify-content: space-between
+    justify-content: start;
+    padding-left: 0px !important;
 }
 
-.chat_group :first-child{
-    font-weight: bolder;
+.chat_group_title{
+    font-weight: 400;
+    color: #4a646c;
+}
+
+.chat_group_mess{
+    font-weight: 400;
+    font-size: 13px;
 }
 
 .chat_group_list{
     /* max-height: 100%; */
     overflow: auto;
     height: -webkit-fill-available;
+}
+
+.user_taged{
+    min-width: 150px;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    margin-left: 5px;
+    align-items: center;
+    border-right: 1px solid #007bff;
+}
+
+.table_product{
+    width: 95%;
+    margin: auto;
 }

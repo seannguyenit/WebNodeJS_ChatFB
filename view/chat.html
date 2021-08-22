@@ -7,16 +7,34 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="../css/chat.css" />
+    <link rel="stylesheet" href="../css/style.css" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
+    <section>
+        <div class="col-md-12 d-flex topbar section_header">
+            <div class="col-md-10 menu">
+                <div id="main_menu">
+                </div>
+                <!-- <button href="btn btn-primary">Thông tin tài khoản</button>
+                <button href="btn btn-primary" onclick="acc_logout()">Đăng xuất</button>
+                <a class="text-info" href="facebook.com">Hỗ trợ - 090xxxxxx</a> -->
+            </div>
+            <div class="col-md-2">
+                <img class="avata" src="../img/avatar.png" width="40" height="40" />
+                <a id="user_info" class="header_account" href="facebook.com">Nguyen van A - CTV</a>
+            </div>
+        </div>
+    </section>
+    <!-- Content Bar -->
+    <section>
     <section class="pt-2">
         <div class="col-md-12 d-flex content">
             <!-- List user -->
-            <div class="col-md-2 pl-0 pr-0 left_section">
+            <div class="col-md-3 pl-0 pr-0 left_section">
                 <!-- Search user -->
                 <div class="w-100 d-flex pl-1 pt-1 pr-1">
                     <div class="w-75">
@@ -42,16 +60,16 @@
                 </div>
             </div>
             <!-- Chat content -->
-            <div id="chat_main" class="col-md-7 center_section pl-0 pr-0">
+            <div id="chat_main" class="col-md-6 center_section pl-0 pr-0">
                 <div id="chat_header" class="w-100 header_center_section">
 
                 </div>
-                <hr />
+                <!-- <hr /> -->
                 <div id="chat_text_content" class="chatcontent custom_scroll">
 
                 </div>
                 <div class="w-100">
-                    <div id="tag_list" class="tag_list">
+                    <div id="tag_list" class="tag_list hide">
                         <div style="background-color: aquamarine;">private</div>
                         <div style="background-color: greenyellow;">public</div>
                         <div style="background-color: red;">never mind</div>
@@ -63,7 +81,7 @@
                         <div style="background-color: red;">never mind</div>
                     </div>
                 </div>
-                <div class="w-100 footer_center_section">
+                <div id="chat_button" class="w-100 footer_center_section hide">
                     <div class="d-flex chat_input">
                         <button class="btn btn-primary mr-1">File</button>
                         <textarea type="text" class="form-control" name="chat_content" id="chat_content"
@@ -93,40 +111,36 @@
                             </div>
                             <div class="w-100 p-1">
                                 <div class="form-group d-flex">
-                                    <input list="lst_user" class="form_control p-1" name="search_text" id="search_text"
+                                    <input list="lst_user" class="form_control p-1" name="search_text" id="input_tag_user"
                                         aria-describedby="helpId" placeholder="thêm nhân viên vào nhóm" />
                                     <div class="tagname"></div>
                                 </div>
                             </div>
-                            <div class="w-100 custom_scroll tag_user d-flex flex-wrap">
-                                <div class="w-50 d-flex mb-1">
-                                    <!-- <img class="avata" src="../img/avatar.jpg" width="40" height="40" /> -->
-                                    <div>Nguyen van B - KT</div>
-                                    <a class="btn btn-sm btn-danger">X</a>
-                                </div>
-                                <div class="w-50 d-flex mb-1">
-                                    <!-- <img class="avata" src="../img/avatar.jpg" width="40" height="40" /> -->
-                                    <div>Nguyen van B - KT</div>
-                                    <a class="btn btn-sm btn-danger">X</a>
-                                </div>
-                                <div class="w-50 d-flex mb-1">
-                                    <!-- <img class="avata" src="../img/avatar.jpg" width="40" height="40" /> -->
-                                    <div>Nguyen van B - KT</div>
-                                    <a class="btn btn-sm btn-danger">X</a>
-                                </div>
+                            <div id="lst_user_taged" class="w-100 custom_scroll tag_user">
+                               
                             </div>
                             <hr />
+                            <div class="w-100 p-1">
+                                <div class="form-group d-flex">
+                                    <input list="lst_product" class="form_control p-1" name="search_product" id="input_search_product"
+                                        aria-describedby="helpId" placeholder="thêm hàng hóa" />
+                                        <datalist id="lst_product">
+                                        </datalist>
+                                    <div class="tagname"></div>
+                                </div>
+                            </div>
                             <div class="w-100">
-                                <table class="table-bordered w-100">
+                                <table id="table_product" class="table-bordered table_product">
                                     <thead>
                                         <tr>
                                             <th>Code</th>
                                             <th>SP</th>
                                             <th>CK(%)</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <!-- <tr>
                                             <td scope="row">Q-001</td>
                                             <td scope="row">Quần đùi</td>
                                             <td>5</td>
@@ -135,7 +149,7 @@
                                             <td scope="row">A-001</td>
                                             <td scope="row">Áo sơ mi</td>
                                             <td>10</td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
@@ -154,10 +168,12 @@
     </section>
     <!-- Optional JavaScript -->
     <script src="../js/chat_function.js"></script>
+    <script src="../js/chat_report.js"></script>
+    <script src="../js/chat_bill.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../js/socket.io.js"></script>
     <script>
-        var cr_u = check_authen();
+        var cr_u = check_authen_inchat();
         var _event_listen = `receive`;
         var socket = io({
             auth: {
@@ -187,6 +203,7 @@
                 add_send_ui(input.value);
                 socket.emit('send', { user: cr_users, mess: input.value });
                 input.value = '';
+                auto_scroll();
             }
         }
 
@@ -195,12 +212,13 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+        <script src="../js/menu_function.js"></script>
 </body>
 
 </html>
