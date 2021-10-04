@@ -28,6 +28,14 @@ module.exports = function (app) {
     .get(homeCtrl.fast_reply);
   app.route('/home/product')
     .get(homeCtrl.product);
+    app.route('/home/report')
+    .get(homeCtrl.report);
+    app.route('/home/bill')
+    .get(homeCtrl.report_bill);
+    app.route('/home/rpp')
+    .get(homeCtrl.report_product);
+    app.route('/bill/details')
+    .get(homeCtrl.bill_details);
   // app.route('/Accounts/:id')
   //   .get(accCtrl.detail)
   //   .put(accCtrl.update)

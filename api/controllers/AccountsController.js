@@ -38,6 +38,19 @@ module.exports = {
             res.json(dt);
         })
     },
+    check_exist: (req, res) => {
+        let sql = 'CALL `user_check_existed`(?,?,?,?)'
+        db.query(sql, [req.params.id,req.params.username,req.params.role_id,req.params.group_id], (err, response) => {
+            if (err) throw err
+            var dt= response[0][0];
+            // if(is_admin){
+            //     dt.pass = dt.pass;
+            // }else{
+
+            // }
+            res.json(dt);
+        })
+    },
     update: (req, res) => {
         let data = req.body;
         let accountId = req.params.id;

@@ -210,6 +210,7 @@ async function open_chat(ele) {
     cr_note = gr_details.note;
     document.getElementById('note').value = cr_note;
     load_Product_by_group();
+    load_bill_table();
     await load_list_tags(tags);
     await load_users_taged(strIds);
     // get from Facebook

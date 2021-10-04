@@ -12,7 +12,7 @@ module.exports = {
         res.sendFile(path.join(__dirname,'../../view/notice.html'))
     },
     chat: (req, res) => {
-        res.sendFile(path.join(__dirname,'../../view/chat.html'))
+        res.sendFile(path.join(__dirname,'../../view/inbox.html'))
     },
     user: (req, res) => {
         res.sendFile(path.join(__dirname,'../../view/user.html'))
@@ -34,6 +34,18 @@ module.exports = {
     },
     product: (req, res) => {
         res.sendFile(path.join(__dirname,'../../view/product.html'))
+    },
+    report: (req, res) => {
+        res.sendFile(path.join(__dirname,'../../view/report_general.html'))
+    },
+    report_bill: (req, res) => {
+        res.sendFile(path.join(__dirname,'../../view/report_bill.html'))
+    },
+    report_product: (req, res) => {
+        res.sendFile(path.join(__dirname,'../../view/report_product.html'))
+    },
+    bill_details: (req, res) => {
+        res.sendFile(path.join(__dirname,'../../view/bill_details.html'))
     },
     // get_partial: (req,res)=>{
     //     let action = [req.params.action];

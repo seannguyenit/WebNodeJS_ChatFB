@@ -37,11 +37,51 @@
             <div class="col-md-12">
                 <div class="link_map" id="linkmenu">
                 </div>
+                <div class="w-100 pt-3">
+                    <a href="#" class="btn btn-primary">Báo cáo tổng hợp</a>
+                    <a href="#" class="btn btn-primary">Báo cáo đơn hàng</a>
+                    <a href="#" class="btn btn-primary">Báo cáo nhân viên</a>
+                    <a href="#" class="btn btn-primary">Báo cáo thu nhập</a>
+                    <a href="#" class="btn btn-primary">Báo cáo hàng hóa</a>
+                </div>
                 <div id="content">
-                    <h3 class="text-center">Thông báo doanh số cá nhân</h3>
+                    <div class="w-100 d-flex">
+                        <div class="form-group w-50">
+                            <label for="from_date">Từ ngày</label>
+                            <input type="date" class="form-control" name="from_date" id="from_date"
+                                aria-describedby="from_date" placeholder="dd/mm/yyyy">
+                            <!-- <small id="from_date" class="form-text text-muted">Chọn ngày</small> -->
+                        </div>
+                        <div class="form-group w-50">
+                            <label for="to_date">Từ ngày</label>
+                            <input type="date" class="form-control" name="to_date" id="to_date"
+                                aria-describedby="to_date" placeholder="dd/mm/yyyy">
+                            <!-- <small id="to_date" class="form-text text-muted">Chọn ngày</small> -->
+                        </div>
+
+                    </div>
                     <hr />
-                    <div id="data_details" class="d-flex flex-wrap w-75 m-auto">
-                        
+                    <h3 id="rp_title" class="w-100">Báo cáo tổng hợp</h3>
+                    <hr />
+                    <div class="w-100">
+                        <table class="table table-bordered">
+                            <thead>
+                                <!-- nhom, sl don hang, tong tien , tong ck -->
+                                <tr>
+                                    <th>cột 1</th>
+                                    <th>cột 2</th>
+                                    <th>cột 3</th>
+                                    <th>cột 4</th>
+                                    <th>cột 5</th>
+                                    <th>cột 6</th>
+                                    <th>cột 7</th>
+                                    <th>cột 8</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tb_data">
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -54,6 +94,9 @@
     <!-- Optional JavaScript -->
     <script>
         var current_menu = '';
+
+        load_default_date();
+
         load_notice();
 
         function set_link_menu(m, t) {
@@ -72,9 +115,17 @@
         }
 
         function load_notice() {
-            set_link_menu('notice', 'Thông báo')
+            set_link_menu('report', 'Báo cáo')
         }
 
+        function load_default_date() {
+            var now_t = new Date();
+            var m = now_t.getMonth();
+            var date = now_t.getDate();
+            var y = now_t.getFullYear();
+            document.getElementById('from_date').value = `01-${m}-${y}`;
+            document.getElementById('to_date').value = `${date}-${m}-${y}`;
+        }
 
 
     </script>
@@ -89,38 +140,6 @@
 
     <script src="../js/main.js"></script>
     <script src="../js/menu_function.js"></script>
-
-    <script>
-        init();
-        async function init(){
-            let data = await report_notice();
-            var main = document.getElementById('data_details');
-            main.innerHTML = '';
-            main.innerHTML = `
-            <div class="w-50 text-center p-3">
-                            <h4>
-                                Số đơn hàng trong tháng : <span>${data.number_bill||0}</span>
-                            </h4>
-                        </div>
-                        <div class="w-50 text-center p-3">
-                            <h4>
-                                Số đơn hàng hoàn thành : <span>${data.number_complete||0}</span>
-                            </h4>
-                        </div>
-                        <div class="w-50 text-center p-3">
-                            <h4>
-                                Doanh số : <span class="format_vnd">${data.total||0}</span> VND
-                            </h4>
-                        </div>
-                        <div class="w-50 text-center p-3">
-                            <h4>
-                                Hoa hồng : <span class="format_vnd">${data.ck||0}</span> VND
-                            </h4>
-                        </div>
-            `;
-        }
-        format_vnd();
-    </script>
 </body>
 
 </html>

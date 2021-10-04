@@ -13,6 +13,21 @@ button{
     width: 200px;
 } */
 
+.custom_scroll::-webkit-scrollbar {
+    width: 8px;               /* width of the entire scrollbar */
+    height: 8px;
+  }
+  
+  .custom_scroll::-webkit-scrollbar-track {
+    background: gainsboro;        /* color of the tracking area */
+  }
+  
+  .custom_scroll::-webkit-scrollbar-thumb {
+    background-color: gray;    /* color of the scroll thumb */
+    border-radius: 10px;       /* roundness of the scroll thumb */
+    border: 1px solid gainsboro;  /* creates padding around scroll thumb */
+  }
+
 .avata{
     border-radius: 50%;
 }
@@ -107,3 +122,120 @@ button{
     text-transform: uppercase;
     font-weight: bolder;
 }
+
+.chat_group{
+    width: 90%;
+    margin: auto;
+    padding: 5px 16px;
+    border: 1px solid #506dad;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+.chat_group.active{
+    background-color: #506dad;
+    color: #fff;
+    /* cursor: pointer; */
+}
+.chat_group:hover{
+    background-color: #506dad;
+    color: #fff;
+    cursor: pointer;
+}
+
+.chat_group_tags{
+    display: flex;
+    justify-content: center;
+}
+
+.tags_details{
+    width: 11px;
+    height: 12px;
+    border-radius: 50%;
+    padding: 0px;
+    margin-left: 5px;
+}
+
+hr{
+    border-color: #364c7d !important;
+}
+
+.right_section{
+    max-height: 80vh;
+    overflow-x: scroll;
+}
+
+.center_section{
+    border-left: 1px solid #364c7d;
+    border-right: 1px solid #364c7d;
+    height: 80vh;
+}
+.chatcontent{
+    max-height:100%;
+    width: 100%;
+    margin: auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.mess_content{
+    display: flex;
+    position: relative;
+    /* justify-content: space-between; */
+}
+.mess_avata{
+    display: flex;
+    justify-content: end;
+    flex-direction: column;
+    width: 45px;
+    padding-bottom: 5px;
+}
+.from_content{
+    justify-content: end;
+}
+
+.to_content{
+    justify-content: start;
+}
+
+.frommess{
+    width: fit-content;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 20px;
+    border-radius: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    text-align: center;
+    /* margin-right: 20px; */
+    background-color: rgb(220, 248, 198);
+    color: black;
+    display: block;
+}
+
+.tomess{
+    width: fit-content;
+    display: block;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 20px;
+    border-radius: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    text-align: center;
+    background-color: #fff;
+    color: black;
+}
+
+.modal_multi_tab{
+    max-width: 80% !important;
+    min-width: 500px;
+}
+#table_discount input{
+    width: 50px;
+    margin: auto;
+}
+

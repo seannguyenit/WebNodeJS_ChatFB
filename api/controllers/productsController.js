@@ -12,8 +12,23 @@ module.exports = {
     //         res.json(response)
     //     })
     // },
+    get_discount: (req, res) => {
+        let sql = 'CALL discount_get(?)'
+        db.query(sql,[req.params.product_id], (err, response) => {
+            if (err) throw err
+            res.json(response[0])
+        })
+    },
+    store_discount: (req, res) => {
+        let data = req.body;
+        let sql = 'Call discount_save(?,?)'
+        db.query(sql, [req.params.product_id,data.js_data], (err, response) => {
+            if (err) throw err
+            res.json({message: 'Insert success!'})
+        })
+    },
     get: (req, res) => {
-        let sql = 'SELECT * from `product`'
+        let sql = 'CALL product_get_all()'
         db.query(sql, (err, response) => {
             if (err) throw err
             res.json(response)
@@ -21,7 +36,7 @@ module.exports = {
     },
     get_by_group: (req, res) => {
         let sql = 'CALL group_product_gel_all(?)'
-        db.query(sql,[[req.params.group_id]], (err, response) => {
+        db.query(sql,[req.params.group_id], (err, response) => {
             if (err) throw err
             res.json(response)
         })
@@ -34,18 +49,21 @@ module.exports = {
         })
     },
     update: (req, res) => {
-        let data = req.body;
+        var data_p = req.body.data;
+        var data_d = JSON.stringify(req.body.js_data);
         let productId = req.params.id;
-        let sql = 'UPDATE `product` SET ? WHERE id = ?'
-        db.query(sql, [data, productId], (err, response) => {
+        let sql = 'call product_update(?,?,?,?,?,?,?);'
+        db.query(sql, [productId,data_p.name,data_p.code,data_p.price,data_p.group_id,data_p.is_active,data_d], (err, response) => {
             if (err) throw err
             res.json({message: 'Update success!'})
         })
     },
     store: (req, res) => {
-        let data = req.body;
-        let sql = 'INSERT INTO `product` SET ?'
-        db.query(sql, [data], (err, response) => {
+        // let data = req.body;
+        var data_p = req.body.data;
+        var data_d = JSON.stringify(req.body.js_data);
+        let sql = 'call product_insert(?,?,?,?,?);'
+        db.query(sql, [data_p.name,data_p.code,data_p.price,data_p.group_id,data_d], (err, response) => {
             if (err) throw err
             res.json({message: 'Insert success!'})
         })

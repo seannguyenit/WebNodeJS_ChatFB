@@ -122,7 +122,10 @@ Important! Do not edit this plugin if you're not sure you're doing it right. The
             options !== null && options.pagination == true ? true : false;
         var group_by_col = 0;
         group_by_col =
-                options !== null && options.group_by_col == undefined ? 0 : options.group_by_col ;
+            options !== null && options.group_by_col == undefined ? 0 : options.group_by_col;
+        var group_by_list_name = [];
+        group_by_list_name =
+            options !== null && options.group_by_list_name == undefined ? 0 : options.group_by_list_name;
         // default pagination variables
         var currentPage = 0;
         var numPerPage =
@@ -163,7 +166,8 @@ Important! Do not edit this plugin if you're not sure you're doing it right. The
             "vocabulary",
             "disableFilterBy",
             "numOfPages",
-            "group_by_col"
+            "group_by_col",
+            "group_by_list_name"
         ];
 
         // debug
@@ -605,23 +609,35 @@ Important! Do not edit this plugin if you're not sure you're doing it right. The
             tbody.html("");
             // append new sorted rows
             if (group_by_col > 0) {
+                var max_col = 8;
+                if (arr[0]) max_col = arr[0].length;
                 var newArr = arr.map(x => x[group_by_col]);
                 var lstGroupName = [...new Set(newArr)];
+                if (group_by_list_name.length > 0) {
+                    lstGroupName = group_by_list_name;
+                }
                 for (var gr = 0; gr < lstGroupName.length; gr++) {
                     var gr_name = lstGroupName[gr];
-                    var gr_name_base = gr_name.replaceAll('<td>','').replaceAll('</td>','');
-                    if(gr_name_base.length == 0) gr_name_base = 'Chưa có nhóm';
-                    tbody.html(tbody.html() + `<tr><th colspan="8">${gr_name_base}</th></tr>`);
-                    tbody.html(tbody.html() + "<tr>" + arr.filter((f)=>{
-                        return f[group_by_col] == gr_name;
-                    }).join("</tr><tr>") + "</tr>");
+                    var gr_name_base = gr_name.replaceAll('<td>', '').replaceAll('</td>', '');
+                    if (gr_name_base.length == 0) gr_name_base = 'Chưa có nhóm';
+                    tbody.html(tbody.html() + `<tr onclick="active_child(this)"><th colspan="${max_col}">${gr_name_base}</th></tr>`);
+                    tbody.html(tbody.html() + `<tr class="tr_hide" data-group="${gr_name_base}">` + arr.filter((f) => {
+                        return (gr_name_base == 'Chưa có nhóm' && f[group_by_col].replaceAll('<td>', '').replaceAll('</td>', '').length == 0) || (gr_name_base != 'Chưa có nhóm' && f[group_by_col].includes(gr_name));
+                    }).join(`</tr><tr class="tr_hide" data-group="${gr_name_base}">`) + "</tr>");
                 }
             } else {
-                tbody.html("<tr>" + arr.join("</tr><tr>") + "</tr>");
+                if(arr.length > 0){
+                    tbody.html("<tr>" + arr.join("</tr><tr>") + "</tr>");
+                }
             }
+
+           
+
             // then launch paginate function (if options.paginate = false it will not do anything)
             paginate();
         }
+
+
 
         /**
         Format date
@@ -845,3 +861,28 @@ Important! Do not edit this plugin if you're not sure you're doing it right. The
         }
     };
 })(jQuery);
+
+function active_child(row) {
+    var key = row.querySelector('th').innerText;
+    document.querySelectorAll(`tr[data-group="${key}"]`).forEach((item) => {
+        if (item.classList.contains('active')) {
+            item.classList.remove('active');
+        } else {
+            item.classList.add('active');
+        }
+    });
+}
+
+function get_format_VND(str) {
+    var rs = '';
+    var co = 1;
+    for (let i = str.length - 1; i >= 0; i--) {
+        var ch = str[i];
+        rs = ch + rs;
+        if (co % 3 == 0 && i != 0) {
+            rs = ',' + rs;
+        }
+        co++;
+    }
+    return rs;
+}

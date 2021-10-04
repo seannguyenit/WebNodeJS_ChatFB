@@ -54,3 +54,11 @@ button {
     display: block;
     text-align: center;
 }
+
+.tr_hide{
+    display: none !important;
+}
+
+.tr_hide.active{
+    display: table-row !important;
+}

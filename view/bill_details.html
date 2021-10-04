@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Thông tin đơn hàng</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/table.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <section>
+        <div class="col-md-12 d-flex topbar section_header">
+            <div class="col-md-10 menu">
+                <div id="main_menu">
+                </div>
+                <!-- <button href="btn btn-primary">Thông tin tài khoản</button>
+                <button href="btn btn-primary" onclick="acc_logout()">Đăng xuất</button>
+                <a class="text-info" href="facebook.com">Hỗ trợ - 090xxxxxx</a> -->
+            </div>
+            <div class="col-md-2">
+                <img class="avata" src="../img/avatar.png" width="40" height="40" />
+                <a id="user_info" class="header_account" href="facebook.com">Nguyen van A - CTV</a>
+            </div>
+        </div>
+    </section>
+    <!-- Content Bar -->
+    <section>
+        <div class="col-md-12 pl-0 pr-0 d-flex">
+            <div class="col-md-12">
+                <div class="link_map" id="linkmenu">
+                </div>
+                <hr />
+                <div class="d-flex flex-wrap">
+                    <div class="w-25">Tên khách hàng: <label id="cus_name"></label></div>
+                    <div class="w-25">ID FB khách hàng: <label id="cus_id"></label></div>
+                    <div class="w-25">Tổng tiền: <label class="format_vnd" id="total"></label></div>
+                </div>
+                <div id="content">
+                    <table id="mainData" class="tablemanager table table-striped table-bordered table-sm"
+                        cellspacing="0" width="100%">
+                        <thead>
+                            <!-- ['id','total','ck','user','group_name','customer','cus_name'] -->
+                            <tr>
+                                <th>Tên hàng hóa</th>
+                                <th>Số lượng</th>
+                                <th>Đơn giá</th>
+                                <th>Thành tiền</th>
+                                <th>Chiết khấu (%)</th>
+                                <th>Chiết khấu (VND)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+
+                    <!-- <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detailId">Tạo mới</button> -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Optional JavaScript -->
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/menu_function.js"></script>
+    <!-- <script src="../js/table.js"></script> -->
+    <script>
+        load_general_report();
+        function set_link_menu(m, t) {
+            var ae = document.createElement('a');
+            ae.href = '/';
+            ae.innerText = 'Trang chủ';
+            var me = document.createElement('a');
+            me.href = `/home/${m}`;
+            me.innerText = t || m;
+            var sign = document.createElement('span');
+            sign.innerText = ' > ';
+            var ct = document.getElementById('linkmenu');
+            ct.innerHTML = '';
+            ct.appendChild(ae);
+            ct.appendChild(sign);
+            ct.appendChild(me);
+        }
+
+        async function load_general_report() {
+            set_link_menu('report', 'Chi tiết đơn hàng');
+
+            var url_string = window.location.href; //window.location.href
+            var url = new URL(url_string);
+            var id = url.searchParams.get("id");
+
+            var rs = await get_bill_details(id);
+
+            var tb = document.getElementById('mainData').querySelector('tbody');
+            tb.innerHTML = '';
+            if (rs) {
+                var lst_ = await get_bill_details(id);
+                if(lst_){
+                    lst_.forEach(item => {
+                        tb.innerHTML += `<tr>
+                            <td>${item.product_name}</td>
+                            <td>${item.quantity}</td>
+                            <td class="format_vnd">${item.price}</td>
+                            <td class="format_vnd">${(item.quantity * item.price)}</td>
+                            <td></td>
+                        </tr>`;
+                    });
+                }
+            }
+            format_vnd();
+        }
+    </script>
+</body>
+
+</html>

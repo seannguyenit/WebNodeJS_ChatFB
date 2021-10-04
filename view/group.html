@@ -81,6 +81,24 @@
                         <input type="text" class="form-control" name="name" id="name" required aria-describedby="helpId"
                             placeholder="">
                     </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Chức vụ</th>
+                                <th>Số lượng</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table_role_limits">
+                            <!-- <tr>
+                                <td>
+                                    Role
+                                </td>
+                                <td>
+                                    <input type="number" placeholder="5"/>
+                                </td>
+                            </tr> -->
+                        </tbody>
+                    </table>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -176,6 +194,21 @@
             let rs = await group_get_detail(id);
             document.getElementById('group_id').value = rs.id || 0;
             document.getElementById('name').value = rs.name;
+            let lst_role = await role_type_get_all();
+            lst_role = lst_role.filter((f)=>{return f.name != 'admin'});
+            var lst_role_limits = JSON.parse(rs.role_limits||'[]');
+            var tb = document.getElementById('table_role_limits');
+            tb.innerHTML = '';
+            lst_role.forEach((item)=>{
+                tb.innerHTML += `<tr data-id="${item.id}">
+                                <td>
+                                    ${item.name}
+                                </td>
+                                <td>
+                                    <input type="number" value="${(lst_role_limits.find((f)=>{return f.id == item.id})||{}).value||5}" placeholder="5"/>
+                                </td>
+                            </tr>`;
+            });
             // document.getElementById('level').level = rs.level;
         }
 
@@ -191,6 +224,11 @@
             }
             var id = change_id || document.getElementById('group_id').value;
             var name = document.getElementById('name').value;
+            var table_limit = document.getElementById('table_role_limits');
+            var role_limits = [];
+            table_limit.querySelectorAll('input').forEach((item)=>{
+                role_limits.push({id: item.closest('tr').dataset.id,value: item.value});
+            });
             // var level = document.getElementById('level').value;
 
             var url = `/api/group`;
@@ -209,7 +247,7 @@
                 // if (!validateField(level, 'Cấp bậc')) {
                 //     return;
                 // }
-                data = { name: name };
+                data = { name: name ,role_limits: JSON.stringify(role_limits)};
             } else {
                 data = { is_active: !changeActive };
             }

@@ -42,15 +42,17 @@
                     Danh sách Sản phẩm
                 </div>
                 <div id="content">
+                    <button class="btn btn-primary" data-toggle="modal" onclick="clearModal('detailId')"
+                        data-target="#detailId">Tạo mới</button>
                     <table id="mainData" class="tablemanager table table-striped table-bordered table-sm"
                         cellspacing="0" width="100%">
                         <thead>
                             <tr>
                                 <th class="disableSort">id</th>
+                                <th>Nhóm kinh doanh</th>
                                 <th>Sản phẩm</th>
                                 <th>Mã</th>
-                                <th>Price</th>
-                                <th>ck</th>
+                                <th>Giá (VND)</th>
                                 <th>Trạng thái</th>
                                 <th class="disableFilterBy">Thao tác</th>
                             </tr>
@@ -59,8 +61,7 @@
 
                         </tbody>
                     </table>
-                    <button class="btn btn-primary" data-toggle="modal" onclick="clearModal('detailId')"
-                        data-target="#detailId">Tạo mới</button>
+
                     <!-- <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detailId">Tạo mới</button> -->
                 </div>
             </div>
@@ -71,7 +72,7 @@
     <!-- Modal -->
     <div class="modal fade" id="detailId" tabindex="-1" group="dialog" aria-labelledby="modelTitleId"
         aria-hidden="true">
-        <div class="modal-dialog" group="document">
+        <div class="modal-dialog modal_multi_tab" group="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Thông tin Sản phẩm</h5>
@@ -79,34 +80,61 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body d-flex flex-wrap text-center" style="justify-content: space-between;">
-                    <input hidden id="product_id" value="0" />
-                    <div class="form-group w-100">
-                        <label for="name">Tên</label>
-                        <input type="text" class="form-control" name="name" id="name" required aria-describedby="helpId"
-                            placeholder="">
-                    </div>
-                    <div class="form-group w-100">
-                        <label for="code">Code</label>
-                        <input type="text" class="form-control" name="code" id="code" required aria-describedby="helpId"
-                            placeholder="">
-                    </div>
-                    <div class="form-group w-50">
-                        <label for="ck">CK (%)</label>
-                        <input type="number" class="form-control" name="ck" id="ck" required aria-describedby="helpId"
-                            placeholder="">
-                    </div>
-                    <div class="form-group w-50">
-                        <label for="price">Giá</label>
-                        <input type="number" class="form-control" name="price" id="price" required
-                            aria-describedby="helpId" placeholder="">
-                    </div>
-                    <div class="form-check w-25">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" name="is_active" id="is_active"
+                <div class="modal-body d-flex">
+                    <div class="d-flex flex-wrap text-center w-50 p-1" style="justify-content: space-between;">
+                        <input hidden id="product_id" value="0" />
+                        <div class="form-group w-100">
+                            <label for="lsu">Nhóm kinh doanh</label>
+                            <select required class="form-control" name="lsu" id="lsu">
+                                <!-- <option value="0" selected>Không</option> -->
+                            </select>
+                        </div>
+                        <div class="form-group w-50">
+                            <label for="name">Tên</label>
+                            <input type="text" class="form-control" name="name" id="name" required
+                                aria-describedby="helpId" placeholder="">
+                        </div>
+                        <div class="form-group w-50">
+                            <label for="code">Code</label>
+                            <input type="text" class="form-control" name="code" id="code" required
+                                aria-describedby="helpId" placeholder="">
+                        </div>
+                        <!-- <div class="form-group w-50">
+                            <label for="ck">CK (%)</label>
+                            <input type="number" class="form-control" name="ck" id="ck" required
+                                aria-describedby="helpId" placeholder="">
+                        </div> -->
+                        <div class="form-group w-50">
+                            <label for="price">Giá</label>
+                            <input type="number" class="form-control" name="price" id="price" required
+                                aria-describedby="helpId" placeholder="">
+                        </div>
+                        <div class="form-group w-50">
+                            <label for="is_active">Ẩn / Hiện</label>
+                            <!-- <label class="form-check-label"> -->
+                            <input class="form-control" type="checkbox" name="is_active" id="is_active"
                                 value="checkedValue" checked>
-                            Hiện
-                        </label>
+                            <!-- </label> -->
+                        </div>
+                    </div>
+                    <div class="d-block text-center w-50 p-1 custom_scroll"
+                        style="max-height: 400px;overflow-y: scroll;">
+                        <h6 style="height: fit-content;">Chiết khấu (Ưu tiên tính theo tiền)</h6>
+                        <button class="btn btn-primary" onclick="new_discount()">Thêm mới</button>
+                        <table id="table_discount" class="table w-100">
+                            <thead>
+                                <tr>
+                                    <th>Từ</th>
+                                    <th>Đến</th>
+                                    <th>%</th>
+                                    <th>Tiền</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -138,6 +166,7 @@
         var is_first = true;
         //var current_menu = '';
         load_product();
+        load_list_group();
         //load_list_product();
         function set_link_menu(m, t) {
             var ae = document.createElement('a');
@@ -160,7 +189,7 @@
             var tb = document.getElementById('mainData').querySelector('tbody');
             tb.innerHTML = '';
             let rs = await product_get_all();
-            tb.innerHTML += allRow(rs, tb, ['id', 'name','code','price','ck','is_active']).innerHTML;
+            tb.innerHTML += allRow(rs, tb, ['id', 'group_name', 'name', 'code', 'price', 'is_active']).innerHTML;
             covertTrueFalse(tb, 5, 'Hiện', 'Ẩn');
             if (is_first) {
                 $('.tablemanager').tablemanager({
@@ -175,11 +204,20 @@
                         voc_show_rows: 'Số dòng mỗi trang'
                     },
                     pagination: true,
-                    showrows: [20, 50, 100, 200],
-                    disableFilterBy: [1]
+                    showrows: [100, 200],
+                    disableFilterBy: [1],
+                    group_by_col: 1
                 });
             }
             is_first = false;
+        }
+
+        async function load_list_group() {
+            var tb = document.getElementById('lsu');
+            var rs = await group_get_all();
+            rs.forEach(row => {
+                tb.innerHTML += `<option value="${row.id}">${row.name}</option>`;
+            });
         }
 
         function open_product(id = 0, acc_id = 0) {
@@ -207,12 +245,56 @@
             document.getElementById('code').value = rs.code;
             document.getElementById('is_active').checked = rs.is_active;
             document.getElementById('price').value = rs.price;
-            document.getElementById('ck').value = rs.ck;
+            load_discount(id);
+            // document.getElementById('ck').value = rs.ck;
+
+            var select_g = document.getElementById('lsu').querySelector(`option[value = "${rs.group_id}"]`);
+            if (select_g != undefined) {
+                select_g.selected = true;
+            }
+
             // document.getElementById('level').level = rs.level;
+        }
+
+        async function load_discount(id) {
+            var tb = document.getElementById('table_discount').querySelector('tbody');
+            tb.innerHTML = '';
+            var all = await get_discount(id);
+            if (all) {
+                all.forEach((i) => {
+                    tb.innerHTML += `<tr data-id="${i.id}" data-is_active="${i.is_active}">
+                            <td><input type="number" value="${i.from_value}"/></td>
+                            <td><input type="number" value="${i.to_value}"/></td>
+                            <td><input type="number" value="${i.percent}"/></td>
+                            <td><input class="w-100" type="number" value="${i.money}"/></td>
+                            <td><button onclick="remove_discount(this)" class="btn btn-sm btn-warning">Xóa</button></td>
+                        </tr>`;
+                });
+            }
+        }
+
+        function new_discount() {
+            var tb = document.getElementById('table_discount').querySelector('tbody');
+            var tr = document.createElement('tr');
+            tr.dataset.id = 0;
+            tr.dataset.is_active = 1;
+            tr.innerHTML += `<td><input type="number" value="0"/></td>
+                            <td><input type="number" value="0"/></td>
+                            <td><input type="number" value="0"/></td>
+                            <td><input class="w-100" type="number" value="0"/></td>
+                            <td><button onclick="remove_discount(this)" class="btn btn-sm btn-warning">Xóa</button></td>`;
+            tb.appendChild(tr);
+        }
+        function remove_discount(ele) {
+            var tr = ele.closest('tr');
+            tr.dataset.is_active = 0;
+            tr.style.display = "none";
         }
 
         async function clearModal(modal_id) {
             var modal = document.getElementById(modal_id);
+            var tb = document.getElementById('table_discount').querySelector('tbody');
+            tb.innerHTML = '';
             modal.querySelectorAll('input').forEach(e => { e.value = '' });
         }
 
@@ -226,8 +308,21 @@
             var is_active = document.getElementById('is_active').checked;
             var code = document.getElementById('code').value;
             var price = document.getElementById('price').value;
-            var ck = document.getElementById('ck').value;
+            // var ck = document.getElementById('ck').value;
             // var level = document.getElementById('level').value;
+            var group_id = document.getElementById('lsu').value;
+
+            //save discount
+            var data_d = document.getElementById('table_discount').querySelector('tbody').querySelectorAll('tr');
+            var js_dt = [];
+            Array.prototype.forEach.call(data_d, (d) => {
+                var fvl = d.querySelectorAll('input')[0].value;
+                var tvl = d.querySelectorAll('input')[1].value;
+                var per = d.querySelectorAll('input')[2].value;
+                var mon = d.querySelectorAll('input')[3].value;
+                js_dt.push({ id: d.dataset.id, from_value: fvl, to_value: tvl, percent: per, money: mon, is_active: d.dataset.is_active });
+            });
+            // discount_save(id, js_dt);
 
             var url = `/api/product`;
             var meth = 'POST';
@@ -245,11 +340,13 @@
                 // if (!validateField(level, 'Cấp bậc')) {
                 //     return;
                 // }
-                data = { name: name, is_active: is_active, code: code, price: price, ck: ck };
+                data = { data: { name: name, is_active: is_active, code: code, price: price, group_id: group_id }, js_data: js_dt };
             } else {
-                data = { is_active: !changeActive };
+                data = { data: { is_active: !changeActive } };
             }
             let rs = await product_save(url, data, meth);
+
+
             console.log('Success:', rs);
             load_product();
         }

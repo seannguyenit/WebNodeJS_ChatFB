@@ -42,6 +42,8 @@
                     Danh sách tài khoản
                 </div>
                 <div id="content">
+                    <button class="btn btn-primary" data-toggle="modal" onclick="clearModal('detailId')"
+                        data-target="#detailId">Tạo mới</button>
                     <table id="mainData" class="tablemanager table table-striped table-bordered table-sm"
                         cellspacing="0" width="100%">
                         <thead>
@@ -62,8 +64,7 @@
 
                         </tbody>
                     </table>
-                    <button class="btn btn-primary" data-toggle="modal" onclick="clearModal('detailId')"
-                        data-target="#detailId">Tạo mới</button>
+
                     <!-- <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detailId">Tạo mới</button> -->
                 </div>
             </div>
@@ -73,7 +74,7 @@
     <!-- Button trigger modal -->
     <!-- Modal -->
     <div class="modal fade" id="detailId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal_multi_tab" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Thông tin user</h5>
@@ -81,57 +82,94 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body d-flex flex-wrap text-center" style="justify-content: space-between;">
-                    <input hidden id="user_id" value="0" />
-                    <div class="form-group">
-                        <label for="real_name">Họ tên</label>
-                        <input type="text" class="form-control" name="real_name" id="real_name" required
-                            aria-describedby="helpId" placeholder="">
+                <div class="modal-body d-flex">
+
+                    <div class="d-flex flex-wrap text-center w-50 p-1" style="justify-content: space-between;">
+                        <input hidden id="user_id" value="0" />
+                        <div class="form-group">
+                            <label for="real_name">Họ tên</label>
+                            <input type="text" class="form-control" name="real_name" id="real_name" required
+                                aria-describedby="helpId" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Địa chỉ</label>
+                            <input type="text" class="form-control" name="address" id="address"
+                                aria-describedby="helpId" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">email</label>
+                            <input type="text" class="form-control" name="email" id="email" aria-describedby="helpId"
+                                placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">phone</label>
+                            <input type="text" class="form-control" name="phone" id="phone" aria-describedby="helpId"
+                                placeholder="">
+                        </div>
+                        <div class="form-group w-50">
+                            <label for="username">Tên đăng nhập</label>
+                            <input type="text" required class="form-control" name="username" id="username"
+                                aria-describedby="helpId" placeholder="">
+                        </div>
+                        <div class="form-group w-25">
+                            <label for="pass">Mật khẩu</label>
+                            <input type="text" required class="form-control" name="pass" id="pass"
+                                aria-describedby="helpId" placeholder="">
+                        </div>
+                        <div class="form-group w-25">
+                            <label for="role">Chức vụ</label>
+                            <select required class="form-control" name="role" id="role">
+                            </select>
+                        </div>
+
+                        <div class="form-group w-50">
+                            <label for="deadtime">Hết hạn</label>
+                            <input type="datetime-local" required class="form-control" name="deadtime" id="deadtime"
+                                aria-describedby="helpId" placeholder="dd/mm/yyyy">
+                        </div>
+                        <div class="form-check w-25">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" name="is_active" id="is_active"
+                                    value="checkedValue" checked>
+                                Hiện
+                            </label>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="address">Địa chỉ</label>
-                        <input type="text" class="form-control" name="address" id="address" aria-describedby="helpId"
-                            placeholder="">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">email</label>
-                        <input type="text" class="form-control" name="email" id="email" aria-describedby="helpId"
-                            placeholder="">
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">phone</label>
-                        <input type="text" class="form-control" name="phone" id="phone" aria-describedby="helpId"
-                            placeholder="">
-                    </div>
-                    <div class="form-group w-75">
-                        <label for="username">Tên đăng nhập</label>
-                        <input type="text" required class="form-control" name="username" id="username"
-                            aria-describedby="helpId" placeholder="">
-                    </div>
-                    <div class="form-group w-25">
-                        <label for="role">Chức vụ</label>
-                        <select required class="form-control" name="role" id="role">
-                        </select>
-                    </div>
-                    <div class="form-group w-100">
-                        <label for="lsu">Nhóm kinh doanh</label>
-                        <select required class="form-control" name="lsu" id="lsu">
-                            <!-- <option value="0" selected>Không</option> -->
-                        </select>
-                    </div>
-                    <div class="form-group w-50">
-                        <label for="pass">Mật khẩu</label>
-                        <input type="text" required class="form-control" name="pass" id="pass" aria-describedby="helpId"
-                            placeholder="">
-                    </div>
-                    <div class="form-check w-25">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" name="is_active" id="is_active"
-                                value="checkedValue" checked>
-                            Hiện
-                        </label>
+                    <div class="d-flex flex-wrap text-center w-50 p-1" style="justify-content: space-between;">
+                        <div class="form-group w-100">
+                            <label for="lsu">Nhóm kinh doanh</label>
+                            <select multiple required class="form-control" name="lsu" id="lsu">
+                                <!-- <option value="0" selected>Không</option> -->
+                            </select>
+                        </div>
+                        <div class="form-group w-100">
+                            <label for="link_fb">Link fb cá nhân</label>
+                            <div class="d-flex w-100">
+                                <input type="text" required class="form-control w-75" name="link_fb" id="link_fb"
+                                    aria-describedby="helpId" placeholder="">
+                                <button class="btn btn-primary w-25" id="get_fb_info">Lấy ID</button>
+                            </div>
+                        </div>
+                        <div class="form-group w-100 d-flex">
+                            <div class="w-50">
+                                <img id="fb_ava" src="../img/avatar.png" style="width: 75px;margin: auto;" />
+                            </div>
+                            <div class="w-50">
+                                <div class="form-group w-100">
+                                    <label for="id_fb">ID fb</label>
+                                    <input type="text" required class="form-control" name="id_fb" id="id_fb"
+                                        aria-describedby="helpId" placeholder="">
+                                </div>
+                                <div class="form-group w-100">
+                                    <label for="nick_fb">Nickname FB</label>
+                                    <input type="text" required class="form-control" name="nick_fb" id="nick_fb"
+                                        aria-describedby="helpId" placeholder="">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" onclick="save_acc()" data-dismiss="modal"
@@ -162,7 +200,6 @@
         //var current_menu = '';
         load_user();
         load_list_role();
-        load_list_group();
         function set_link_menu(m, t) {
             var ae = document.createElement('a');
             ae.href = '/';
@@ -189,6 +226,8 @@
                 covertTrueFalse(tb, 6, 'Hiện', 'Ẩn');
                 // if (is_first) load_list_user(rs[0]);
             }
+            var lst_gr = await group_get_all();
+            load_list_group(lst_gr);
             if (is_first) {
                 $('.tablemanager').tablemanager({
                     firstSort: [[3, 0], [2, 0], [1, 'asc']],
@@ -202,9 +241,10 @@
                         voc_show_rows: 'Số dòng mỗi trang'
                     },
                     pagination: true,
-                    showrows: [20, 50, 100, 200],
+                    showrows: [100, 200],
                     disableFilterBy: [1],
-                    group_by_col: 5
+                    group_by_col: 5,
+                    group_by_list_name: ['', ...lst_gr.map((m) => { return m.name })],
                 });
             }
             is_first = false;
@@ -225,9 +265,9 @@
             });
         }
 
-        async function load_list_group() {
+        async function load_list_group(rs) {
             var tb = document.getElementById('lsu');
-            var rs = await group_get_all();
+            // var rs = await group_get_all();
             rs.forEach(row => {
                 tb.innerHTML += `<option value="${row.id}">${row.name}</option>`;
             });
@@ -243,14 +283,21 @@
             document.getElementById('username').value = data.user;
             document.getElementById('pass').value = data.pass;
             document.getElementById('is_active').checked = data.is_active;
+            document.getElementById('deadtime').value = data.deadtime;
+            document.getElementById('id_fb').value = data.fb_id || '';
+            document.getElementById('nick_fb').value = info.fb_name || '';
+            document.getElementById('fb_ava').src = info.avatar_url || '';
+
             var select_r = document.getElementById('role').querySelector(`option[value = "${data.role}"]`);
             if (select_r != undefined) {
                 select_r.selected = true;
             }
-            var select_g = document.getElementById('lsu').querySelector(`option[value = "${data.group_id}"]`);
-            if (select_g != undefined) {
-                select_g.selected = true;
-            }
+            data.group_id.split(',').forEach((r) => {
+                var select_g = document.getElementById('lsu').querySelector(`option[value = "${r}"]`);
+                if (select_g != undefined) {
+                    select_g.selected = true;
+                }
+            });
         }
 
         async function clearModal(modal_id) {
@@ -279,8 +326,29 @@
             var email = document.getElementById('email').value;
             var is_active = document.getElementById('is_active').checked;
             var address = document.getElementById('address').value;
-            var group_id = document.getElementById('lsu').value;
+            var id_fb = document.getElementById('id_fb').value || '';
+            var nick_fb = document.getElementById('nick_fb').value || '';
+            var ava_fb = document.getElementById('fb_ava').src || '';
+            // var group_id = document.getElementById('lsu').value;
 
+            var options = document.getElementById('lsu').selectedOptions;
+            var group_id = Array.from(options).map(({ value }) => value).join(',');
+
+            var deadtime = document.getElementById('deadtime').value;
+
+            let check_rs = await check_acc(id, username, role, group_id);
+            if (!check_rs) {
+                alert('Không thể kết nối tới máy chủ !');
+                return;
+            }
+            if (check_rs.existed == 1) {
+                alert('Tên đăng nhập đã tồn tại !');
+                return;
+            }
+            if (check_rs.over_limit == 1) {
+                alert('Chức vụ đã đạt giới hạn trong nhóm !');
+                return;
+            }
 
             var url = `/api/accounts`;
             var meth = 'POST';
@@ -295,7 +363,7 @@
                 if (!validateField(username, 'Tên đăng nhập') || !validateSelect(role, 'Chức vụ') || !validateSelect(pass, 'Mật khẩu')) {
                     return;
                 }
-                data = { user: username, pass: pass, role: role, real_name: real_name, phone: phone, email: email, address: address, is_active: is_active, group_id: group_id };
+                data = { user: username, pass: pass, role: role, real_name: real_name, phone: phone, email: email, address: address, is_active: is_active, group_id: group_id, deadtime: deadtime, fb_id: id_fb, fb_name: nick_fb, avatar_url: ava_fb };
             } else {
                 data = { is_active: !changeActive };
             }

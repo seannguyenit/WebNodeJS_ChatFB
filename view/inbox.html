@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Notice</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <section>
+        <div class="col-md-12 d-flex topbar section_header">
+            <div class="col-md-10 menu">
+                <div id="main_menu">
+                </div>
+                <!-- <button href="btn btn-primary">Thông tin tài khoản</button>
+                <button href="btn btn-primary" onclick="acc_logout()">Đăng xuất</button>
+                <a class="text-info" href="facebook.com">Hỗ trợ - 090xxxxxx</a> -->
+            </div>
+            <div class="col-md-2">
+                <img class="avata" src="../img/avatar.png" width="40" height="40" />
+                <a id="user_info" class="header_account" href="facebook.com">Nguyen van A - CTV</a>
+            </div>
+        </div>
+    </section>
+    <!-- Content Bar -->
+    <section>
+        <div class="col-md-12 pl-0 pr-0 d-flex">
+            <div class="col-md-12">
+                <div class="link_map" id="linkmenu">
+                </div>
+                <div id="content" class="d-flex">
+                    <div class="col-md-3">
+                        <h5 class="text-center">Danh sách cuộc trò chuyện</h5>
+                        <hr />
+                        <div id="group_content" class="w-100 d-flex flex-wrap custom_scroll"
+                            style="max-height: 600px; overflow-y: scroll;">
+
+                        </div>
+                    </div>
+                    <div id="chat_main" class="col-md-6 center_section pl-0 pr-0">
+                        <!-- <div id="chat_header" class="w-100 header_center_section">
+        
+                        </div> -->
+                        <!-- <hr /> -->
+                        <div id="chat_text_content" class="chatcontent custom_scroll">
+                            <!-- <div class="row">
+                                <div class="frommess">1</div>
+                            </div>
+                            <div class="row">
+                                <div class="frommess">1</div>
+                            </div>
+                            <div class="row">
+                                <div class="tomess">2</div>
+                            </div>
+                            <div class="row">
+                                <div class="tomess">2</div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="col-md-3 right_section custom_scroll">
+                        <hr />
+                        <h5 class="text-center">Danh sách đơn hàng</h5>
+                        <hr />
+                        <div style="width:100%;">
+                            <table class="table table-bordered table-hover" id="bill_table">
+                                <thead>
+                                    <tr>
+                                        <th>Thời gian</th>
+                                        <th>Tổng (VNĐ)</th>
+                                        <th>Trạng thái</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer Bar -->
+    <section>
+
+    </section>
+    <!-- Optional JavaScript -->
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/menu_function.js"></script>
+    <script>
+        var current_group;
+        var current_max_id = -1;
+        var list_tag = [];
+        load_();
+
+        function set_link_menu(m, t) {
+            var ae = document.createElement('a');
+            ae.href = '/';
+            ae.innerText = 'Trang chủ';
+            var me = document.createElement('a');
+            me.href = `/home/${m}`;
+            me.innerText = t || m;
+            var sign = document.createElement('span');
+            sign.innerText = ' > ';
+            var ct = document.getElementById('linkmenu');
+            ct.appendChild(ae);
+            ct.appendChild(sign);
+            ct.appendChild(me);
+        }
+        set_link_menu('inbox', 'Hộp thư')
+
+        async function load_() {
+            await load_tags_name();
+            let dt = await chat_group_get_all(0);
+            var gr_e = document.getElementById('group_content');
+            gr_e.innerHTML = '';
+            if (dt) {
+                dt.forEach((e) => {
+                    var tag_str = '';
+                    var lst_t = list_tag.filter((f) => { return (e.tags.split(',').includes(f.id.toString())) });
+                    lst_t.forEach((tag) => {
+                        tag_str += `<div class="tags_details" style="background-color:${tag.color}"></div>`
+                    });
+                    gr_e.innerHTML += `<div class="chat_group" data-grid="${e.cus_id}">
+                                <div class="d-flex">
+                                    <div>
+                                        <img class="avata" src="${e.ava_url || '../img/avatar.png'}" width="40" height="40" />
+                                    </div>
+                                    <div style="width: 100%;">
+                                        <div class="text-center">${e.real_name}</div>
+                                        <div class="text-center chat_group_tags">${tag_str}</div>
+                                    </div>
+                                </div>
+                            </div>`;
+                });
+            }
+            var lst_ele = document.getElementsByClassName('chat_group');
+            Array.prototype.forEach.call(lst_ele, (item) => {
+                item.addEventListener('click', (ev) => {
+                    var d = ev.currentTarget;
+                    get_group_detail(d.dataset.grid);
+                });
+            });
+        }
+
+        async function load_tags_name() {
+            list_tag = await tag_name_get_all();
+        }
+
+        async function get_group_detail(id) {
+            var gr = await chat_group_get_detail(id);
+            if (gr) {
+                current_group = gr;
+                await load_current_gr();
+                await get_chat(gr.cus_id);
+                await get_bill(gr.cus_id);
+            }
+            auto_scroll();
+        }
+
+        async function get_chat(id, max_id = 0) {
+            var list = await chat_group_get_all_chat(id, max_id);
+            var ct = document.getElementById('chat_text_content');
+            ct.innerHTML = '';
+            if (list) {
+                add_chat_to_content(list);
+            }
+        }
+
+        async function get_chat_lazy() {
+            var list = await chat_group_get_all_chat(current_group.cus_id, current_max_id);
+            if (list && current_group.cus_id) {
+                add_chat_to_content(list);
+            }
+        }
+
+        async function get_bill(id) {
+            var list = await get_all_bill(id);
+            var tb = document.getElementById('bill_table').querySelector('tbody');
+            tb.innerHTML = '';
+            if (list) {
+                list.forEach((item) => {
+                    tb.innerHTML += `<tr>
+                    <td>${format_time(item.time)}</td>
+                    <td>${item.total_bill}</td>
+                    <td>${item.status}</td>
+                    <td><a target="_blank" href="#${item.id}">Xem</a></td>
+                </tr>`
+                });
+            }
+        }
+
+        async function load_current_gr() {
+            var lst_ele = document.getElementsByClassName('chat_group');
+            Array.prototype.forEach.call(lst_ele, (item) => {
+                if (item.dataset.grid == current_group.cus_id) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+        function format_time(time) {
+            try {
+                var m = time;
+                var dateString = m.toLocaleDateString();
+                return dateString;
+            } catch (error) {
+                return time;
+            }
+        }
+        function auto_scroll() {
+            var ele = document.getElementById('chat_text_content');
+            ele.scrollTop = ele.scrollHeight;
+        }
+
+        function get_img(src) {
+            if (!src) return '';
+            if (src.length == 0) return '';
+            return `<img src="${src}"/>`
+        }
+
+        async function lazy_loading() {
+            while (true) {
+                var w = await waitingForNext(5000);
+                if (current_group) {
+                    await get_chat_lazy(current_group.cus_id, current_max_id);
+                }
+            }
+        }
+
+        function add_chat_to_content(list) {
+            var ct = document.getElementById('chat_text_content');
+            list.forEach((item) => {
+                var next_index = list.indexOf(item) + 1;
+                var next_item = list[next_index];
+                var str = '';
+                if (item.sender == 1) {
+                    str += `<div class="container mess_content from_content">
+                                <div></div>
+                                <div class="frommess">
+                                    <div>${get_img(item.img_src)}</div>
+                                    <div>${item.mess}</div>
+                                </div>
+                                <div class="mess_avata">`
+                    str += (!next_item || next_item.sender != item.sender) ? `<img class="avata" src="${item.rec_ava || '../img/avatar.png'}" width="40" height="40" />` : '';
+                    str += `</div>
+                            </div>`;
+                    ct.innerHTML += str;
+                } else {
+                    str += `<div class="container mess_content to_content">
+                                <div class="mess_avata">`;
+                    str += (!next_item || next_item.sender != item.sender) ? `<img class="avata" src="${item.ava_url || '../img/avatar.png'}" width="40" height="40" />` : '';
+                    str += `</div>
+                                <div class="tomess">
+                                    <div>${get_img(item.img_src)}</div>
+                                    <div>${item.mess}</div>
+                                </div>
+                                <div></div>
+                            </div>`;
+                    ct.innerHTML += str;
+                }
+                if(list.length == list.indexOf(item)+1){
+                    current_max_id = item.id;
+                }
+            });
+            auto_scroll();
+        }
+        lazy_loading();
+    </script>
+</body>
+
+</html>
