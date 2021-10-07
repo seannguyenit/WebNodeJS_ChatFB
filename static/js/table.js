@@ -873,16 +873,16 @@ function active_child(row) {
     });
 }
 
-function get_format_VND(str) {
-    var rs = '';
-    var co = 1;
-    for (let i = str.length - 1; i >= 0; i--) {
-        var ch = str[i];
-        rs = ch + rs;
-        if (co % 3 == 0 && i != 0) {
-            rs = ',' + rs;
-        }
-        co++;
-    }
-    return rs;
-}
+// function get_format_VND(str) {
+//     var rs = '';
+//     var co = 1;
+//     for (let i = str.length - 1; i >= 0; i--) {
+//         var ch = str[i];
+//         rs = ch + rs;
+//         if (co % 3 == 0 && i != 0) {
+//             rs = ',' + rs;
+//         }
+//         co++;
+//     }
+//     return rs;
+// }

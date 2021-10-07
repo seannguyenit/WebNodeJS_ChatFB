@@ -135,24 +135,7 @@
             var gr_e = document.getElementById('group_content');
             gr_e.innerHTML = '';
             if (dt) {
-                dt.forEach((e) => {
-                    var tag_str = '';
-                    var lst_t = list_tag.filter((f) => { return (e.tags.split(',').includes(f.id.toString())) });
-                    lst_t.forEach((tag) => {
-                        tag_str += `<div class="tags_details" style="background-color:${tag.color}"></div>`
-                    });
-                    gr_e.innerHTML += `<div class="chat_group" data-grid="${e.cus_id}">
-                                <div class="d-flex">
-                                    <div>
-                                        <img class="avata" src="${e.ava_url || '../img/avatar.png'}" width="40" height="40" />
-                                    </div>
-                                    <div style="width: 100%;">
-                                        <div class="text-center">${e.real_name}</div>
-                                        <div class="text-center chat_group_tags">${tag_str}</div>
-                                    </div>
-                                </div>
-                            </div>`;
-                });
+                await get_group_chat(dt);
             }
             var lst_ele = document.getElementsByClassName('chat_group');
             Array.prototype.forEach.call(lst_ele, (item) => {
@@ -188,13 +171,53 @@
         }
 
         async function get_chat_lazy() {
+            console.log('Lấy tin nhắn !')
             var list = await chat_group_get_all_chat(current_group.cus_id, current_max_id);
             if (list && current_group.cus_id) {
                 add_chat_to_content(list);
             }
         }
+        async function get_group_chat(dt) {
+            var gr_e = document.getElementById('group_content');
+            dt.forEach((e) => {
+                var tag_str = '';
+                var lst_t = list_tag.filter((f) => { return (e.tags.split(',').includes(f.id.toString())) });
+                lst_t.forEach((tag) => {
+                    tag_str += `<div class="tags_details" style="background-color:${tag.color}"></div>`
+                });
+                gr_e.innerHTML += `<div class="chat_group" data-grid="${e.cus_id}">
+                                <div class="d-flex">
+                                    <div>
+                                        <img class="avata" src="${e.ava_url || '../img/avatar.png'}" width="40" height="40" />
+                                    </div>
+                                    <div style="width: 100%;">
+                                        <div class="text-center">${e.real_name}</div>
+                                        <div class="text-center chat_group_tags">${tag_str}</div>
+                                    </div>
+                                </div>
+                            </div>`;
+            });
+        }
+        async function get_group_lazy() {
+            console.log('Lấy danh sách nhóm chat !')
+            let dt = await chat_group_get_all(0);
+            var gr_e = document.getElementById('group_content');
+            var lst_existed = Array.prototype.map.call(gr_e.querySelectorAll('[data-grid]'), (m) => { return m.dataset.grid });
+            dt = dt.filter((f) => { return (lst_existed.indexOf(f.cus_id) > 0) })
+            if (dt) {
+                await get_group_chat(dt);
+            }
+            var lst_ele = document.getElementsByClassName('chat_group');
+            Array.prototype.forEach.call(lst_ele, (item) => {
+                item.addEventListener('click', (ev) => {
+                    var d = ev.currentTarget;
+                    get_group_detail(d.dataset.grid);
+                });
+            });
+        }
 
         async function get_bill(id) {
+            console.log('Lấy danh sách đơn hàng !')
             var list = await get_all_bill(id);
             var tb = document.getElementById('bill_table').querySelector('tbody');
             tb.innerHTML = '';
@@ -204,10 +227,11 @@
                     <td>${format_time(item.time)}</td>
                     <td>${item.total_bill}</td>
                     <td>${item.status}</td>
-                    <td><a target="_blank" href="#${item.id}">Xem</a></td>
+                    <td><a target="_blank" href="/bill/details?id=${item.id}">Xem</a></td>
                 </tr>`
                 });
             }
+            format_vnd();
         }
 
         async function load_current_gr() {
@@ -243,8 +267,10 @@
         async function lazy_loading() {
             while (true) {
                 var w = await waitingForNext(5000);
+                await get_group_lazy();
                 if (current_group) {
                     await get_chat_lazy(current_group.cus_id, current_max_id);
+                    await get_bill(current_group.cus_id);
                 }
             }
         }
@@ -280,7 +306,7 @@
                             </div>`;
                     ct.innerHTML += str;
                 }
-                if(list.length == list.indexOf(item)+1){
+                if (list.length == list.indexOf(item) + 1) {
                     current_max_id = item.id;
                 }
             });

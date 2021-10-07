@@ -477,14 +477,14 @@ async function get_bill_details(id) {
     return await fetch(`/api/bill_details/${id}` /*, options */)
         .then((response) => response.json())
         .then((data) => {
-            return data;
+            return data[0];
         })
         .catch((error) => {
             console.warn(error);
         });
 }
 
-async function get_bill_details(id) {
+async function get_bill_products(id) {
     return await fetch(`/api/bill_product/${id}` /*, options */)
         .then((response) => response.json())
         .then((data) => {
@@ -990,7 +990,9 @@ async function format_vnd() {
             arr_index_col.forEach((col) => {
                 if (col > 0) {
                     t_body_tr.forEach((e_td) => {
-                        e_td.children[col].innerText = get_format_VND(e_td.children[col].innerText);
+                        if(!e_td.children[col].innerText.includes(',')){
+                            e_td.children[col].innerText = get_format_VND(e_td.children[col].innerText);
+                        }
                     });
                 }
             });
@@ -1001,8 +1003,17 @@ async function format_vnd() {
 
 
 }
-
+function format_time(time) {
+    try {
+        var d = time.substr(0,time.indexOf('T'));
+        var t = time.substring(time.indexOf('T')+1,time.lastIndexOf(':'));
+        return `${d} ${t}`;
+    } catch (error) {
+        return time;
+    }
+}
 function get_format_VND(str) {
+    if(isNaN(str)) return str;
     var rs = '';
     var co = 1;
     for (let i = str.length - 1; i >= 0; i--) {

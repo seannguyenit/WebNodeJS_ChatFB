@@ -63,7 +63,8 @@
                     <div class="form-group w-25">
                         <label for="stt">Trạng thái</label>
                         <select required class="form-control" name="stt" id="stt">
-                            <option value="0" selected>Mới tạo</option>
+                            <option value="3" selected>Tất cả</option>
+                            <option value="0">Mới tạo</option>
                             <option style="background-color: yellow;" value="1">Kế toán thu tiền</option>
                             <option style="background-color: green;" value="2">Thủ quỹ thu tiền</option>
                             <option style="background-color: red;" value="-1">Hủy</option>
@@ -148,7 +149,7 @@
                             <label class="format_vnd" id="total">XYZ</label>
                         </div>
                         <div class="form-group w-50 d-flex mb-0">
-                            <label for="money_receive">Đã thu : </label>
+                            <label for="money_receive">Thu thêm: </label>
                             <input style="width: 50%; margin-top: -10px;" id="money_receive" type="number"
                                 value="0"></input>
                             <button style="margin-top: -10px;" id="save_money" onclick="save_money()"
@@ -276,8 +277,8 @@
             ct.appendChild(me);
         }
 
+        set_link_menu('report', 'Báo cáo đơn hàng');
         async function load_general_report() {
-            set_link_menu('report', 'Báo cáo đơn hàng');
 
             var from = document.getElementById('from_date').value;
             var to = document.getElementById('to_date').value;
@@ -321,14 +322,14 @@
 
         async function approve_bill(id = 0, acc_id = 0) {
             cr_bill = lst_cr_data.find((f) => { return f.id == id });
-            var cr_bill_details = await get_bill_details(id);
+            var cr_bill_details = await get_bill_products(id);
             if (cr_bill) {
                 document.getElementById('status').innerText = cr_bill.status || '';
                 document.getElementById('real_name').innerText = cr_bill.cus_name || '';
                 document.getElementById('code').innerText = cr_bill.code || '';
                 document.getElementById('time').innerText = cr_bill.time || '';
                 document.getElementById('total').innerText = cr_bill.total || '';
-                document.getElementById('money_receive').value = cr_bill.money_receive || '0';
+                document.getElementById('money_receive').value = '0';
                 document.getElementById('CSKH').innerText = cr_bill.CSKH || '';
                 document.getElementById('CTV').innerText = cr_bill.CTV || '';
             }
@@ -364,7 +365,7 @@
                             <td>${lst_money_count.indexOf(item) + 1}</td>
                             <td class="format_vnd">${item.money}</td>
                             <td>${item.rec_user}</td>
-                            <td>${item.time}</td>
+                            <td>${format_time(item.time)}</td>
                             <td><button class="btn btn-sm btn-danger" disabled>Xóa</button></td>
                         </tr>`;
                 });
@@ -387,10 +388,18 @@
         }
 
         async function cancel_this_bill() {
+            if (!confirm('Bạn có chắc chắn muốn thay đổi dữ liệu ?')) {
+                return;
+            }
             await set_bill_stt('huy', cr_bill.id, -1, document.getElementById('reject_note').value);
+            $('#approve_modal').modal({ show: false });
+            load_general_report();
         }
 
         async function set_stt() {
+            if (!confirm('Bạn có chắc chắn muốn thay đổi dữ liệu ?')) {
+                return;
+            }
             if (cr_bill.stt == -1 || cr_bill.stt == 2) {
                 alert('Không đúng trạng thái !');
                 return;
@@ -403,9 +412,15 @@
                 type = 'tq';
             }
             await set_bill_stt(type, cr_bill.id, tg_stt);
+            // $('#approve_modal').modal({ show: false });
+            alert('Xong !');
+            load_general_report();
         }
 
         async function save_bill_note(type) {
+            if (!confirm('Bạn có chắc chắn muốn thay đổi dữ liệu ?')) {
+                return;
+            }
             switch (type) {
                 case 'accountant':
                     set_bill_note('kt', cr_bill.id, document.getElementById('accountant_note').value)
@@ -419,6 +434,8 @@
                 default:
                     break;
             }
+            alert('Xong !');
+            load_general_report();
         }
 
         async function init_status_current_bill() {
