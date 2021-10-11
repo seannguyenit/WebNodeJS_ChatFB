@@ -14,6 +14,13 @@ module.exports = {
             res.json(response)
         })
     },
+    get_same_group: (req, res) => {
+        let sql = 'CALL `account_getall_same_group`(?)'
+        db.query(sql, [req.params.user_id], (err, response) => {
+            if (err) throw err
+            res.json(response[0])
+        })
+    },
     get_group: (req, res) => {
         let group = req.params.group||0;
         let sql = 'CALL `account_getall`(0)'

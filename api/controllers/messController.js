@@ -58,6 +58,13 @@ module.exports = {
             res.json(response[0])
         })
     },
+    search_group: (req, res) => {
+        let sql = 'Call search_group(?,?)'
+        db.query(sql, [req.params.key,req.params.tag_id], (err, response) => {
+            if (err) throw err
+            res.json(response[0])
+        })
+    },
     get_group_by_user: (req, res) => {
         let sql = 'Call get_all_chat_group_by_user(?)'
         db.query(sql, [req.params.user_id], (err, response) => {
@@ -83,8 +90,8 @@ module.exports = {
         })
     },
     get_latest_mess: (req, res) => {
-        let sql = 'CALL get_latest_mess_saved(?)'
-        db.query(sql, [req.params.cus_id], (err, response) => {
+        let sql = 'CALL get_latest_mess_saved(?,?)'
+        db.query(sql, [req.params.cus_id,req.params.acc_receive], (err, response) => {
             if (err) throw err
             res.json(response[0])
         })
@@ -138,8 +145,8 @@ module.exports = {
     },
     sync_message: (req, res) => {
         let data = JSON.stringify(req.body.js_data);
-        let sql = 'Call insert_messenger(?,?)'
-        db.query(sql, [req.params.cus_id,data], (err, response) => {
+        let sql = 'Call insert_messenger(?,?,?)'
+        db.query(sql, [req.params.cus_id,req.params.acc_receive,data], (err, response) => {
             if (err) throw err
             res.json({ message: 'Insert success!' })
         })

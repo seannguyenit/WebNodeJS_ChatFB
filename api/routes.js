@@ -24,6 +24,8 @@ module.exports = function (app) {
     .get(accCtrl.get)
     .post(accCtrl.store);
 
+    app.route('/api/acc_same/:user_id')
+    .get(accCtrl.get_same_group);
   // app.route('/api/group/:group')
   //   .get(accCtrl.get_group);
   app.route('/api/check_acc/:id/:username/:role_id/:group_id')
@@ -93,7 +95,10 @@ module.exports = function (app) {
     .post(messCtrl.detail_group);
   app.route('/api/chat_group_tags_name/:ids')
     .get(messCtrl.get_group_chat_tags_name);
+//search_group
 
+app.route('/api/search_group/:tag_id/:key')
+    .get(messCtrl.search_group);
   app.route('/api/chat_group_details/:user_id/:cus_id')
     .get(messCtrl.get_group);
   app.route('/api/chat_group_details/:user_id/:cus_id')
@@ -101,7 +106,7 @@ module.exports = function (app) {
   app.route('/api/chat_group_details/:user_id/:cus_id')
     .post(messCtrl.bill_checkout);
 
-  app.route('/api/chat_group_mess/:cus_id')
+  app.route('/api/chat_group_mess/:cus_id/:acc_receive')
     .get(messCtrl.get_latest_mess)
     .post(messCtrl.sync_message)
   app.route('/api/mess_group_details/:group_id')

@@ -203,7 +203,7 @@
             let dt = await chat_group_get_all(0);
             var gr_e = document.getElementById('group_content');
             var lst_existed = Array.prototype.map.call(gr_e.querySelectorAll('[data-grid]'), (m) => { return m.dataset.grid });
-            dt = dt.filter((f) => { return (lst_existed.indexOf(f.cus_id) > 0) })
+            dt = dt.filter((f) => { return (lst_existed.indexOf(f.cus_id) == -1) })
             if (dt) {
                 await get_group_chat(dt);
             }
