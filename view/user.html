@@ -28,7 +28,7 @@
             </div>
             <div class="col-md-2">
                 <img class="avata" src="../img/avatar.png" width="40" height="40" />
-                <a id="user_info" class="header_account" href="facebook.com">Nguyen van A - CTV</a>
+                <a id="user_info" class="header_account">Nguyen van A - CTV</a>
             </div>
         </div>
     </section>
@@ -222,7 +222,7 @@
             tb.innerHTML = '';
             var rs = await acc_get_all();
             if (rs[0] != undefined) {
-                tb.innerHTML += allRow(rs[0], tb, ['id', 'user', 'real_name', 'phone', 'role_name', 'group_name', 'is_active'], null, [{ title: 'Quyền riêng', class: 'btn-primary', action: 'open_role' }, { title: 'Nhóm', class: 'btn-primary', action: 'open_group' }]).innerHTML;
+                tb.innerHTML += allRow(rs[0], tb, ['id', 'user', 'real_name', 'phone', 'role_name', 'group_name', 'is_active'], null, [{ title: 'Nhóm', class: 'btn-primary', action: 'open_group' }]).innerHTML;
                 covertTrueFalse(tb, 6, 'Hiện', 'Ẩn');
                 // if (is_first) load_list_user(rs[0]);
             }

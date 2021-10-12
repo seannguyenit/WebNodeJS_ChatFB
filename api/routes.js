@@ -46,6 +46,11 @@ module.exports = function (app) {
     .put(roleCtrl.update)
     .delete(roleCtrl.delete);
 
+//    save_permission
+  app.route('/api/permission/:role_id')
+    .get(roleCtrl.get_permission)
+    .put(roleCtrl.save_permission);
+
   app.route('/api/menu_role')
     .get(roleCtrl.get_menu_role);
 

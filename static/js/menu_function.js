@@ -33,13 +33,15 @@ async function innit_menu() {
     try {
         let cr_user = JSON.parse(getCookie('user'));
         document.getElementById('user_info').innerText = `${cr_user.user || ''} - ${cr_user.role_name || ''}`;
+        document.getElementsByClassName('avata')[0].src = cr_user.avatar_url|| '../img/avatar.png';
     } catch (error) {
 
     }
 }
 
 async function load_menu(token = 'test') {
-    let dt = await fetch(`/api/menu/${token}` /*, options */)
+    let cr_user = JSON.parse(getCookie('user'));
+    let dt = await fetch(`/api/menu/${cr_user.id}` /*, options */)
         .then((response) => response.json())
         .then((data) => {
             return data[0];

@@ -43,6 +43,21 @@ module.exports = {
             res.json({message: 'Insert success!'})
         })
     },
+    get_permission: (req, res) => {
+        let sql = 'CALL get_role_permision(?)'
+        db.query(sql, [req.params.role_id], (err, response) => {
+            if (err) throw err
+            res.json(response[0])
+        })
+    },
+    save_permission: (req, res) => {
+        let data = JSON.stringify(req.body.js_data);
+        let sql = 'call save_permission(?,?)'
+        db.query(sql, [req.params.role_id,data], (err, response) => {
+            if (err) throw err
+            res.json({message: 'Insert success!'})
+        })
+    },
     delete: (req, res) => {
         let sql = 'DELETE FROM role_type WHERE id = ?'
         db.query(sql, [req.params.id], (err, response) => {

@@ -421,6 +421,10 @@ async function group_del(id) {
 /* chat_group
  */
 async function chat_group_get_all(user_id) {
+    if(user_id == 0){
+        var cr_u = get_cr_user();
+        user_id = cr_u.id;
+    }
     return await fetch(`/api/mess_group/${user_id}` /*, options */)
         .then((response) => response.json())
         .then((data) => {
@@ -448,7 +452,7 @@ async function chat_group_get_detail(id) {
         });
 }
 
-async function chat_group_get_all_chat(cus_id,max_id = 0) {
+async function chat_group_get_all_chat(cus_id, max_id = 0) {
     return await fetch(`/api/mess_chat/${cus_id}/${max_id}` /*, options */)
         .then((response) => response.json())
         .then((data) => {
@@ -704,6 +708,54 @@ async function tag_name_del(id) {
         });
 }
 /* end tag_name end */
+
+/* permission */
+
+async function save_permission(role_id, data) {
+    return await fetch(`/api/permission/${role_id}`, {
+        method: "PUT", // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ js_data: data })
+    })
+        .then(response => response.json())
+        .then(result => {
+            return result;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+async function load_role_permission(role_id) {
+    return await fetch(`/api/permission/${role_id}` /*, options */)
+        .then((response) => response.json())
+        .then((data) => {
+            if (data != undefined) {
+                return data;
+            }
+            //covertTrueFalse(tb, 6, 'Hiện', 'Ẩn');
+        })
+        .catch((error) => {
+            console.warn(error);
+        });
+}
+
+async function load_user_permission(id) {
+    return await fetch(`/api/user_permission/${id}` /*, options */)
+        .then((response) => response.json())
+        .then((data) => {
+            if (data != undefined) {
+                return data;
+            }
+            //covertTrueFalse(tb, 6, 'Hiện', 'Ẩn');
+        })
+        .catch((error) => {
+            console.warn(error);
+        });
+}
+/* end permission */
 
 /* fast_reply */
 async function fast_reply_get_all() {
@@ -990,7 +1042,7 @@ async function format_vnd() {
             arr_index_col.forEach((col) => {
                 if (col > 0) {
                     t_body_tr.forEach((e_td) => {
-                        if(!e_td.children[col].innerText.includes(',')){
+                        if (!e_td.children[col].innerText.includes(',')) {
                             e_td.children[col].innerText = get_format_VND(e_td.children[col].innerText);
                         }
                     });
@@ -1005,15 +1057,15 @@ async function format_vnd() {
 }
 function format_time(time) {
     try {
-        var d = time.substr(0,time.indexOf('T'));
-        var t = time.substring(time.indexOf('T')+1,time.lastIndexOf(':'));
+        var d = time.substr(0, time.indexOf('T'));
+        var t = time.substring(time.indexOf('T') + 1, time.lastIndexOf(':'));
         return `${d} ${t}`;
     } catch (error) {
         return time;
     }
 }
 function get_format_VND(str) {
-    if(isNaN(str)) return str;
+    if (isNaN(str)) return str;
     var rs = '';
     var co = 1;
     for (let i = str.length - 1; i >= 0; i--) {
