@@ -24,7 +24,7 @@ module.exports = function (app) {
     .get(accCtrl.get)
     .post(accCtrl.store);
 
-    app.route('/api/acc_same/:user_id')
+  app.route('/api/acc_same/:user_id')
     .get(accCtrl.get_same_group);
   // app.route('/api/group/:group')
   //   .get(accCtrl.get_group);
@@ -46,10 +46,13 @@ module.exports = function (app) {
     .put(roleCtrl.update)
     .delete(roleCtrl.delete);
 
-//    save_permission
+  //    save_permission
   app.route('/api/permission/:role_id')
     .get(roleCtrl.get_permission)
     .put(roleCtrl.save_permission);
+  //check_action
+  app.route('/api/check_permission/:role_id/:par')
+    .get(roleCtrl.check_action);
 
   app.route('/api/menu_role')
     .get(roleCtrl.get_menu_role);
@@ -100,9 +103,9 @@ module.exports = function (app) {
     .post(messCtrl.detail_group);
   app.route('/api/chat_group_tags_name/:ids')
     .get(messCtrl.get_group_chat_tags_name);
-//search_group
+  //search_group
 
-app.route('/api/search_group/:tag_id/:key')
+  app.route('/api/search_group/:tag_id/:key')
     .get(messCtrl.search_group);
   app.route('/api/chat_group_details/:user_id/:cus_id')
     .get(messCtrl.get_group);

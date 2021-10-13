@@ -41,10 +41,10 @@
                 <hr />
                 <div class="w-100 pt-3">
                     <a href="./report" class="btn btn-primary">Báo cáo tổng hợp</a>
-                    <a href="./bill" class="btn btn-primary">Báo cáo đơn hàng</a>
+                    <a data-role="report_bill" href="./bill" class="btn btn-primary">Báo cáo đơn hàng</a>
                     <!-- <a href="#" class="btn btn-primary">Báo cáo nhân viên</a>
                     <a href="#" class="btn btn-primary">Báo cáo thu nhập</a> -->
-                    <a href="./rpp" class="btn btn-primary">Báo cáo hàng hóa</a>
+                    <a data-role="report_product" href="./rpp" class="btn btn-primary">Báo cáo hàng hóa</a>
                 </div>
                 <hr />
                 <div class="w-100 d-flex">
@@ -56,8 +56,8 @@
                     </div>
                     <div class="form-group w-50">
                         <label for="to_date">Đến ngày</label>
-                        <input type="date" class="form-control" name="to_date" id="to_date"
-                            aria-describedby="to_date" placeholder="yyyy-MM-dd">
+                        <input type="date" class="form-control" name="to_date" id="to_date" aria-describedby="to_date"
+                            placeholder="yyyy-MM-dd">
                         <!-- <small id="to_date" class="form-text text-muted">Chọn ngày</small> -->
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                 </div>
                 <div id="content">
                     <button class="btn btn-primary" data-toggle="modal" onclick="load_general_report()"
-                    data-target="#detailId">Tìm kiếm</button>
+                        data-target="#detailId">Tìm kiếm</button>
                     <table id="mainData" class="tablemanager table table-striped table-bordered table-sm"
                         cellspacing="0" width="100%">
                         <thead>
@@ -104,11 +104,27 @@
     <script src="../js/table.js"></script>
     <script>
         var is_first = true;
-        load_default_date();
-        load_general_report();
+        check_current_role();
+
+
+        async function check_current_role() {
+
+            var cr_role = await check_permission('report');
+            if (cr_role) {
+                var lst_ele = document.querySelectorAll('a[data-role]');
+                lst_ele.forEach((item)=>{
+                    if(cr_role.findIndex((f)=>{return f.action == item.dataset.role}) == -1){
+                        item.parentElement.removeChild(item);
+                    }
+                });
+                load_default_date();
+                load_general_report();
+            }
+        }
+
         function load_default_date() {
             var now_t = new Date();
-            var m = (now_t.getMonth()+1) < 10 ? `0${now_t.getMonth()+1}`:(now_t.getMonth()+1);
+            var m = (now_t.getMonth() + 1) < 10 ? `0${now_t.getMonth() + 1}` : (now_t.getMonth() + 1);
             var date = now_t.getDate();
             var y = now_t.getFullYear();
             document.getElementById('from_date').value = `${y}-${m}-01`;
@@ -136,13 +152,13 @@
 
             var from = document.getElementById('from_date').value;
             var to = document.getElementById('to_date').value;
-            var rs = await report_general(from,to);
+            var rs = await report_general(from, to);
 
             var tb = document.getElementById('mainData').querySelector('tbody');
             tb.innerHTML = '';
             if (rs != undefined) {
                 // nhom, sl don hang, tong tien , tong ck
-                tb.innerHTML += allRow(rs, tb, ['number_bill','group_name','total','ck'],null,null,false).innerHTML;
+                tb.innerHTML += allRow(rs, tb, ['number_bill', 'group_name', 'total', 'ck'], null, null, false).innerHTML;
                 // covertTrueFalse(tb, 6, 'Hiện', 'Ẩn');
                 // if (is_first) load_list_user(rs[0]);
             }
@@ -167,7 +183,7 @@
             is_first = false;
             format_vnd();
         }
-        
+
     </script>
 </body>
 

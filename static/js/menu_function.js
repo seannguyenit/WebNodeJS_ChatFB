@@ -34,6 +34,11 @@ async function innit_menu() {
         let cr_user = JSON.parse(getCookie('user'));
         document.getElementById('user_info').innerText = `${cr_user.user || ''} - ${cr_user.role_name || ''}`;
         document.getElementsByClassName('avata')[0].src = cr_user.avatar_url|| '../img/avatar.png';
+        var ae = document.createElement('a');
+        ae.innerText = 'Đăng xuất';
+        ae.style.color = 'white';
+        ae.href = '/login';
+        document.getElementById('user_info').parentElement.appendChild(ae);
     } catch (error) {
 
     }

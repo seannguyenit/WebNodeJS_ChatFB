@@ -742,6 +742,22 @@ async function load_role_permission(role_id) {
         });
 }
 
+async function check_permission(par) {
+    var cr_u = get_cr_user();
+    var role_id = cr_u.role; 
+    return await fetch(`/api/check_permission/${role_id}/${par}` /*, options */)
+        .then((response) => response.json())
+        .then((data) => {
+            if (data != undefined) {
+                return data;
+            }
+            //covertTrueFalse(tb, 6, 'Hiện', 'Ẩn');
+        })
+        .catch((error) => {
+            console.warn(error);
+        });
+}
+
 async function load_user_permission(id) {
     return await fetch(`/api/user_permission/${id}` /*, options */)
         .then((response) => response.json())
