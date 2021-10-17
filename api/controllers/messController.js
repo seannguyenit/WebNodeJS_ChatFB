@@ -59,8 +59,8 @@ module.exports = {
         })
     },
     search_group: (req, res) => {
-        let sql = 'Call search_group(?,?)'
-        db.query(sql, [req.params.key,req.params.tag_id], (err, response) => {
+        let sql = 'Call search_group(?,?,?)'
+        db.query(sql, [req.params.key,req.params.tag_id,req.params.user_id], (err, response) => {
             if (err) throw err
             res.json(response[0])
         })
@@ -130,8 +130,8 @@ module.exports = {
     },
     bill_checkout: (req, res) => {
         let data = JSON.stringify(req.body.js_data);
-        let sql = 'Call bill_checkout(?,?,?)'
-        db.query(sql, [req.params.cus_id, req.params.user_id, data], (err, response) => {
+        let sql = 'Call bill_checkout(?,?,?,?,?,?)'
+        db.query(sql, [req.params.cus_id, req.params.user_id, data, req.params.bill_code, req.params.trade_code, req.params.cmoney], (err, response) => {
             if (err) throw err
             res.json({ message: 'Insert success!' })
         })

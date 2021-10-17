@@ -557,6 +557,10 @@ INSERT INTO `tag_name` VALUES (1,'go go','#14f01b'),(2,'Stop','#db0a0a'),(3,'OK'
 UNLOCK TABLES;
 
 --
+-- Dumping events for database 'simpleweb'
+--
+
+--
 -- Dumping routines for database 'simpleweb'
 --
 /*!50003 DROP FUNCTION IF EXISTS `bill_stt` */;
@@ -1947,4 +1951,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-10-16  0:10:55
+-- Dump completed on 2021-10-16  0:43:26

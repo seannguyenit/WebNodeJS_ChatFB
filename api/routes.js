@@ -105,13 +105,13 @@ module.exports = function (app) {
     .get(messCtrl.get_group_chat_tags_name);
   //search_group
 
-  app.route('/api/search_group/:tag_id/:key')
+  app.route('/api/search_group/:user_id/:tag_id/:key')
     .get(messCtrl.search_group);
   app.route('/api/chat_group_details/:user_id/:cus_id')
     .get(messCtrl.get_group);
   app.route('/api/chat_group_details/:user_id/:cus_id')
     .put(messCtrl.update_group);
-  app.route('/api/chat_group_details/:user_id/:cus_id')
+  app.route('/api/chat_group_details/:user_id/:cus_id/:bill_code/:trade_code/:cmoney')
     .post(messCtrl.bill_checkout);
 
   app.route('/api/chat_group_mess/:cus_id/:acc_receive')

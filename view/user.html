@@ -127,6 +127,11 @@
                             <input type="datetime-local" required class="form-control" name="deadtime" id="deadtime"
                                 aria-describedby="helpId" placeholder="dd/mm/yyyy">
                         </div>
+                        <div class="form-group w-25">
+                            <label for="bill_code">Mã đơn hàng</label>
+                            <input type="text" required class="form-control" name="bill_code" id="bill_code"
+                                aria-describedby="helpId" placeholder="">
+                        </div>
                         <div class="form-check w-25">
                             <label class="form-check-label">
                                 <input type="checkbox" class="form-check-input" name="is_active" id="is_active"
@@ -277,6 +282,7 @@
             var data = await acc_get_detail(id);
             document.getElementById('user_id').value = data.id || 0;
             document.getElementById('real_name').value = data.real_name;
+            document.getElementById('bill_code').value = data.bill_code;
             document.getElementById('phone').value = data.phone;
             document.getElementById('email').value = data.email;
             document.getElementById('address').value = data.address;
@@ -285,8 +291,8 @@
             document.getElementById('is_active').checked = data.is_active;
             document.getElementById('deadtime').value = data.deadtime;
             document.getElementById('id_fb').value = data.fb_id || '';
-            document.getElementById('nick_fb').value = info.fb_name || '';
-            document.getElementById('fb_ava').src = info.avatar_url || '';
+            document.getElementById('nick_fb').value = data.fb_name || '';
+            document.getElementById('fb_ava').src = data.avatar_url || '';
 
             var select_r = document.getElementById('role').querySelector(`option[value = "${data.role}"]`);
             if (select_r != undefined) {
@@ -319,6 +325,7 @@
             }
             var id = change_id || document.getElementById('user_id').value;
             var username = document.getElementById('username').value;
+            var bill_code = document.getElementById('bill_code').value;
             var pass = document.getElementById('pass').value;
             var role = document.getElementById('role').value;
             var real_name = document.getElementById('real_name').value;
@@ -363,7 +370,7 @@
                 if (!validateField(username, 'Tên đăng nhập') || !validateSelect(role, 'Chức vụ') || !validateSelect(pass, 'Mật khẩu')) {
                     return;
                 }
-                data = { user: username, pass: pass, role: role, real_name: real_name, phone: phone, email: email, address: address, is_active: is_active, group_id: group_id, deadtime: deadtime, fb_id: id_fb, fb_name: nick_fb, avatar_url: ava_fb };
+                data = { user: username, bill_code: bill_code, pass: pass, role: role, real_name: real_name, phone: phone, email: email, address: address, is_active: is_active, group_id: group_id, deadtime: deadtime, fb_id: id_fb, fb_name: nick_fb, avatar_url: ava_fb };
             } else {
                 data = { is_active: !changeActive };
             }

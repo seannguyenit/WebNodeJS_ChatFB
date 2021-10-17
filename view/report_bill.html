@@ -332,6 +332,9 @@
                 document.getElementById('money_receive').value = '0';
                 document.getElementById('CSKH').innerText = cr_bill.CSKH || '';
                 document.getElementById('CTV').innerText = cr_bill.CTV || '';
+                document.getElementById('accountant_note').value = cr_bill.accountant_note || '';
+                document.getElementById('accepted_note').value = cr_bill.accept_note || '';
+                document.getElementById('reject_note').value = cr_bill.reject_note || '';
             }
             if (cr_bill_details) {
                 var tb2 = document.getElementById('details_data').querySelector('tbody');
@@ -414,6 +417,7 @@
             await set_bill_stt(type, cr_bill.id, tg_stt);
             // $('#approve_modal').modal({ show: false });
             alert('Xong !');
+            $('#approve_modal').modal({ show: false });
             load_general_report();
         }
 
@@ -435,6 +439,7 @@
                     break;
             }
             alert('Xong !');
+            $('#approve_modal').modal({ show: false });
             load_general_report();
         }
 
