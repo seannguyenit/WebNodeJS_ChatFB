@@ -174,24 +174,26 @@
             console.log('Lấy tin nhắn !')
             var list = await chat_group_get_all_chat(current_group.cus_id, current_max_id);
             if (list && current_group.cus_id) {
-                add_chat_to_content(list);
+                add_chat_to_content(list,false);
             }
         }
         async function get_group_chat(dt) {
             var gr_e = document.getElementById('group_content');
             dt.forEach((e) => {
                 var tag_str = '';
-                var lst_t = list_tag.filter((f) => { return (e.tags.split(',').includes(f.id.toString())) });
-                lst_t.forEach((tag) => {
-                    tag_str += `<div class="tags_details" style="background-color:${tag.color}"></div>`
-                });
+                if (e.tags && te.tags.length > 0) {
+                    var lst_t = list_tag.filter((f) => { return (e.tags.split(',').includes(f.id.toString())) });
+                    lst_t.forEach((tag) => {
+                        tag_str += `<div class="tags_details" style="background-color:${tag.color}"></div>`
+                    });
+                }
                 gr_e.innerHTML += `<div class="chat_group" data-grid="${e.cus_id}">
                                 <div class="d-flex">
                                     <div>
                                         <img class="avata" src="${e.ava_url || '../img/avatar.png'}" width="40" height="40" />
                                     </div>
                                     <div style="width: 100%;">
-                                        <div class="text-center">${e.real_name}</div>
+                                        <div class="text-center">${e.real_name || e.nick_fb || 'Khách Mới'}</div>
                                         <div class="text-center chat_group_tags">${tag_str}</div>
                                     </div>
                                 </div>
@@ -253,8 +255,11 @@
                 return time;
             }
         }
-        function auto_scroll() {
+        function auto_scroll(check) {
             var ele = document.getElementById('chat_text_content');
+            if (!check && ele.scrollTop < ele.scrollHeight) {
+                return;
+            }
             ele.scrollTop = ele.scrollHeight;
         }
 
@@ -275,7 +280,7 @@
             }
         }
 
-        function add_chat_to_content(list) {
+        function add_chat_to_content(list,check) {
             var ct = document.getElementById('chat_text_content');
             list.forEach((item) => {
                 var next_index = list.indexOf(item) + 1;
@@ -310,7 +315,7 @@
                     current_max_id = item.id;
                 }
             });
-            auto_scroll();
+            auto_scroll(check);
         }
         lazy_loading();
     </script>
