@@ -89,6 +89,7 @@ module.exports = {
             res.json(response[0])
         })
     },
+    
     get_latest_mess: (req, res) => {
         let sql = 'CALL get_latest_mess_saved(?,?)'
         db.query(sql, [req.params.cus_id,req.params.acc_receive], (err, response) => {

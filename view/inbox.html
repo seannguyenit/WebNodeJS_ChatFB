@@ -110,7 +110,9 @@
     <script>
         var current_group;
         var current_max_id = -1;
+        var current_min_id = -1;
         var list_tag = [];
+        var root_mess;
         load_();
 
         function set_link_menu(m, t) {
@@ -161,12 +163,26 @@
             auto_scroll();
         }
 
+
+        async function load_more() {
+            if (root_mess && current_min_id) {
+                var bt = document.getElementById('bt_load_more');
+                bt.parentElement.removeChild(bt);
+                add_chat_to_content(root_mess.slice(0, current_min_id), false, true);
+            }
+        }
+
         async function get_chat(id, max_id = 0) {
             var list = await chat_group_get_all_chat(id, max_id);
+            if (max_id == 0) {
+                root_mess = list;
+            }
             var ct = document.getElementById('chat_text_content');
-            ct.innerHTML = '';
+            ct.innerHTML = `<a class="text-center" style="margin-left:45%" id="bt_load_more" href="#" onclick="load_more()">Xem Thêm</a>`;
             if (list) {
-                add_chat_to_content(list);
+                var min_index = (list.length > 30) ? (list.length - 30) : 0
+                add_chat_to_content(list.slice(min_index, list.length));
+                current_min_id = min_index;
             }
         }
 
@@ -174,7 +190,7 @@
             console.log('Lấy tin nhắn !')
             var list = await chat_group_get_all_chat(current_group.cus_id, current_max_id);
             if (list && current_group.cus_id) {
-                add_chat_to_content(list,false);
+                add_chat_to_content(list, false);
             }
         }
         async function get_group_chat(dt) {
@@ -257,7 +273,7 @@
         }
         function auto_scroll(check) {
             var ele = document.getElementById('chat_text_content');
-            if (!check && ele.scrollTop < ele.scrollHeight) {
+            if (check == false && ele.scrollTop < ele.scrollHeight) {
                 return;
             }
             ele.scrollTop = ele.scrollHeight;
@@ -280,12 +296,13 @@
             }
         }
 
-        function add_chat_to_content(list,check) {
+        function add_chat_to_content(list, check, is_revert = false) {
             var ct = document.getElementById('chat_text_content');
+
+            var str = '';
             list.forEach((item) => {
                 var next_index = list.indexOf(item) + 1;
                 var next_item = list[next_index];
-                var str = '';
                 if (item.sender == 1) {
                     str += `<div class="container mess_content from_content">
                                 <div></div>
@@ -297,7 +314,7 @@
                     str += (!next_item || next_item.sender != item.sender) ? `<img class="avata" src="${item.rec_ava || '../img/avatar.png'}" width="40" height="40" />` : '';
                     str += `</div>
                             </div>`;
-                    ct.innerHTML += str;
+                    // ct.innerHTML += str;
                 } else {
                     str += `<div class="container mess_content to_content">
                                 <div class="mess_avata">`;
@@ -309,12 +326,16 @@
                                 </div>
                                 <div></div>
                             </div>`;
-                    ct.innerHTML += str;
                 }
                 if (list.length == list.indexOf(item) + 1) {
                     current_max_id = item.id;
                 }
             });
+            if (is_revert == true) {
+                ct.innerHTML = str + ct.innerHTML;
+            } else {
+                ct.innerHTML += str;
+            }
             auto_scroll(check);
         }
         lazy_loading();
