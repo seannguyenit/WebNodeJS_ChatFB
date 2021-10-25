@@ -457,6 +457,7 @@ async function chat_group_get_all_chat(cus_id, max_id = 0) {
         .then((response) => response.json())
         .then((data) => {
             if (data != undefined) {
+                var rs_ = data.sort((a,b)=>{return a.id - b.id});
                 return data;
             }
             //covertTrueFalse(tb, 6, 'Hiện', 'Ẩn');
