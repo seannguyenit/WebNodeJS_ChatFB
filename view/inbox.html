@@ -168,7 +168,7 @@
             if (root_mess && current_min_id) {
                 var bt = document.getElementById('bt_load_more');
                 bt.parentElement.removeChild(bt);
-                add_chat_to_content(root_mess.slice(0, current_min_id), false, true);
+                add_chat_to_content(root_mess.slice(0, current_min_id), true);
             }
         }
 
@@ -190,7 +190,7 @@
             console.log('Lấy tin nhắn !')
             var list = await chat_group_get_all_chat(current_group.cus_id, current_max_id);
             if (list && current_group.cus_id) {
-                add_chat_to_content(list, false);
+                add_chat_to_content(list);
             }
         }
         async function get_group_chat(dt) {
@@ -271,9 +271,9 @@
                 return time;
             }
         }
-        function auto_scroll(check) {
+        function auto_scroll(check = true) {
             var ele = document.getElementById('chat_text_content');
-            if (check == false && ele.scrollTop < ele.scrollHeight) {
+            if (check == false) {
                 return;
             }
             ele.scrollTop = ele.scrollHeight;
@@ -296,10 +296,11 @@
             }
         }
 
-        function add_chat_to_content(list, check, is_revert = false) {
+        function add_chat_to_content(list, is_revert = false) {
             var ct = document.getElementById('chat_text_content');
 
             var str = '';
+            var check = (ct.scrollTop == ct.scrollHeight);
             list.forEach((item) => {
                 var next_index = list.indexOf(item) + 1;
                 var next_item = list[next_index];
@@ -311,7 +312,7 @@
                                     <div>${item.mess}</div>
                                 </div>
                                 <div class="mess_avata">`
-                    str += (!next_item || next_item.sender != item.sender) ? `<img class="avata" src="${item.rec_ava || '../img/avatar.png'}" width="40" height="40" />` : '';
+                    str += (!next_item || next_item.sender != item.sender) ? `<img class="avata" src="../img/avatar.png" width="40" height="40" />` : '';
                     str += `</div>
                             </div>`;
                     // ct.innerHTML += str;
@@ -327,14 +328,15 @@
                                 <div></div>
                             </div>`;
                 }
-                if (list.length == list.indexOf(item) + 1) {
-                    current_max_id = item.id;
-                }
+
             });
             if (is_revert == true) {
                 ct.innerHTML = str + ct.innerHTML;
             } else {
                 ct.innerHTML += str;
+                if (list.length > 0) {
+                    current_max_id = (list[list.length - 1]).id;
+                }
             }
             auto_scroll(check);
         }
