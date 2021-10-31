@@ -197,7 +197,7 @@
             var gr_e = document.getElementById('group_content');
             dt.forEach((e) => {
                 var tag_str = '';
-                if (e.tags && te.tags.length > 0) {
+                if (e.tags && e.tags.length > 0) {
                     var lst_t = list_tag.filter((f) => { return (e.tags.split(',').includes(f.id.toString())) });
                     lst_t.forEach((tag) => {
                         tag_str += `<div class="tags_details" style="background-color:${tag.color}"></div>`
