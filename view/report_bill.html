@@ -93,7 +93,8 @@
                                 <th>DC</th>
                                 <th>Tp</th>
                                 <th>Tổng(VND)</th>
-                                <th>Thu(VND)</th>
+                                <th>Cọc(VND)</th>
+                                <th>Còn(VND)</th>
                                 <th>CK(VND)</th>
                                 <th>Trạng thái</th>
                                 <th>KT</th>
@@ -290,8 +291,8 @@
             if (rs != undefined) {
                 // nhom, sl don hang, tong tien , tong ck
                 rs = await add_stt_column(rs);
-                tb.innerHTML += allRow(rs, tb, ['customer', 'stt', 'code', 'cus_name', 'CSKH', 'CTV', 'phone', 'address', 'city', 'total', 'money_receive', 'ck', 'status', 'accountant_note', 'accepted_note'], null, [{ title: 'Duyệt', class: 'btn-primary', action: 'approve_bill' }], false).innerHTML;
-                covertBillStatus(tb, 12);
+                tb.innerHTML += allRow(rs, tb, ['customer', 'stt', 'code', 'cus_name', 'CSKH', 'CTV', 'phone', 'address', 'city', 'total', 'money_receive','res_money', 'ck', 'status', 'accountant_note', 'accepted_note'], null, [{ title: 'Duyệt', class: 'btn-primary', action: 'approve_bill' }], false).innerHTML;
+                covertBillStatus(tb, 13);
                 // if (is_first) load_list_user(rs[0]);
             }
             if (is_first) {
@@ -333,7 +334,7 @@
                 document.getElementById('CSKH').innerText = cr_bill.CSKH || '';
                 document.getElementById('CTV').innerText = cr_bill.CTV || '';
                 document.getElementById('accountant_note').value = cr_bill.accountant_note || '';
-                document.getElementById('accepted_note').value = cr_bill.accept_note || '';
+                document.getElementById('accepted_note').value = cr_bill.accepted_note || '';
                 document.getElementById('reject_note').value = cr_bill.reject_note || '';
             }
             if (cr_bill_details) {
@@ -403,14 +404,14 @@
             if (!confirm('Bạn có chắc chắn muốn thay đổi dữ liệu ?')) {
                 return;
             }
-            if (cr_bill.stt == -1 || cr_bill.stt == 2) {
+            if (cr_bill.status_id == -1 || cr_bill.status_id == 2) {
                 alert('Không đúng trạng thái !');
                 return;
             }
             var tg_stt = 1;
             var type = 'kt';
-            // if(cr_bill.stt==0) tg_stt = 1;
-            if (cr_bill.stt == 1) {
+            // if(cr_bill.status_id==0) tg_stt = 1;
+            if (cr_bill.status_id == 1) {
                 tg_stt = 2;
                 type = 'tq';
             }
@@ -449,7 +450,7 @@
                 var lst_input = document.getElementById('approve_modal').querySelectorAll('input');
                 var lst_ta = document.getElementById('approve_modal').querySelectorAll('textarea');
                 var arr = [...lst_bt, ...lst_input, ...lst_ta];
-                if (cr_bill.stt == -1) {
+                if (cr_bill.status_id == -1) {
                     arr.forEach((i) => {
                         if (i.onclick == true) {
                             i.disabled = true;

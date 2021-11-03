@@ -506,15 +506,15 @@ async function set_bill_stt(type, id, stt, note) {
     switch (type) {
         case 'huy':
             data.reject = cr_u.id;
-            data.reject_note = note;
+            // data.reject_note = note;
             break;
         case 'kt':
             data.accountant = cr_u.id;
-            data.accountant_note = note;
+            // data.accountant_note = note;
             break;
         case 'tq':
             data.accepted = cr_u.id;
-            data.accepted_note = note;
+            // data.accepted_note = note;
             break;
         default:
             break;
