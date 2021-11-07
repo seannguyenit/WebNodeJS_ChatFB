@@ -99,8 +99,8 @@ module.exports = {
     },
 
     get_chat_in_group: (req, res) => {
-        let sql = 'call get_chat(?,?)'
-        db.query(sql, [req.params.cus_id,req.params.max_id], (err, response) => {
+        let sql = 'call get_chat(?,?,?)'
+        db.query(sql, [req.params.cus_id,req.params.max_id,req.params.limit], (err, response) => {
             if (err) throw err
             res.json(response[0])
         })

@@ -121,7 +121,7 @@ module.exports = function (app) {
     .get(messCtrl.get_group_detail)
   //   .delete(messCtrl.delete_group);
 
-  app.route('/api/mess_chat/:cus_id/:max_id')
+  app.route('/api/mess_chat/:cus_id/:max_id/:limit')
     .get(messCtrl.get_chat_in_group);
 
   app.route('/api/discount/:product_id')

@@ -452,12 +452,12 @@ async function chat_group_get_detail(id) {
         });
 }
 
-async function chat_group_get_all_chat(cus_id, max_id = 0) {
-    return await fetch(`/api/mess_chat/${cus_id}/${max_id}` /*, options */)
+async function chat_group_get_all_chat(cus_id, max_id = 0,limit = 0) {
+    return await fetch(`/api/mess_chat/${cus_id}/${max_id}/${limit}` /*, options */)
         .then((response) => response.json())
         .then((data) => {
             if (data != undefined) {
-                var rs_ = data.sort((a,b)=>{return a.mess_index - b.mess_index});
+                // var rs_ = data.sort((a,b)=>{return a.mess_index - b.mess_index});
                 return data;
             }
             //covertTrueFalse(tb, 6, 'Hiện', 'Ẩn');
