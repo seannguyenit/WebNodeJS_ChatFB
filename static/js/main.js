@@ -1069,6 +1069,12 @@ async function format_vnd() {
     });
 
 
+    Array.prototype.forEach.call(document.getElementsByClassName('vnd_convert'),(nx)=>{
+        nx.addEventListener('input',()=>{
+            nx.value = get_format_VND(nx.value.replaceAll(',',''));
+            nx.dataset.value = nx.value.replaceAll(',','');
+        });
+    });
 
 
 }

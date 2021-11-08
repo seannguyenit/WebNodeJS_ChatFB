@@ -95,8 +95,8 @@ module.exports = {
     },
     store_money_count: (req, res) => {
         let data = req.body;
-        let sql = 'INSERT INTO `money_count` SET ?'
-        db.query(sql, [data], (err, response) => {
+        let sql = 'call insert_moneycount(?,?,?)';
+        db.query(sql, [data.bill_id,data.money,data.user_id], (err, response) => {
             if (err) throw err
             res.json({ message: 'Insert success!' })
         })

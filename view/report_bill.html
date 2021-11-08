@@ -151,7 +151,7 @@
                         </div>
                         <div class="form-group w-50 d-flex mb-0">
                             <label for="money_receive">Thu thêm: </label>
-                            <input style="width: 50%; margin-top: -10px;" id="money_receive" type="number"
+                            <input class="vnd_convert" style="width: 50%; margin-top: -10px;" id="money_receive" data-value="0"
                                 value="0"></input>
                             <button style="margin-top: -10px;" id="save_money" onclick="save_money()"
                                 class="btn btn-sm btn-primary">Lưu</button>
@@ -380,13 +380,18 @@
             if (!confirm('Bạn có chắc chắn muốn thay đổi dữ liệu ?')) {
                 return;
             }
-            let money = document.getElementById('money_receive').value;
+            let money = document.getElementById('money_receive').dataset.value;
             if (money <= 0 || !cr_bill.id) {
                 alert('Số tiền phải lớn hơn 0');
                 return;
             }
+            if (isNaN(money)) {
+                alert('Số tiền không đúng');
+                return;
+            }
             await insert_money_count(cr_bill.id, money);
             document.getElementById('money_receive').value = 0;
+            // document.getElementById('money_receive').dataset.value = 0;
             await load_money_count();
             format_vnd();
         }
