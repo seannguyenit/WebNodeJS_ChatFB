@@ -116,6 +116,9 @@ function covertBillStatus(table_body, number_col) {
                 case 'Mới':
                     td.style.backgroundColor = '';
                     break;
+                case 'KẾ TOÁN DUYỆT':
+                    td.style.backgroundColor = 'springgreen';
+                    break;
                 case 'KẾ TOÁN THU TIỀN':
                     td.style.backgroundColor = 'yellow';
                     break;
@@ -421,7 +424,7 @@ async function group_del(id) {
 /* chat_group
  */
 async function chat_group_get_all(user_id) {
-    if(user_id == 0){
+    if (user_id == 0) {
         var cr_u = get_cr_user();
         user_id = cr_u.id;
     }
@@ -452,7 +455,7 @@ async function chat_group_get_detail(id) {
         });
 }
 
-async function chat_group_get_all_chat(cus_id, max_id = 0,limit = 0) {
+async function chat_group_get_all_chat(cus_id, max_id = 0, limit = 0) {
     return await fetch(`/api/mess_chat/${cus_id}/${max_id}/${limit}` /*, options */)
         .then((response) => response.json())
         .then((data) => {
@@ -508,7 +511,11 @@ async function set_bill_stt(type, id, stt, note) {
             data.reject = cr_u.id;
             // data.reject_note = note;
             break;
-        case 'kt':
+        case 'kt1':
+            data.accountant = cr_u.id;
+            // data.accountant_note = note;
+            break;
+        case 'kt2':
             data.accountant = cr_u.id;
             // data.accountant_note = note;
             break;
@@ -745,7 +752,7 @@ async function load_role_permission(role_id) {
 
 async function check_permission(par) {
     var cr_u = get_cr_user();
-    var role_id = cr_u.role; 
+    var role_id = cr_u.role;
     return await fetch(`/api/check_permission/${role_id}/${par}` /*, options */)
         .then((response) => response.json())
         .then((data) => {
@@ -1069,10 +1076,10 @@ async function format_vnd() {
     });
 
 
-    Array.prototype.forEach.call(document.getElementsByClassName('vnd_convert'),(nx)=>{
-        nx.addEventListener('input',()=>{
-            nx.value = get_format_VND(nx.value.replaceAll(',',''));
-            nx.dataset.value = nx.value.replaceAll(',','');
+    Array.prototype.forEach.call(document.getElementsByClassName('vnd_convert'), (nx) => {
+        nx.addEventListener('input', () => {
+            nx.value = get_format_VND(nx.value.replaceAll(',', ''));
+            nx.dataset.value = nx.value.replaceAll(',', '');
         });
     });
 
