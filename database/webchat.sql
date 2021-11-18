@@ -1453,7 +1453,7 @@ mess_index,
     mess_index int path "$.mess_index")
     ) AS  jt1 WHERE NOT EXISTS (SELECT A.id
                               FROM chat_group_mess as A
-                              WHERE A.mess_key = jt1.mess_key and A.group_time = STR_TO_DATE((jt1.group_time), '%d-%m-%Y %T') LIMIT 1)
+                              WHERE A.group_time = STR_TO_DATE((jt1.group_time), '%d-%m-%Y %T') and ((length(jt1.mess_key)>0 and A.mess_key = jt1.mess_key) or (length(jt1.mess_key)=0 and (jt1.img_src = A.img_src or jt1.`file` = A.`file`))) LIMIT 1)
 ;
 END ;;
 DELIMITER ;
@@ -2021,4 +2021,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-12 16:24:18
+-- Dump completed on 2021-11-19  2:02:33
