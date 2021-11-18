@@ -295,7 +295,15 @@
         function get_img(src) {
             if (!src) return '';
             if (src.length == 0) return '';
-            return `<img style="max-width:100%" src="${src}"/>`
+            if (src.indexOf(',') > -1) {
+                var str_html = '';
+                src.split(',').forEach((f)=>{
+                    str_html += `<img style="max-width:100%" src="${f}"/>`
+                });
+                return str_html;
+            } else {
+                return `<img style="max-width:100%" src="${src}"/>`
+            }
         }
 
         async function lazy_loading() {
