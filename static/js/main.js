@@ -657,7 +657,7 @@ async function del_money_count(id) {
 
 async function delete_chat_group(id) {
     // var cr_u = get_cr_user();
-    return await fetch(`/api/chat_group/${id}`, {
+    return await fetch(`/api/chat_group_delete/${id}`, {
         method: 'DELETE', // or 'PUT'
         headers: {
             'Content-Type': 'application/json',

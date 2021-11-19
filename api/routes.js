@@ -98,7 +98,7 @@ module.exports = function (app) {
 
   // app.route('/api/mess_group')
   //   .post(messCtrl.store_group);
-  app.route('/api/chat_group/:id')
+  app.route('/api/chat_group_delete/:id')
     .delete(messCtrl.delete_chat_group);
   app.route('/api/chat_group_create')
     .post(messCtrl.detail_group);
