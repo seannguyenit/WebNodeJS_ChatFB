@@ -50,7 +50,13 @@ module.exports = {
             res.json({ message: 'Delete success!' })
         })
     },
-
+    delete_chat_group: (req, res) => {
+        let sql = 'Call delete_chat(?)'
+        db.query(sql, [req.params.id], (err, response) => {
+            if (err) throw err
+            res.json({ message: 'Delete success!' })
+        })
+    },
     get_group: (req, res) => {
         let sql = 'Call get_all_chat_group(?,?)'
         db.query(sql, [req.params.user_id,req.params.cus_id], (err, response) => {

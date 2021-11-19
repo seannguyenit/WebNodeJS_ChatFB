@@ -31,7 +31,11 @@ function get_cr_user() {
         return {};
     }
 }
-
+function check_current_admin() {
+    var cr_u = get_cr_user();
+    if(cr_u.id == 7) return true;
+    else return false;
+}
 function allRow(dt, tbody, arrCol, no_active = false, add_more = [], has_panel = true) {
     for (var d = 0; d < dt.length; d++) {
         var dtr = dt[d];
@@ -651,6 +655,22 @@ async function del_money_count(id) {
         });
 }
 
+async function delete_chat_group(id) {
+    // var cr_u = get_cr_user();
+    return await fetch(`/api/chat_group/${id}`, {
+        method: 'DELETE', // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+        .then(response => response.json())
+        .then(result => {
+            return result;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
 /* chat_group - end
  */
 

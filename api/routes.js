@@ -98,7 +98,8 @@ module.exports = function (app) {
 
   // app.route('/api/mess_group')
   //   .post(messCtrl.store_group);
-
+  app.route('/api/chat_group/:id')
+    .delete(messCtrl.delete_chat_group);
   app.route('/api/chat_group_create')
     .post(messCtrl.detail_group);
   app.route('/api/chat_group_tags_name/:ids')

@@ -67,6 +67,7 @@
                         </div>
                     </div>
                     <div class="col-md-3 right_section custom_scroll">
+                        <div class="w-100" id="bt_delete_located"></div>
                         <hr />
                         <h5 class="text-center">Danh sách đơn hàng</h5>
                         <hr />
@@ -163,6 +164,7 @@
                 await get_bill(gr.cus_id);
             }
             auto_scroll();
+            get_button_delete();
         }
 
 
@@ -297,7 +299,7 @@
             if (src.length == 0) return '';
             if (src.indexOf(',') > -1) {
                 var str_html = '';
-                src.split(',').forEach((f)=>{
+                src.split(',').forEach((f) => {
                     str_html += `<img style="max-width:100%" src="${f}"/>`
                 });
                 return str_html;
@@ -406,6 +408,24 @@
             // auto_scroll(check);
         }
         lazy_loading();
+
+        async function get_button_delete() {
+            var is_admin = check_current_admin();
+            if (current_group && is_admin == true) {
+                document.getElementById('bt_delete_located').innerHTML = `<button onclick="delete_chat()" class="btn btn-danger text-center">Xóa toàn
+                    bộ tin nhắn</button>`;
+            }
+        }
+
+
+        async function delete_chat() {
+            if (!confirm('Bạn có chắc chắn muốn thay đổi dữ liệu ?')) {
+                return;
+            }
+            await delete_chat_group(current_group.CG_id);
+            location.reload();
+        }
+
     </script>
 </body>
 
