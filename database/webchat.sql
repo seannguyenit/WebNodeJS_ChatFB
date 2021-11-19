@@ -1311,7 +1311,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_latest_mess_saved`(cus_id char(
 BEGIN
 	SELECT *
 FROM `simpleweb`.`chat_group_mess` AS CGM
-where CGM.cus_id = cus_id and CGM.acc_receive = acc_receive order by CGM.id desc limit 1;
+where CGM.cus_id = cus_id and CGM.acc_receive = acc_receive order by mess_index desc limit 1;
 
 END ;;
 DELIMITER ;
@@ -1454,6 +1454,7 @@ mess_index,
     ) AS  jt1 WHERE NOT EXISTS (SELECT A.id
                               FROM chat_group_mess as A
                               WHERE A.group_time = STR_TO_DATE((jt1.group_time), '%d-%m-%Y %T') and ((length(jt1.mess_key)>0 and A.mess_key = jt1.mess_key) or (length(jt1.mess_key)=0 and (jt1.img_src = A.img_src or jt1.`file` = A.`file`))) LIMIT 1)
+			and (length(jt1.mess_key) > 0 or  length(jt1.img_src) > 0 or length(jt1.`file`) > 0)
 ;
 END ;;
 DELIMITER ;
@@ -2021,4 +2022,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-19  2:02:33
+-- Dump completed on 2021-11-19 21:35:17
