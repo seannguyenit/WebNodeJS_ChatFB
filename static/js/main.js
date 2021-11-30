@@ -1118,6 +1118,11 @@ function format_time(time) {
 }
 function get_format_VND(str) {
     if (isNaN(str)) return str;
+    var pls = '';
+    if(str.indexOf('-') > -1){
+        str = str.replaceAll('-','');
+        pls = '-';
+    }
     var rs = '';
     var co = 1;
     for (let i = str.length - 1; i >= 0; i--) {
@@ -1128,7 +1133,7 @@ function get_format_VND(str) {
         }
         co++;
     }
-    return rs;
+    return pls+rs;
 }
 
 async function delay(delayInms) {

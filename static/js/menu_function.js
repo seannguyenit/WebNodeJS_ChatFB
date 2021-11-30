@@ -39,6 +39,11 @@ async function innit_menu() {
         ae.style.color = 'white';
         ae.href = '/login';
         document.getElementById('user_info').parentElement.appendChild(ae);
+        // var ex = document.createElement('a');
+        // ex.innerText = ' - ex_v3.0';
+        // ex.style.color = 'white';
+        // ex.href = '../client/';
+        // document.getElementById('user_info').parentElement.appendChild(ex);
     } catch (error) {
 
     }
