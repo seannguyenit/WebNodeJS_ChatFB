@@ -45,16 +45,6 @@ CREATE TABLE `account` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `account`
---
-
-LOCK TABLES `account` WRITE;
-/*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (10,'kt_1','123456',1,'2021-08-10 10:51:46',12,1,'nguyen le loc thinh','thinhspgood@gmail.com','0792062973','To 2 Vinh Diem Trung Vinh Hiep','1,2,3','0000-00-00 00:00:00','','','http://localhost:3000/home/user','nt1'),(14,'qtv_1','123456',5,'2021-08-10 15:02:57',10,1,'','','','','1',NULL,NULL,NULL,NULL,NULL),(12,'tq_1','123456',2,'2021-08-10 14:53:10',7,1,'','','','','1','0000-00-00 00:00:00','100017865601279','phamtien.pham.73550','https://scontent.fsgn2-1.fna.fbcdn.net/v/t1.6435-1/p200x200/58462425_371676803437837_7775662591438749696_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=7206a8&_nc_ohc=oUOIPO8LekAAX9iWR33&_nc_ht=scontent.fsgn2-1.fna&oh=f37190c6f1cb8792271fe57cd952a37b&oe=61CC22AB',''),(13,'tq_2','123456',2,'2021-08-10 14:53:19',7,1,'','','','','3',NULL,NULL,NULL,NULL,NULL),(7,'admin','123456',0,'2021-08-09 08:48:24',0,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(15,'qtv_2','123456',5,'2021-08-10 15:03:21',10,1,'','','','','1',NULL,NULL,NULL,NULL,NULL),(11,'kt_2','123456',1,'2021-08-10 10:57:03',13,1,'','','','',NULL,NULL,NULL,NULL,NULL,NULL),(18,'ctv_t1','123456',3,'2021-08-11 10:01:32',14,1,'','','','',NULL,NULL,NULL,NULL,NULL,NULL),(16,'qtv_3','123456',5,'2021-08-10 15:03:37',11,1,'','','','',NULL,NULL,NULL,NULL,NULL,NULL),(17,'qtv_4','123456',5,'2021-08-10 15:03:48',11,1,'','','','','1',NULL,NULL,NULL,NULL,NULL),(19,'ctv_a1','123456',6,'2021-08-11 10:01:53',14,1,'','','','','1','0000-00-00 00:00:00','100003150169963','vi.nguyenthituong.90','https://scontent.fsgn2-5.fna.fbcdn.net/v/t1.6435-1/cp0/e15/q65/p74x74/162432861_3833871566727811_3344461959204334069_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=dbb9e7&efg=eyJpIjoiYiJ9&_nc_ohc=GxjojIYNMgAAX-PWIAN&tn=LSNq2gsqgde4FEAO&_nc_ht=scontent.fsgn2-5.fna&oh=3560a28487f331b38f0c3eb1046e4344&oe=61CADCA0',''),(20,'ctv_t2','123456',3,'2021-08-11 10:02:24',15,1,'','','','',NULL,NULL,NULL,NULL,NULL,NULL),(21,'ctv_a2','123456',6,'2021-08-11 10:03:56',15,1,'','','','',NULL,NULL,NULL,NULL,NULL,NULL),(22,'ctv_t3','123456',3,'2021-08-11 10:05:56',16,1,'','','','',NULL,NULL,NULL,NULL,NULL,NULL),(23,'ctv_a3','123456',6,'2021-08-11 10:06:16',16,1,'','','','',NULL,NULL,NULL,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `account` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `account_permission`
 --
 
@@ -69,15 +59,6 @@ CREATE TABLE `account_permission` (
   PRIMARY KEY (`acc_id`,`action`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `account_permission`
---
-
-LOCK TABLES `account_permission` WRITE;
-/*!40000 ALTER TABLE `account_permission` DISABLE KEYS */;
-/*!40000 ALTER TABLE `account_permission` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `bill`
@@ -108,16 +89,6 @@ CREATE TABLE `bill` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `bill`
---
-
-LOCK TABLES `bill` WRITE;
-/*!40000 ALTER TABLE `bill` DISABLE KEYS */;
-INSERT INTO `bill` VALUES (106,10,'2021-11-02 08:58:20',0,3,'100000173441890',_binary '5ad1f7c9-3b80-11',7,7,NULL,'nt1-0222','tq','kt',NULL,NULL,'23333'),(107,10,'2021-11-03 09:50:49',0,1,'100000173441890',_binary 'd9d71c40-3c50-11',7,7,NULL,'nt1-0022','xyz','abc',NULL,NULL,'3333'),(108,10,'2021-11-07 15:37:54',0,1,'100067863644324',_binary '00892349-3fa6-11',NULL,7,NULL,'nt1-0003',NULL,NULL,NULL,NULL,'23333'),(109,10,'2021-11-07 15:40:20',0,0,'100017865601279',_binary '57868736-3fa6-11',NULL,NULL,NULL,'nt1-00099',NULL,NULL,NULL,NULL,'23333');
-/*!40000 ALTER TABLE `bill` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `bill_details`
 --
 
@@ -134,16 +105,6 @@ CREATE TABLE `bill_details` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=155 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `bill_details`
---
-
-LOCK TABLES `bill_details` WRITE;
-/*!40000 ALTER TABLE `bill_details` DISABLE KEYS */;
-INSERT INTO `bill_details` VALUES (149,12,4.000,_binary '5ad1f7c9-3b80-11',50000.000,7.000),(150,13,4.000,_binary '5ad1f7c9-3b80-11',60000.000,20000.000),(151,12,2.000,_binary 'd9d71c40-3c50-11',50000.000,7.000),(152,11,1.000,_binary '00892349-3fa6-11',70000.000,10.000),(153,12,1.000,_binary '00892349-3fa6-11',50000.000,7.000),(154,13,1.000,_binary '57868736-3fa6-11',60000.000,20000.000);
-/*!40000 ALTER TABLE `bill_details` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `chat_group`
@@ -164,18 +125,8 @@ CREATE TABLE `chat_group` (
   `fb_acc_send_name` char(100) DEFAULT NULL,
   `pro_ids` mediumtext,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `chat_group`
---
-
-LOCK TABLES `chat_group` WRITE;
-/*!40000 ALTER TABLE `chat_group` DISABLE KEYS */;
-INSERT INTO `chat_group` VALUES (68,'','','','','100067863644324',10,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `chat_group` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `chat_group_mess`
@@ -198,18 +149,8 @@ CREATE TABLE `chat_group_mess` (
   `mess_key` longtext,
   `mess_index` int DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8865 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `chat_group_mess`
---
-
-LOCK TABLES `chat_group_mess` WRITE;
-/*!40000 ALTER TABLE `chat_group_mess` DISABLE KEYS */;
-INSERT INTO `chat_group_mess` VALUES (8862,'a',1,'100067863644324','00 51','2021-12-01 00:51:00',2,NULL,NULL,10,'a',55),(8863,'b',1,'100067863644324','00 51','2021-12-01 00:51:00',3,NULL,NULL,10,'b',55),(8864,'c',1,'100067863644324','00 51','2021-12-01 00:51:00',4,NULL,NULL,10,'c',55),(8858,'789',1,'100067863644324','21 03  19 Thang 11  2021','2021-11-19 21:03:00',2,NULL,NULL,10,'789',52),(8859,'000',1,'100067863644324','21 30  19 Thang 11  2021','2021-11-19 21:30:00',0,NULL,NULL,10,'000',53),(8860,'123',1,'100067863644324','00 51','2021-12-01 00:51:00',0,NULL,NULL,10,'123',54),(8861,'456',1,'100067863644324','00 51','2021-12-01 00:51:00',1,NULL,NULL,10,'456',55),(8856,'123',1,'100067863644324','21 03  19 Thang 11  2021','2021-11-19 21:03:00',0,NULL,NULL,10,'123',50),(8857,'456',1,'100067863644324','21 03  19 Thang 11  2021','2021-11-19 21:03:00',1,NULL,NULL,10,'456',51),(8855,'',1,'100067863644324','20 47  19 Thang 11  2021','2021-11-19 20:47:00',0,'https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.15752-9/p320x320/248216336_434266714986324_5926940091171070054_n.jpg?_nc_cat=109&ccb=1-5&_nc_sid=aee45a&_nc_ohc=mPjzQ6x86WQAX8srlGv&_nc_ht=scontent.fsgn2-4.fna&oh=8be726c2ee74ebc387ac36789501e062&oe=61CD331E,https://scontent.fsgn2-3.fna.fbcdn.net/v/t1.15752-9/p320x320/255460601_1214083942413585_3830883871074601849_n.jpg?_nc_cat=108&ccb=1-5&_nc_sid=aee45a&_nc_ohc=Z_oDYGi8lP0AX9bsaCO&_nc_ht=scontent.fsgn2-3.fna&oh=5d98f21d83a25fc5025b5b99b360f4ff&oe=61CA9D5B',NULL,10,'',49),(8854,'',1,'100067863644324','02 05  19 Thang 11  2021','2021-11-19 02:05:00',1,'https://scontent.fsgn2-6.fna.fbcdn.net/v/t1.15752-9/p403x403/254553710_1332185700572817_2985029314433577111_n.png?_nc_cat=100&ccb=1-5&_nc_sid=aee45a&_nc_ohc=2--y3wBdAwEAX8tnCH9&_nc_ht=scontent.fsgn2-6.fna&oh=012df2c65384ccde8e09eeba1986a028&oe=61CD3AC9,https://scontent.fsgn2-3.fna.fbcdn.net/v/t1.15752-9/p403x403/255039700_431542918499408_7881490408165338498_n.jpg?_nc_cat=108&ccb=1-5&_nc_sid=aee45a&_nc_ohc=HAeEi4R8W6kAX9trFp9&_nc_oc=AQnFe1DqihHO2I78hA_HWru4pXh58jiMkIUMsSbvBVXB5uKmjXvgfJ0it_fwhLMFGJQ&_nc_ht=scontent.fsgn2-3.fna&oh=305418ca135a8d839c87280f179801bb&oe=61CB2334',NULL,10,'',48),(8853,'',1,'100067863644324','02 05  19 Thang 11  2021','2021-11-19 02:05:00',0,'https://scontent.fsgn2-3.fna.fbcdn.net/v/t1.15752-9/p320x320/255460601_1214083942413585_3830883871074601849_n.jpg?_nc_cat=108&ccb=1-5&_nc_sid=aee45a&_nc_ohc=Z_oDYGi8lP0AX9bsaCO&_nc_ht=scontent.fsgn2-3.fna&oh=5d98f21d83a25fc5025b5b99b360f4ff&oe=61CA9D5B',NULL,10,'',47),(8851,'',1,'100067863644324','00 58  19 Thang 11  2021','2021-11-19 00:58:00',7,'https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.15752-9/p403x403/248362102_435450821540928_5452006578466557833_n.png?_nc_cat=109&ccb=1-5&_nc_sid=aee45a&_nc_ohc=6BQND23LLhMAX_S9chi&_nc_ht=scontent.fsgn2-4.fna&oh=90bd51b977a36276dc1a722957667682&oe=61CC30A1',NULL,10,'',45),(8852,'',1,'100067863644324','00 58  19 Thang 11  2021','2021-11-19 00:58:00',8,'https://scontent.fsgn2-5.fna.fbcdn.net/v/t1.15752-9/s600x600/254293384_443863827152717_1904855620182912588_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=aee45a&_nc_ohc=YRFFGbUErcMAX9HpHym&_nc_ht=scontent.fsgn2-5.fna&oh=2f0115093f1cfe96fc179373c2ec4018&oe=61CA6BC1',NULL,10,'',46),(8850,'',1,'100067863644324','00 58  19 Thang 11  2021','2021-11-19 00:58:00',6,'https://scontent.fsgn2-6.fna.fbcdn.net/v/t1.15752-9/p403x403/247988288_196927085930335_8691207292528768731_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=aee45a&_nc_ohc=JB9rQcupAcwAX-OIjVE&_nc_ht=scontent.fsgn2-6.fna&oh=59c9bc6935c8641094ee2e9aa6cdf05a&oe=61CC35F0',NULL,10,'',44),(8849,'',1,'100067863644324','00 58  19 Thang 11  2021','2021-11-19 00:58:00',5,'https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.15752-9/257609501_567654584328473_8314539743234050136_n.jpg?_nc_cat=109&ccb=1-5&_nc_sid=aee45a&_nc_ohc=ahMPJxuhS6AAX--7yke&_nc_ht=scontent.fsgn2-4.fna&oh=3ec7dcd2668a3b23b104188f04dc4954&oe=61CD803B',NULL,10,'',43),(8848,'',1,'100067863644324','00 58  19 Thang 11  2021','2021-11-19 00:58:00',4,'https://scontent.fsgn2-1.fna.fbcdn.net/v/t1.15752-9/p403x403/256588895_949420999314095_7986813327807477510_n.png?_nc_cat=107&ccb=1-5&_nc_sid=aee45a&_nc_ohc=69Rr9SxbRScAX8gkMBu&_nc_ht=scontent.fsgn2-1.fna&oh=049645e4b848f319637a4e621793cbb3&oe=61CBF2AA',NULL,10,'',42),(8847,'',1,'100067863644324','00 58  19 Thang 11  2021','2021-11-19 00:58:00',3,'https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.15752-9/p320x320/248216336_434266714986324_5926940091171070054_n.jpg?_nc_cat=109&ccb=1-5&_nc_sid=aee45a&_nc_ohc=mPjzQ6x86WQAX8srlGv&_nc_ht=scontent.fsgn2-4.fna&oh=8be726c2ee74ebc387ac36789501e062&oe=61CD331E',NULL,10,'',41),(8846,'',1,'100067863644324','00 58  19 Thang 11  2021','2021-11-19 00:58:00',2,'https://scontent.fsgn2-6.fna.fbcdn.net/v/t1.15752-9/254364181_967429917177914_1212918974287918610_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=aee45a&_nc_ohc=FtzOaEd4kP4AX9ZoVWj&_nc_ht=scontent.fsgn2-6.fna&oh=f4fdb7ec489626c549afbfd8d5814494&oe=61CC4742',NULL,10,'',40),(8845,'',1,'100067863644324','00 58  19 Thang 11  2021','2021-11-19 00:58:00',1,'https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.15752-9/s600x600/255620907_300332601939859_4450838435956825298_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=aee45a&_nc_ohc=HFk13I2QtCUAX_r7iYS&_nc_ht=scontent.fsgn2-4.fna&oh=7ae58e12196ca3ee7f8747064634ff29&oe=61CB300B',NULL,10,'',39),(8844,'',1,'100067863644324','00 58  19 Thang 11  2021','2021-11-19 00:58:00',0,'https://scontent.fsgn2-5.fna.fbcdn.net/v/t1.15752-9/p403x403/254126679_212347560904113_6733576909315917106_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=aee45a&_nc_ohc=0tpqUFJBba4AX-9f3ia&_nc_ht=scontent.fsgn2-5.fna&oh=2ca19cb0f608008c8ca3fa28b828bc9d&oe=61CCCD35',NULL,10,'',38),(8843,'9',1,'100067863644324','22 45  11 Thang 11  2021','2021-11-11 22:45:00',13,NULL,NULL,10,'9',37),(8841,'7',1,'100067863644324','22 45  11 Thang 11  2021','2021-11-11 22:45:00',11,NULL,NULL,10,'7',35),(8842,'8',1,'100067863644324','22 45  11 Thang 11  2021','2021-11-11 22:45:00',12,NULL,NULL,10,'8',36),(8840,'6',0,'100067863644324','22 45  11 Thang 11  2021','2021-11-11 22:45:00',10,NULL,NULL,10,'6',34),(8838,'4',0,'100067863644324','22 45  11 Thang 11  2021','2021-11-11 22:45:00',8,NULL,NULL,10,'4',32),(8839,'5',0,'100067863644324','22 45  11 Thang 11  2021','2021-11-11 22:45:00',9,NULL,NULL,10,'5',33),(8837,'3',1,'100067863644324','22 45  11 Thang 11  2021','2021-11-11 22:45:00',7,NULL,NULL,10,'3',31),(8836,'2',1,'100067863644324','22 45  11 Thang 11  2021','2021-11-11 22:45:00',6,NULL,NULL,10,'2',30),(8835,'1',1,'100067863644324','22 45  11 Thang 11  2021','2021-11-11 22:45:00',5,NULL,NULL,10,'1',29),(8834,'bat dau thu',1,'100067863644324','22 45  11 Thang 11  2021','2021-11-11 22:45:00',4,NULL,NULL,10,'bat dau thu',28),(8833,'ok thu di',0,'100067863644324','22 45  11 Thang 11  2021','2021-11-11 22:45:00',3,NULL,NULL,10,'ok thu di',27),(8831,'lan cuoi',1,'100067863644324','22 45  11 Thang 11  2021','2021-11-11 22:45:00',1,NULL,NULL,10,'lan cuoi',25),(8832,'cung',1,'100067863644324','22 45  11 Thang 11  2021','2021-11-11 22:45:00',2,NULL,NULL,10,'cung',26),(8830,'ok thu lai',1,'100067863644324','22 45  11 Thang 11  2021','2021-11-11 22:45:00',0,NULL,NULL,10,'ok thu lai',24),(8829,'4',1,'100067863644324','22 23  11 Thang 11  2021','2021-11-11 22:23:00',7,NULL,NULL,10,'4',23),(8827,'1',1,'100067863644324','22 23  11 Thang 11  2021','2021-11-11 22:23:00',5,NULL,NULL,10,'1',21),(8828,'2',1,'100067863644324','22 23  11 Thang 11  2021','2021-11-11 22:23:00',6,NULL,NULL,10,'2',22),(8826,'123 bat dau nha',0,'100067863644324','22 23  11 Thang 11  2021','2021-11-11 22:23:00',4,NULL,NULL,10,'123 bat dau nha',20),(8824,'2',1,'100067863644324','22 23  11 Thang 11  2021','2021-11-11 22:23:00',2,NULL,NULL,10,'2',18),(8825,'3',1,'100067863644324','22 23  11 Thang 11  2021','2021-11-11 22:23:00',3,NULL,NULL,10,'3',19),(8823,'1',1,'100067863644324','22 23  11 Thang 11  2021','2021-11-11 22:23:00',1,NULL,NULL,10,'1',17),(8822,'now',1,'100067863644324','22 23  11 Thang 11  2021','2021-11-11 22:23:00',0,NULL,NULL,10,'now',16),(8817,'test lai',1,'100067863644324','21 36  11 Thang 11  2021','2021-11-11 21:36:00',0,NULL,NULL,10,'test lai',11),(8818,'ok',0,'100067863644324','21 36  11 Thang 11  2021','2021-11-11 21:36:00',1,NULL,NULL,10,'ok',12),(8819,'now let go the last test',1,'100067863644324','21 59  11 Thang 11  2021','2021-11-11 21:59:00',0,NULL,NULL,10,'now let go the last test',13),(8820,'hope good',0,'100067863644324','21 59  11 Thang 11  2021','2021-11-11 21:59:00',1,NULL,NULL,10,'hope good',14),(8821,'ok',1,'100067863644324','21 59  11 Thang 11  2021','2021-11-11 21:59:00',2,NULL,NULL,10,'ok',15),(8811,'ok hoi di',0,'100067863644324','10 04  11 Thang 11  2021','2021-11-11 10:04:00',2,NULL,NULL,10,'ok hoi di',5),(8812,'1+ 2 ne',0,'100067863644324','10 04  11 Thang 11  2021','2021-11-11 10:04:00',3,NULL,NULL,10,'1+ 2 ne',6),(8813,'4+5 = may',1,'100067863644324','10 04  11 Thang 11  2021','2021-11-11 10:04:00',4,NULL,NULL,10,'4+5 = may',7),(8814,'9 chu may',0,'100067863644324','10 04  11 Thang 11  2021','2021-11-11 10:04:00',5,NULL,NULL,10,'9 chu may',8),(8815,'ok',1,'100067863644324','10 04  11 Thang 11  2021','2021-11-11 10:04:00',6,NULL,NULL,10,'ok',9),(8816,'ohm',0,'100067863644324','20 59  11 Thang 11  2021','2021-11-11 20:59:00',0,NULL,NULL,10,'ohm',10),(8810,'tui hoi ne',1,'100067863644324','10 04  11 Thang 11  2021','2021-11-11 10:04:00',1,NULL,NULL,10,'tui hoi ne',4),(8809,'ok ko ban',1,'100067863644324','10 04  11 Thang 11  2021','2021-11-11 10:04:00',0,NULL,NULL,10,'ok ko ban',3),(8808,'123',0,'100067863644324','16 20  10 Thang 11  2021','2021-11-10 16:20:00',0,NULL,NULL,10,'123',2),(8807,'y',1,'100067863644324','15 35  7 Thang 11  2021','2021-11-07 15:35:00',0,NULL,NULL,10,'y',1);
-/*!40000 ALTER TABLE `chat_group_mess` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `customer`
@@ -230,18 +171,8 @@ CREATE TABLE `customer` (
   `keyword` longtext,
   `created_by` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `customer`
---
-
-LOCK TABLES `customer` WRITE;
-/*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (49,'100067863644324','locthinh.nguyenle.1','Loc Thinh Nguyen Le',NULL,NULL,NULL,'https://scontent.fsgn2-3.fna.fbcdn.net/v/t1.6435-1/p100x100/186517105_105746255030829_8616659320060290809_n.jpg?_nc_cat=108&ccb=1-5&_nc_sid=7206a8&_nc_ohc=I9yB2R5Bj_AAX_M1V23&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.fsgn2-3.fna&oh=7e851901a43be4fbf092d68b8135406d&oe=61CB7988','Loc Thinh Nguyen Le',10);
-/*!40000 ALTER TABLE `customer` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `discount`
@@ -263,16 +194,6 @@ CREATE TABLE `discount` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `discount`
---
-
-LOCK TABLES `discount` WRITE;
-/*!40000 ALTER TABLE `discount` DISABLE KEYS */;
-INSERT INTO `discount` VALUES (16,0.000,10.000,10.000,0.000,_binary '9106104e-1c9c-11',1),(17,0.000,10.000,10.000,0.000,_binary '9106104e-1c9c-11',1),(18,0.000,10.000,10.000,0.000,_binary '7c0bb2ae-1c9d-11',0),(19,15.000,20.000,0.000,10000.000,_binary '7c0bb2ae-1c9d-11',1),(20,0.000,15.000,10.000,0.000,_binary '7c0bb2ae-1c9d-11',1),(21,0.000,10.000,7.000,0.000,_binary '5fea0a3c-1d0c-11',1),(22,10.000,20.000,9.000,0.000,_binary '5fea0a3c-1d0c-11',1),(23,0.000,10.000,0.000,20000.000,_binary '8271da4a-1d0c-11',1),(24,10.000,20.000,5.000,0.000,_binary '8271da4a-1d0c-11',1),(25,0.000,100.000,10.000,0.000,_binary 'a3d68c1a-2bfd-11',1);
-/*!40000 ALTER TABLE `discount` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `fast_reply`
 --
 
@@ -285,15 +206,6 @@ CREATE TABLE `fast_reply` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `fast_reply`
---
-
-LOCK TABLES `fast_reply` WRITE;
-/*!40000 ALTER TABLE `fast_reply` DISABLE KEYS */;
-/*!40000 ALTER TABLE `fast_reply` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `group`
@@ -309,16 +221,6 @@ CREATE TABLE `group` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `group`
---
-
-LOCK TABLES `group` WRITE;
-/*!40000 ALTER TABLE `group` DISABLE KEYS */;
-INSERT INTO `group` VALUES (1,'Nhóm Hà Nội 1','[{\"id\":\"1\",\"value\":\"1\"},{\"id\":\"2\",\"value\":\"1\"},{\"id\":\"3\",\"value\":\"1\"},{\"id\":\"5\",\"value\":\"1\"},{\"id\":\"6\",\"value\":\"100\"}]'),(2,'Nhóm Nha Trang',NULL),(3,'Nhóm Hà Nội 2',NULL);
-/*!40000 ALTER TABLE `group` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `group_product`
@@ -337,16 +239,6 @@ CREATE TABLE `group_product` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `group_product`
---
-
-LOCK TABLES `group_product` WRITE;
-/*!40000 ALTER TABLE `group_product` DISABLE KEYS */;
-INSERT INTO `group_product` VALUES (2,1,3,NULL);
-/*!40000 ALTER TABLE `group_product` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `group_role_type`
 --
 
@@ -360,15 +252,6 @@ CREATE TABLE `group_role_type` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `group_role_type`
---
-
-LOCK TABLES `group_role_type` WRITE;
-/*!40000 ALTER TABLE `group_role_type` DISABLE KEYS */;
-/*!40000 ALTER TABLE `group_role_type` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `menu_role`
@@ -387,16 +270,6 @@ CREATE TABLE `menu_role` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=377 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `menu_role`
---
-
-LOCK TABLES `menu_role` WRITE;
-/*!40000 ALTER TABLE `menu_role` DISABLE KEYS */;
-INSERT INTO `menu_role` VALUES (376,354,'Báo cáo hàng hóa','report_product',0,2),(375,354,'Báo cáo đơn hàng','report_bill',0,1),(374,354,'Báo cáo tổng hợp','report_general',0,0),(373,353,'Xóa','delete',0,2),(372,353,'Sửa','edit',0,1),(371,353,'Thêm','new',0,0),(370,350,'Xóa','delete',0,2),(369,350,'Sửa','edit',0,1),(368,350,'Thêm','new',0,0),(367,355,'Xóa','delete',0,2),(366,355,'Sửa','edit',0,1),(365,355,'Thêm','new',0,0),(364,351,'Xóa','delete',0,2),(363,351,'Sửa','edit',0,1),(362,351,'Thêm','new',0,0),(361,NULL,'Xóa','delete',0,3),(360,NULL,'Sửa','edit',0,2),(359,NULL,'Thêm','new',0,1),(358,352,'Xóa','delete',0,3),(357,352,'Sửa','edit',0,2),(356,352,'Thêm','new',0,1),(355,0,'Tag Chat','tag_name',1,8),(353,0,'Sản phẩm','product',0,6),(354,0,'Báo cáo','report',0,7),(352,0,'Tài khoản','user',0,5),(351,0,'Nhóm kinh doanh','group',0,4),(350,0,'Chức vụ','role_type',0,3),(349,0,'Hộp thư','chat',0,2),(348,0,'Thông báo','notice',0,1);
-/*!40000 ALTER TABLE `menu_role` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `money_count`
@@ -418,16 +291,6 @@ CREATE TABLE `money_count` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `money_count`
---
-
-LOCK TABLES `money_count` WRITE;
-/*!40000 ALTER TABLE `money_count` DISABLE KEYS */;
-INSERT INTO `money_count` VALUES (10,10000.000,10,_binary '617c4a25-2f66-11',1,NULL,'2021-10-17 23:22:11'),(11,10000.000,10,_binary '8ddce86b-3ac4-11',1,NULL,'2021-11-01 10:34:01'),(12,10000.000,10,_binary 'bc7ccfa7-3ac4-11',1,NULL,'2021-11-01 10:35:19'),(13,10000.000,10,_binary '53920222-3ac5-11',1,NULL,'2021-11-01 10:39:32'),(14,10000.000,10,_binary '2d46aa0f-3ae8-11',1,NULL,'2021-11-01 14:49:00'),(15,10000.000,10,_binary 'da472295-3ae8-11',1,NULL,'2021-11-01 14:53:51'),(16,10000.000,10,_binary '5ad1f7c9-3b80-11',1,NULL,'2021-11-02 08:58:20'),(17,10000.000,10,_binary 'd9d71c40-3c50-11',1,NULL,'2021-11-03 09:50:49'),(18,10000.000,10,_binary '00892349-3fa6-11',1,NULL,'2021-11-07 15:37:54'),(19,10000.000,10,_binary '57868736-3fa6-11',1,NULL,'2021-11-07 15:40:20'),(20,50000.000,7,_binary '[object Object]\0',1,NULL,'2021-11-07 23:03:12'),(21,50000.000,7,_binary '[object Object]\0',1,NULL,'2021-11-07 23:06:24'),(22,50000.000,7,_binary '00892349-3fa6-11',1,NULL,'2021-11-07 23:13:45'),(23,20000.000,7,_binary '57868736-3fa6-11',1,NULL,'2021-11-08 15:08:59');
-/*!40000 ALTER TABLE `money_count` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `product`
 --
 
@@ -447,16 +310,6 @@ CREATE TABLE `product` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `product`
---
-
-LOCK TABLES `product` WRITE;
-/*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (11,'ao thun','a-001',1,70000.000,1,_binary '7c0bb2ae-1c9d-11'),(12,'quan dui','q-001',1,50000.000,1,_binary '5fea0a3c-1d0c-11'),(13,'ao thun','a-002',1,60000.000,2,_binary '8271da4a-1d0c-11'),(14,'gi le','28478',1,12000.000,1,_binary 'a3d68c1a-2bfd-11');
-/*!40000 ALTER TABLE `product` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `role_type`
 --
 
@@ -470,16 +323,6 @@ CREATE TABLE `role_type` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `role_type`
---
-
-LOCK TABLES `role_type` WRITE;
-/*!40000 ALTER TABLE `role_type` DISABLE KEYS */;
-INSERT INTO `role_type` VALUES (1,'Kế Toán',0),(2,'Thủ Quỹ',0),(3,'CTV_T',0),(4,'admin',0),(5,'QTV',0),(6,'CTV_A',0);
-/*!40000 ALTER TABLE `role_type` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `roletype_model`
@@ -499,16 +342,6 @@ CREATE TABLE `roletype_model` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `roletype_model`
---
-
-LOCK TABLES `roletype_model` WRITE;
-/*!40000 ALTER TABLE `roletype_model` DISABLE KEYS */;
-INSERT INTO `roletype_model` VALUES (53,6,'tag_name',0,''),(54,6,'delete',0,'tag_name'),(55,6,'edit',0,'tag_name'),(56,6,'new',0,'tag_name'),(57,6,'product',0,''),(58,6,'delete',0,'product'),(59,6,'edit',0,'product'),(60,6,'new',0,'product'),(61,6,'report',0,''),(62,6,'report_product',0,'report'),(63,6,'report_bill',0,'report'),(64,6,'report_general',0,'report'),(65,6,'user',0,''),(66,6,'delete',0,'user'),(67,6,'edit',0,'user'),(68,6,'new',0,'user'),(69,6,'group',0,''),(70,6,'delete',0,'group'),(71,6,'edit',0,'group'),(72,6,'new',0,'group'),(73,6,'role_type',0,''),(74,6,'delete',0,'role_type'),(75,6,'edit',0,'role_type'),(76,6,'new',0,'role_type'),(77,6,'chat',1,''),(78,6,'notice',1,''),(79,1,'tag_name',0,''),(80,1,'delete',0,'tag_name'),(81,1,'edit',0,'tag_name'),(82,1,'new',0,'tag_name'),(83,1,'product',1,''),(84,1,'delete',1,'product'),(85,1,'edit',1,'product'),(86,1,'new',1,'product'),(87,1,'report',1,''),(88,1,'report_product',0,'report'),(89,1,'report_bill',1,'report'),(90,1,'report_general',1,'report'),(91,1,'user',0,''),(92,1,'delete',0,'user'),(93,1,'edit',0,'user'),(94,1,'new',0,'user'),(95,1,'group',0,''),(96,1,'delete',0,'group'),(97,1,'edit',0,'group'),(98,1,'new',0,'group'),(99,1,'role_type',0,''),(100,1,'delete',0,'role_type'),(101,1,'edit',0,'role_type'),(102,1,'new',0,'role_type'),(103,1,'chat',1,''),(104,1,'notice',1,'');
-/*!40000 ALTER TABLE `roletype_model` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `session`
 --
 
@@ -522,18 +355,8 @@ CREATE TABLE `session` (
   `time_out` datetime DEFAULT NULL,
   `token` char(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=96 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `session`
---
-
-LOCK TABLES `session` WRITE;
-/*!40000 ALTER TABLE `session` DISABLE KEYS */;
-INSERT INTO `session` VALUES (14,7,'2021-08-10 09:40:45','2021-08-10 09:42:52','5cbf6e6b-f984-11eb-9405-00ac0b3dea54'),(15,7,'2021-08-10 10:03:07','2021-08-10 10:03:19','7ccf28e5-f987-11eb-9405-00ac0b3dea54'),(16,7,'2021-08-10 10:09:42','2021-08-10 15:52:32','6824dbaf-f988-11eb-9405-00ac0b3dea54'),(17,7,'2021-08-10 16:20:51',NULL,'417f1cbf-f9bc-11eb-9405-00ac0b3dea54'),(18,7,'2021-08-12 14:17:15','2021-08-12 23:46:28','527d1f64-fb3d-11eb-9405-00ac0b3dea54'),(19,7,'2021-08-12 23:46:33','2021-08-13 09:26:42','d9bb64c6-fb8c-11eb-9405-00ac0b3dea54'),(20,7,'2021-08-13 09:26:46',NULL,'e829a639-fbdd-11eb-9405-00ac0b3dea54'),(21,7,'2021-08-14 09:35:59','2021-08-14 14:41:49','5c49dea3-fca8-11eb-9405-00ac0b3dea54'),(22,7,'2021-08-14 14:42:07',NULL,'2069240c-fcd3-11eb-9405-00ac0b3dea54'),(23,7,'2021-08-15 15:36:28',NULL,'e2a54371-fda3-11eb-9405-00ac0b3dea54'),(24,12,'2021-08-16 00:49:37','2021-08-16 02:54:11','28878088-fdf1-11eb-9405-00ac0b3dea54'),(25,12,'2021-08-16 02:54:19','2021-08-16 14:45:07','94475b57-fe02-11eb-9405-00ac0b3dea54'),(26,7,'2021-08-17 01:40:19','2021-08-17 11:17:43','684f0e84-fec1-11eb-9405-00ac0b3dea54'),(27,7,'2021-08-17 11:17:48','2021-08-18 10:35:27','14701228-ff12-11eb-9405-00ac0b3dea54'),(28,7,'2021-08-18 10:36:07',NULL,'6c7095d4-ffd5-11eb-9405-00ac0b3dea54'),(29,12,'2021-08-18 10:49:00',NULL,'395237ce-ffd7-11eb-9405-00ac0b3dea54'),(30,7,'2021-08-19 14:46:18',NULL,'8a19fdfc-00c1-11ec-9405-00ac0b3dea54'),(31,7,'2021-08-20 14:46:24',NULL,'b82df0a1-018a-11ec-9405-00ac0b3dea54'),(32,7,'2021-08-21 16:16:50',NULL,'84cdd626-0260-11ec-9405-00ac0b3dea54'),(33,7,'2021-08-22 16:17:53',NULL,'d470355e-0329-11ec-9405-00ac0b3dea54'),(34,7,'2021-08-25 09:53:01','2021-08-25 09:57:18','8fd672b3-054f-11ec-9405-00ac0b3dea54'),(35,7,'2021-08-25 09:57:39','2021-08-25 09:57:39','35709c00-0550-11ec-9405-00ac0b3dea54'),(36,7,'2021-08-25 10:01:19','2021-08-25 10:01:19','b8951877-0550-11ec-9405-00ac0b3dea54'),(37,7,'2021-08-25 10:03:07','2021-08-25 10:45:02','f8f4c9b8-0550-11ec-9405-00ac0b3dea54'),(38,7,'2021-08-30 15:22:36',NULL,'6ea5263e-096b-11ec-983e-00ac0b3dea54'),(39,7,'2021-08-30 15:24:05',NULL,'a403d684-096b-11ec-983e-00ac0b3dea54'),(40,7,'2021-08-30 15:26:09',NULL,'edb2937c-096b-11ec-983e-00ac0b3dea54'),(41,7,'2021-08-30 15:27:30','2021-08-30 15:31:48','1e3692f3-096c-11ec-983e-00ac0b3dea54'),(42,7,'2021-08-30 15:31:53','2021-08-30 15:43:00','ba8f1890-096c-11ec-983e-00ac0b3dea54'),(43,7,'2021-08-30 15:43:10','2021-08-30 15:45:16','4e4b611c-096e-11ec-983e-00ac0b3dea54'),(44,7,'2021-08-30 15:47:16','2021-08-30 15:48:12','e08e5342-096e-11ec-983e-00ac0b3dea54'),(45,7,'2021-08-30 15:48:21',NULL,'0762990d-096f-11ec-983e-00ac0b3dea54'),(46,7,'2021-08-31 10:31:08',NULL,'e16194fb-0a0b-11ec-983e-00ac0b3dea54'),(47,7,'2021-09-01 10:35:00',NULL,'9608d411-0ad5-11ec-983e-00ac0b3dea54'),(48,7,'2021-09-02 14:10:54',NULL,'e9cb5813-0bbc-11ec-983e-00ac0b3dea54'),(49,7,'2021-09-10 09:30:31',NULL,'11aa0da5-11df-11ec-983e-00ac0b3dea54'),(50,7,'2021-09-16 09:04:05',NULL,'5f848e65-1692-11ec-983e-00ac0b3dea54'),(51,7,'2021-09-17 09:05:12',NULL,'b14b62c3-175b-11ec-983e-00ac0b3dea54'),(52,7,'2021-09-18 15:17:44',NULL,'e69f0af7-1858-11ec-983e-00ac0b3dea54'),(53,7,'2021-09-22 09:24:36',NULL,'3d55bfb7-1b4c-11ec-983e-00ac0b3dea54'),(54,7,'2021-09-22 09:24:40',NULL,'3d5f2462-1b4c-11ec-983e-00ac0b3dea54'),(55,7,'2021-09-23 10:14:38',NULL,'62ca2e0d-1c1c-11ec-983e-00ac0b3dea54'),(56,7,'2021-09-24 10:24:27',NULL,'ec164b5a-1ce6-11ec-983e-00ac0b3dea54'),(57,7,'2021-09-26 09:20:45',NULL,'5b14ca06-1e70-11ec-a8c5-00ac0b3dea54'),(58,7,'2021-09-27 09:49:24',NULL,'8656d7b5-1f3d-11ec-a8c5-00ac0b3dea54'),(59,7,'2021-09-28 09:50:09',NULL,'cb6b6551-2006-11ec-a8c5-00ac0b3dea54'),(60,7,'2021-09-30 15:41:10',NULL,'294e7cbc-21ca-11ec-a8c5-00ac0b3dea54'),(61,7,'2021-10-02 10:28:08',NULL,'c33ba26d-2330-11ec-a8c5-00ac0b3dea54'),(62,7,'2021-10-03 13:57:04',NULL,'1e0657cb-2417-11ec-a8c5-00ac0b3dea54'),(63,7,'2021-10-04 14:35:52',NULL,'b41cbf09-24e5-11ec-bf6b-00ac0b3dea54'),(64,7,'2021-10-06 23:15:35',NULL,'a36ce46f-26c0-11ec-bf6b-00ac0b3dea54'),(65,7,'2021-10-08 23:14:45',NULL,'da3e2b6c-2852-11ec-bf6b-00ac0b3dea54'),(66,10,'2021-10-08 23:14:59',NULL,'e2ba5ad5-2852-11ec-bf6b-00ac0b3dea54'),(67,7,'2021-10-12 09:00:38',NULL,'32977ee0-2b00-11ec-915c-00ac0b3dea54'),(68,7,'2021-10-13 09:36:52','2021-10-13 09:51:58','6cdfc889-2bce-11ec-a3ba-00ac0b3dea54'),(69,10,'2021-10-13 14:22:09','2021-10-13 15:13:31','4744af3f-2bf6-11ec-a3ba-00ac0b3dea54'),(70,7,'2021-10-13 15:13:36',NULL,'774e568e-2bfd-11ec-a3ba-00ac0b3dea54'),(71,7,'2021-10-14 15:57:03',NULL,'b38303c6-2ccc-11ec-a3ba-00ac0b3dea54'),(72,7,'2021-10-14 15:57:40',NULL,'c99d8943-2ccc-11ec-a3ba-00ac0b3dea54'),(73,7,'2021-10-16 14:27:39',NULL,'8af56b36-2e52-11ec-a3ba-00ac0b3dea54'),(74,7,'2021-10-17 22:20:16',NULL,'bbb28d96-2f5d-11ec-a3ba-00ac0b3dea54'),(75,7,'2021-10-20 22:50:56','2021-10-21 00:23:48','8320bd57-31bd-11ec-a3ba-00ac0b3dea54'),(76,7,'2021-10-21 00:23:54','2021-10-21 00:24:00','7ff2a130-31ca-11ec-a3ba-00ac0b3dea54'),(77,7,'2021-10-21 15:52:08','2021-10-21 15:52:23','2c209508-324c-11ec-a3ba-00ac0b3dea54'),(78,7,'2021-10-23 15:59:23','2021-10-23 20:42:06','84829c2f-33df-11ec-a3ba-00ac0b3dea54'),(79,7,'2021-10-23 20:42:11',NULL,'066dd7f6-3407-11ec-a3ba-00ac0b3dea54'),(80,7,'2021-10-24 20:46:01',NULL,'b9a8ac35-34d0-11ec-a3ba-00ac0b3dea54'),(81,7,'2021-10-25 22:27:11',NULL,'05e3edf0-35a8-11ec-a3ba-00ac0b3dea54'),(82,7,'2021-11-01 10:14:05',NULL,'c54d0669-3ac1-11ec-85b2-00ac0b3dea54'),(83,7,'2021-11-02 10:14:28','2021-11-03 10:13:22','fd55cdf0-3b8a-11ec-85b2-00ac0b3dea54'),(84,10,'2021-11-03 10:13:27','2021-11-03 10:27:34','037c42e3-3c54-11ec-85b2-00ac0b3dea54'),(85,7,'2021-11-03 10:27:38','2021-11-03 10:37:54','fedd059e-3c55-11ec-85b2-00ac0b3dea54'),(86,10,'2021-11-03 10:38:00',NULL,'714f5bfa-3c57-11ec-85b2-00ac0b3dea54'),(87,7,'2021-11-07 08:54:32',NULL,'a6a18cd5-3f6d-11ec-85b2-00ac0b3dea54'),(88,7,'2021-11-08 15:08:30',NULL,'0f3dd7b8-406b-11ec-85b2-00ac0b3dea54'),(89,7,'2021-11-10 16:21:08',NULL,'89e9f542-4207-11ec-9b61-00ac0b3dea54'),(90,7,'2021-11-11 16:34:11',NULL,'8725ea30-42d2-11ec-9b61-00ac0b3dea54'),(91,7,'2021-11-19 22:20:29','2021-11-19 22:43:48','3b0b6ab5-494c-11ec-94f2-00ac0b3dea54'),(92,7,'2021-11-19 22:43:56',NULL,'8159c437-494f-11ec-94f2-00ac0b3dea54'),(93,7,'2021-11-29 23:30:49',NULL,'b66a67e1-5131-11ec-94f2-00ac0b3dea54'),(94,7,'2021-11-30 23:44:20',NULL,'c44bb51e-51fc-11ec-94f2-00ac0b3dea54');
-/*!40000 ALTER TABLE `session` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `tag_name`
@@ -549,16 +372,6 @@ CREATE TABLE `tag_name` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tag_name`
---
-
-LOCK TABLES `tag_name` WRITE;
-/*!40000 ALTER TABLE `tag_name` DISABLE KEYS */;
-INSERT INTO `tag_name` VALUES (1,'go go','#14f01b'),(2,'Stop','#db0a0a'),(3,'OK','#cddb0a'),(4,'Next','#db6f0a');
-/*!40000 ALTER TABLE `tag_name` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Dumping routines for database 'simpleweb'
@@ -1110,9 +923,11 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_all_chat_group_by_user`(user_id int)
 BEGIN
 set @role_id = (select `role` from `account` where id = user_id limit 1);
-select CG.*,C.*,CG.id as CG_id from chat_group as CG
+select CG.*,C.*,CG.id,TB1.max_time as CG_id from chat_group as CG
     left join customer as C on C.id_fb = CG.cus_id
-    where CG.acc_receive = user_id or user_id = CG.user_ids or @role_id = 0;
+    left join (select CGM.cus_id,CGM.acc_receive,max(CGM.group_time)as `max_time` from chat_group_mess AS CGM group by CGM.cus_id,CGM.acc_receive) as TB1 on (TB1.cus_id = CG.cus_id and TB1.acc_receive = CG.acc_receive)
+    where CG.acc_receive = user_id or user_id = CG.user_ids or @role_id = 0
+    order by TB1.max_time desc;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -2045,4 +1860,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-01  1:35:38
+-- Dump completed on 2021-12-02  1:42:09

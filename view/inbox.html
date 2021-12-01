@@ -210,6 +210,8 @@
         }
         async function get_group_chat(dt) {
             var gr_e = document.getElementById('group_content');
+            // var cr_group = gr_e.getElementsByClassName("active")[0];
+            gr_e.innerHTML = '';
             dt.forEach((e) => {
                 var tag_str = '';
                 if (e.tags && e.tags.length > 0) {
@@ -230,13 +232,19 @@
                                 </div>
                             </div>`;
             });
+            if(current_group){
+                var sl = document.querySelector(`div[data-grid="${current_group.cus_id}"]`);
+                if(sl){
+                    sl.classList.add('active');
+                }
+            }
         }
         async function get_group_lazy() {
             console.log('Lấy danh sách nhóm chat !')
             let dt = await chat_group_get_all(0);
             var gr_e = document.getElementById('group_content');
-            var lst_existed = Array.prototype.map.call(gr_e.querySelectorAll('[data-grid]'), (m) => { return m.dataset.grid });
-            dt = dt.filter((f) => { return (lst_existed.indexOf(f.cus_id) == -1) })
+            //var lst_existed = Array.prototype.map.call(gr_e.querySelectorAll('[data-grid]'), (m) => { return m.dataset.grid });
+            //dt = dt.filter((f) => { return (lst_existed.indexOf(f.cus_id) == -1) })
             if (dt) {
                 await get_group_chat(dt);
             }

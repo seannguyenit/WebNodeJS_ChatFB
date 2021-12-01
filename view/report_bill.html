@@ -479,6 +479,8 @@
         }
 
         async function set_button_form() {
+            var bt_save = document.getElementById('save_money');
+            bt_save.style.display = 'block'
             var bt = document.getElementById('bt_change_stt');
             var str = 'Duyệt';
             if (cr_bill) {
@@ -494,11 +496,14 @@
                     case 2:
                         bt.innerText = 'THỦ QUỸ THU TIỀN';
                         bt.style.backgroundColor = 'green';
+                        bt_save.style.display = 'none'
                         break;
                     case 3:
+                        bt_save.style.display = 'none'
                         bt.style.display = 'none';
                         break;
                     case -1:
+                        bt_save.style.display = 'none'
                         bt.style.display = 'none';
                         break;
                     default:
