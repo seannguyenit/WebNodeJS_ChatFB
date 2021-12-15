@@ -298,7 +298,7 @@
             if (select_r != undefined) {
                 select_r.selected = true;
             }
-            data.group_id.split(',').forEach((r) => {
+            (data.group_id||'').split(',').forEach((r) => {
                 var select_g = document.getElementById('lsu').querySelector(`option[value = "${r}"]`);
                 if (select_g != undefined) {
                     select_g.selected = true;
@@ -342,6 +342,11 @@
             var group_id = Array.from(options).map(({ value }) => value).join(',');
 
             var deadtime = document.getElementById('deadtime').value;
+            
+            if (!group_id) {
+                alert('Chưa chọn nhóm !');
+                return;
+            }
 
             let check_rs = await check_acc(id, username, role, group_id);
             if (!check_rs) {
@@ -376,7 +381,8 @@
             }
             let rs = await acc_save(url, data, meth);
             console.log('Success:', rs);
-            load_user();
+            // load_user();
+            location.reload();
         }
 
         async function del_acc(id) {
