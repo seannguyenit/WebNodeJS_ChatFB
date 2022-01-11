@@ -59,9 +59,15 @@ module.exports = {
         })
     },
     save_permission: (req, res) => {
-        let data = JSON.stringify(req.body.js_data);
-        let sql = 'call save_permission(?,?)'
-        db.query(sql, [req.params.role_id, data], (err, response) => {
+        let data = req.body.js_data.map(m => {
+            return [req.params.role_id, m.action, m.status, m.par]
+        });
+        let sql = 'DELETE FROM roletype_model where role_id = ? ; '
+        db.query(sql, [req.params.role_id], (err, response) => {
+            if (err) throw err
+        })
+        let sql1 = 'INSERT INTO roletype_model(`role_id`,`action`,`status`,`par`) VALUES ? ;'
+        db.query(sql1, [data], (err, response) => {
             if (err) throw err
             res.json({ message: 'Insert success!' })
         })
