@@ -15,10 +15,15 @@ module.exports = {
         })
     },
     get_same_group: (req, res) => {
-        let sql = 'CALL `account_getall_same_group`(?)'
-        db.query(sql, [req.params.user_id], (err, response) => {
+        let sql = 'CALL `account_getall`(0)'
+        db.query(sql, (err, response) => {
             if (err) throw err
-            res.json(response[0])
+            var users = response[0];
+            var sl_u = users.find(f => { return f.id.toString() == req.params.user_id.toString() });
+            var rs = users.filter(ft => {
+                return (ft.group_id) && (sl_u.group_id) && ft.group_id.split(',').findIndex(fi => { return sl_u.group_id.split(',').findIndex(fi2 => { return fi2 = fi }) > -1 }) > -1
+            })
+            res.json(rs)
         })
     },
     get_group: (req, res) => {
@@ -58,7 +63,7 @@ module.exports = {
                 var ext_role = 0;
                 var lst_gr_param = req.params.group_id.split(',');
                 lst_gr_param.forEach(it => {
-                    var gr_selected = groups.find(fg=>{return fg.id == it})
+                    var gr_selected = groups.find(fg => { return fg.id == it })
                     var select_role = (JSON.parse(gr_selected.role_limits || '[]')).find(f => { return f.id == req.params.role_id })
                     var count_cr_u = users.filter(ft => { return ft.id != req.params.id && ft.role == req.params.role_id && ft.group_id != null && (ft.group_id.split(',').findIndex(fig => { return fig == it }) > -1) }).length
                     if (select_role != null && count_cr_u >= select_role.value) {

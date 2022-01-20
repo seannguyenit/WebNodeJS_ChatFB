@@ -292,7 +292,7 @@
             if (rs != undefined) {
                 // nhom, sl don hang, tong tien , tong ck
                 rs = await add_stt_column(rs);
-                tb.innerHTML += allRow(rs, tb, ['customer', 'stt', 'code', 'cus_name', 'CSKH', 'CTV', 'phone', 'address', 'city', 'total', 'money_receive', 'res_money', 'ck', 'status', 'accountant_note', 'accepted_note'], null, [{ title: 'Duyệt', class: 'btn-primary', action: 'approve_bill' }], false).innerHTML;
+                tb.innerHTML += allRow(rs, tb, ['customer', 'stt', 'code', 'cus_name', 'CSKH', 'CTV', 'phone', 'address', 'city', 'total', 'money_receive', 'res_money', 'ck', 'status_id', 'accountant_note', 'accepted_note'], null, [{ title: 'Duyệt', class: 'btn-primary', action: 'approve_bill' }], false).innerHTML;
                 covertBillStatus(tb, 13);
                 // if (is_first) load_list_user(rs[0]);
             }

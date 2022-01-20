@@ -33,7 +33,7 @@ function get_cr_user() {
 }
 function check_current_admin() {
     var cr_u = get_cr_user();
-    if(cr_u.id == 7) return true;
+    if (cr_u.id == 7) return true;
     else return false;
 }
 function allRow(dt, tbody, arrCol, no_active = false, add_more = [], has_panel = true) {
@@ -117,22 +117,28 @@ function covertBillStatus(table_body, number_col) {
             var td = row.children[number_col];
             var te = td.innerText;
             switch (te) {
-                case 'Mới':
-                    td.style.backgroundColor = '';
-                    break;
-                case 'KẾ TOÁN DUYỆT':
+                // case '-1':
+
+                //     break;
+                case '1':
                     td.style.backgroundColor = 'springgreen';
+                    td.innerText = 'KẾ TOÁN DUYỆT'
                     break;
-                case 'KẾ TOÁN THU TIỀN':
+                case '2':
                     td.style.backgroundColor = 'yellow';
+                    td.innerText = 'KẾ TOÁN THU TIỀN'
                     break;
-                case 'THỦ QUỸ THU TIỀN':
+                case '3':
                     td.style.backgroundColor = 'green';
+                    td.innerText = 'THỦ QUỸ THU TIỀN'
                     break;
-                case 'HỦY':
+                case '-1':
                     td.style.backgroundColor = 'red';
+                    td.innerText = 'HỦY'
                     break;
                 default:
+                    td.style.backgroundColor = '';
+                    td.innerText = 'MỚi'
                     break;
             }
         }
@@ -1119,8 +1125,8 @@ function format_time(time) {
 function get_format_VND(str) {
     if (isNaN(str)) return str;
     var pls = '';
-    if(str.indexOf('-') > -1){
-        str = str.replaceAll('-','');
+    if (str.indexOf('-') > -1) {
+        str = str.replaceAll('-', '');
         pls = '-';
     }
     var rs = '';
@@ -1133,7 +1139,32 @@ function get_format_VND(str) {
         }
         co++;
     }
-    return pls+rs;
+    return pls + rs;
+}
+
+
+function get_bill_stt(id) {
+    let rs = 'MỚi'
+    switch (id) {
+        case -1:
+            rs = 'HỦY'
+            break;
+        case -1:
+            rs = 'HỦY'
+            break;
+        case 1:
+            rs = 'KẾ TOÁN DUYỆT'
+            break;
+        case 2:
+            rs = 'KẾ TOÁN THU TIỀN'
+            break;
+        case 3:
+            rs = 'THỦ QUỸ THU TIỀN'
+            break;
+        default:
+            break;
+    }
+    return rs;
 }
 
 async function delay(delayInms) {

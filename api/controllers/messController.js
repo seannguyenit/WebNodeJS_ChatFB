@@ -58,10 +58,10 @@ module.exports = {
         })
     },
     get_group: (req, res) => {
-        let sql = 'Call get_all_chat_group(?,?)'
-        db.query(sql, [req.params.user_id, req.params.cus_id], (err, response) => {
+        let sql = 'select CG.*,C.*,CG.id as CG_id,concat(if(length(A.bill_code)=0,A.`user`,A.bill_code),?,ifnull(GCC.next_stt,?)) as next_code from chat_group as CG left join `account` as A on CG.acc_receive = A.id left join `account` as A2 on CG.fb_acc_send = A2.fb_id left join customer as C on (C.id_fb = CG.cus_id or C.nick_fb = CG.cus_id) left join (select lpad(count(id)+1,4,0) as next_stt,B.created_by from bill as B group by B.created_by) as GCC on CG.acc_receive = GCC.created_by where (A.id = ? or A2.id = ? or ? = 0) and (CG.cus_id = ? or C.nick_fb = ?);'
+        db.query(sql, ['-', '0001', Number(req.params.user_id), Number(req.params.user_id), Number(req.params.user_id), req.params.cus_id, req.params.cus_id], (err, response) => {
             if (err) throw err
-            res.json(response[0])
+            res.json(response)
         })
     },
     search_group: (req, res) => {
@@ -97,26 +97,38 @@ module.exports = {
     },
 
     get_latest_mess: (req, res) => {
-        let sql = 'CALL get_latest_mess_saved(?,?)'
-        db.query(sql, [req.params.cus_id, req.params.acc_receive], (err, response) => {
+        let sql = 'SELECT * FROM `chat_group_mess` AS CGM where CGM.cus_id = ? and CGM.acc_receive = ? order by mess_index desc limit 1;'
+        db.query(sql, [req.params.cus_id, Number(req.params.acc_receive)], (err, response) => {
             if (err) throw err
-            res.json(response[0])
+            res.json(response)
         })
     },
 
     get_chat_in_group: (req, res) => {
-        let sql = 'call get_chat(?,?,?)'
-        db.query(sql, [req.params.cus_id, req.params.max_id, req.params.limit], (err, response) => {
-            if (err) throw err
-            res.json(response[0])
-        })
+        if (req.params.limit == 0) {
+            let sql = 'SELECT CGM.*,A.avatar_url as rec_ava,A.user as rec_user,C.ava_url from `chat_group_mess` as CGM left join chat_group AS CG on CG.cus_id = CGM.cus_id left join customer AS C on C.id_fb = CGM.cus_id left join `account` as A on CG.acc_receive = A.id where CGM.cus_id = ? and (? = 0 or CGM.mess_index > ?) order by CGM.mess_index desc,CGM.`order` desc;'
+            db.query(sql, [req.params.cus_id, Number(req.params.max_id), Number(req.params.max_id)], (err, response) => {
+                if (err) throw err
+                res.json(response)
+            })
+        } else {
+            let sql = 'SELECT CGM.*,A.avatar_url as rec_ava,A.user as rec_user,C.ava_url from `chat_group_mess` as CGM left join chat_group AS CG on CG.cus_id = CGM.cus_id left join customer AS C on C.id_fb = CGM.cus_id left join `account` as A on CG.acc_receive = A.id where CGM.cus_id = ? and (? = 0 or CGM.mess_index > ?) order by CGM.mess_index desc,CGM.`order` desc limit ?;'
+            db.query(sql, [req.params.cus_id, Number(req.params.max_id), Number(req.params.max_id), Number(req.params.limit)], (err, response) => {
+                if (err) throw err
+                res.json(response)
+            })
+        }
+
     },
     //get_group_chat_tags_name
     get_group_chat_tags_name: (req, res) => {
-        let sql = 'CALL get_group_chat_tags_name(?)'
-        db.query(sql, [req.params.ids], (err, response) => {
+        let data = req.params.ids.split(',').map(m => {
+            return [m]
+        });
+        let sql = 'select GC.cus_id,GC.tags from `chat_group` as GC where GC.cus_id in (?);'
+        db.query(sql, [data], (err, response) => {
             if (err) throw err
-            res.json(response[0])
+            res.json(response)
         })
     },
     update_group: (req, res) => {
@@ -186,7 +198,7 @@ function convert_to_datetime(str) {
         if (!str) {
             return str;
         } else {
-            if(str.indexOf(', ') > -1){
+            if (str.indexOf(', ') > -1) {
                 var time = str.split(', ')[0].split(' ')[1];
                 var date = str.split(', ')[1];
                 var hours = time.split(':')[0];
@@ -195,7 +207,7 @@ function convert_to_datetime(str) {
                 var day = date.split('/')[0];
                 var month = date.split('/')[1];
                 return new Date(year, month, day, hours, minutes, 0, 0).toISOString();
-            }else{
+            } else {
                 var time = str.split(' ')[1];
                 var date = str.split(' ')[0];
                 var hours = time.split(':')[0];

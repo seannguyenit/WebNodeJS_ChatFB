@@ -267,7 +267,7 @@
                     tb.innerHTML += `<tr>
                     <td>${format_time(item.time)}</td>
                     <td>${item.total_bill}</td>
-                    <td>${item.status}</td>
+                    <td>${get_bill_stt(item.stt)}</td>
                     <td><a target="_blank" href="/bill/details?id=${item.id}">Xem</a></td>
                 </tr>`
                 });
