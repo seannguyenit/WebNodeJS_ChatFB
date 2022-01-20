@@ -178,16 +178,20 @@ module.exports = {
     sync_message: (req, res) => {
         // console.log(req.body.js_data);
         let data = req.body.js_data.map(m => {
-            return [m.mes, m.mess_key, m.order, m.sender, req.params.cus_id, m.group_name, convert_to_datetime(m.group_time), m.img_src, m.file, m.mess_index, req.params.acc_receive]
+            return [m.mes, m.mess_key, m.order, m.sender, req.params.cus_id, m.group_name, m.group_time, m.img_src, m.file, m.mess_index, req.params.acc_receive]
         });
         let sql_insert_temp = 'INSERT INTO `chat_group_mess_temp`(`mess`,`mess_key`,`order`,`sender`,`cus_id`,`group_name`,`group_time`,img_src,`file`,mess_index,`acc_receive`) VALUES ?'
         db.query(sql_insert_temp, [data], (err, response) => {
             if (err) throw err
-            let sql = 'Call insert_messenger(?,?)'
-            db.query(sql, [req.params.cus_id, req.params.acc_receive], (err, response) => {
+            let sql_insert_from_temp = 'INSERT INTO `chat_group_mess` (`mess`, `mess_key`, `order`, `sender`, `cus_id`, `group_name`, `group_time`, img_src, `file`, mess_index, `acc_receive` ) select  jt1.mess, jt1.mess_key, jt1.`order`, jt1.sender, jt1.cus_id, jt1.group_name, jt1.group_time, jt1.img_src, jt1.`file`, jt1.mess_index,  jt1.acc_receive from (select `mess`, `mess_key`, `order`, `sender`, cus_id, `group_name`, `group_time`, img_src, `file`, mess_index, acc_receive from chat_group_mess_temp where chat_group_mess_temp.cus_id = ? and chat_group_mess_temp.acc_receive = ?) AS  jt1 WHERE NOT EXISTS (SELECT A.id FROM chat_group_mess as A WHERE A.group_time = jt1.group_time and ((length(jt1.mess_key)>0 and A.mess_key = jt1.mess_key) or (length(jt1.mess_key)=0 and (jt1.img_src = A.img_src or jt1.`file` = A.`file`))) LIMIT 1) and (length(jt1.mess_key) > 0 or  length(jt1.img_src) > 0 or length(jt1.`file`) > 0) ;'
+            db.query(sql_insert_from_temp, [req.params.cus_id, Number(req.params.acc_receive)], (err, response) => {
                 if (err) throw err
+                let sql_delete_temp = 'delete from chat_group_mess_temp where chat_group_mess_temp.cus_id = ? and chat_group_mess_temp.acc_receive = ?;'
+                db.query(sql_delete_temp, [req.params.cus_id, Number(req.params.acc_receive)], (err, response) => {
+                    if (err) throw err
+                    res.json({ message: 'Insert success!' })
+                })
             })
-            res.json({ message: 'Insert success!' })
         })
 
     },
