@@ -4,7 +4,8 @@ const mysql = require('mysql');
 const db = mysql.createConnection({
   host: process.env.DB_HOST || "localhost",
   user: process.env.DB_USER || "root",
-  password: process.env.DB_PASS || "123456",
+  port: 3307,
+  password: process.env.DB_PASS || "",
   database: process.env.DB_NAME || "simpleweb"
 
   // host: process.env.DB_HOST || "localhost",
