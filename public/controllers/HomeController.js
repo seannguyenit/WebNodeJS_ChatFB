@@ -38,6 +38,9 @@ module.exports = {
     report: (req, res) => {
         res.sendFile(path.join(__dirname,'../../view/report_general.html'))
     },
+    check_report: (req, res) => {
+        res.sendFile(path.join(__dirname,'../../view/check_report.html'))
+    },
     report_bill: (req, res) => {
         res.sendFile(path.join(__dirname,'../../view/report_bill.html'))
     },

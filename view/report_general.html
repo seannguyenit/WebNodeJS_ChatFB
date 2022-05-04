@@ -39,12 +39,12 @@
                 <div class="link_map" id="linkmenu">
                 </div>
                 <hr />
-                <div class="w-100 pt-3">
-                    <a href="./report" class="btn btn-primary">Báo cáo tổng hợp</a>
-                    <a data-role="report_bill" href="./bill" class="btn btn-primary">Báo cáo đơn hàng</a>
+                <div class="w-100 pt-3" id="report">
+                    <!-- <a href="./report" class="btn btn-primary">Báo cáo tổng hợp</a>
+                    <a data-role="report_bill" href="./bill" class="btn btn-primary">Báo cáo đơn hàng</a> -->
                     <!-- <a href="#" class="btn btn-primary">Báo cáo nhân viên</a>
                     <a href="#" class="btn btn-primary">Báo cáo thu nhập</a> -->
-                    <a data-role="report_product" href="./rpp" class="btn btn-primary">Báo cáo hàng hóa</a>
+                    <!-- <a data-role="report_product" href="./rpp" class="btn btn-primary">Báo cáo hàng hóa</a> -->
                 </div>
                 <hr />
                 <div class="w-100 d-flex">
@@ -102,18 +102,52 @@
     <script src="../js/main.js"></script>
     <script src="../js/menu_function.js"></script>
     <script src="../js/table.js"></script>
+    <script src="../js/report_general.js"></script>
     <script>
         var is_first = true;
         check_current_role();
 
+        menu_report();
+
+        // Show menu report 
+        async function menu_report() {
+            let cr_user = JSON.parse(getCookie('user'));
+            let acc_report = await fetch(`/api/menu_report/${cr_user.id}` /*, options */)
+                .then((response) => response.json())
+                .then((data) => {
+                    return data[0];
+                })
+                .catch((error) => {
+                    console.warn(error);
+                    return undefined;
+                });
+            var place = document.getElementById("report");
+            if (acc_report) {
+                acc_report.forEach(e => {
+                    if (Number(e.status) == 1 && e.action === 'report_general') {
+                        place.innerHTML += `
+                                        <a href="./report" class="btn btn-primary">Báo cáo tổng hợp</a>
+                                    `;
+                    } else if (Number(e.status) == 1 && e.action === 'report_bill') {
+                        place.innerHTML += `
+                                        <a href="./bill" class="btn btn-primary">Báo cáo đơn hàng</a>
+                                    `;
+                    } else if (Number(e.status) == 1 && e.action === 'report_product') {
+                        place.innerHTML += `
+                                        <a href="./rpp" class="btn btn-primary">Báo cáo hàng hóa</a>
+                                    `;
+                    }
+                })
+            }
+        }
 
         async function check_current_role() {
 
             var cr_role = await check_permission('report');
             if (cr_role) {
                 var lst_ele = document.querySelectorAll('a[data-role]');
-                lst_ele.forEach((item)=>{
-                    if(cr_role.findIndex((f)=>{return f.action == item.dataset.role}) == -1){
+                lst_ele.forEach((item) => {
+                    if (cr_role.findIndex((f) => { return f.action == item.dataset.role }) == -1) {
                         item.parentElement.removeChild(item);
                     }
                 });

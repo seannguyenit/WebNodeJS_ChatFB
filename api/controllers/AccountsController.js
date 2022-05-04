@@ -138,4 +138,18 @@ module.exports = {
             res.json(response)
         })
     },
+    get_acc_report: (req, res) => {
+        let sql = 'CALL `get_acc_report`(?)'
+        db.query(sql,[req.params.id], (err, response) => {
+            if (err) throw err
+            res.json(response)
+        })
+    },
+    get_menu_report: (req, res) => {
+        let sql = 'CALL `get_menu_report`(?)'
+        db.query(sql,[req.params.id], (err, response) => {
+            if (err) throw err
+            res.json(response)
+        })
+    },
 }

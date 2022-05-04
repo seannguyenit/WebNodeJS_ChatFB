@@ -63,10 +63,14 @@ async function load_menu(token = 'test') {
     var place = document.getElementById('main_menu');
     if (place) {
         dt.forEach(e => {
+             var action = e.action;
+            if(e.action === 'report'){
+                action = "check_report";
+            }
             if (location.href.includes(e.action)) {
-                place.innerHTML += `<div class="menu_left menu_active" data-id="${e.action}">${e.name}</div>`;
+                place.innerHTML += `<div class="menu_left menu_active" data-id="${action}">${e.name}</div>`;
             } else {
-                place.innerHTML += `<div class="menu_left" data-id="${e.action}">${e.name}</div>`;
+                place.innerHTML += `<div class="menu_left" data-id="${action}">${e.name}</div>`;
             }
         });
     }

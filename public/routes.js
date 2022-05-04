@@ -28,6 +28,8 @@ module.exports = function (app) {
     .get(homeCtrl.fast_reply);
   app.route('/home/product')
     .get(homeCtrl.product);
+    app.route('/home/check_report')
+    .get(homeCtrl.check_report);
     app.route('/home/report')
     .get(homeCtrl.report);
     app.route('/home/bill')

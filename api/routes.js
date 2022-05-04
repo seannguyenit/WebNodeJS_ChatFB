@@ -20,6 +20,10 @@ module.exports = function (app) {
   // .get(accCtrl.refresh);
   app.route('/api/menu/:token')
     .get(accCtrl.get_menu);
+  app.route('/api/menu_acc_report/:id')
+    .get(accCtrl.get_acc_report);
+    app.route('/api/menu_report/:id')
+    .get(accCtrl.get_menu_report);
   app.route('/api/Accounts')
     .get(accCtrl.get)
     .post(accCtrl.store);

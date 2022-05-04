@@ -39,12 +39,12 @@
                 <div class="link_map" id="linkmenu">
                 </div>
                 <hr />
-                <div class="w-100 pt-3">
-                    <a href="./report" class="btn btn-primary">Báo cáo tổng hợp</a>
-                    <a href="./bill" class="btn btn-primary">Báo cáo đơn hàng</a>
+                <div class="w-100 pt-3"  id="report">
+                    <!-- <a href="./report" class="btn btn-primary">Báo cáo tổng hợp</a>
+                    <a href="./bill" class="btn btn-primary">Báo cáo đơn hàng</a> -->
                     <!-- <a href="#" class="btn btn-primary">Báo cáo nhân viên</a>
                     <a href="#" class="btn btn-primary">Báo cáo thu nhập</a> -->
-                    <a href="./rpp" class="btn btn-primary">Báo cáo hàng hóa</a>
+                    <!-- <a href="./rpp" class="btn btn-primary">Báo cáo hàng hóa</a> -->
                 </div>
                 <hr />
                 <div class="w-100 d-flex">
@@ -261,6 +261,40 @@
             var y = now_t.getFullYear();
             document.getElementById('from_date').value = `${y}-${m}-01`;
             document.getElementById('to_date').value = `${y}-${m}-${date < 10 ? ('0' + date) : date}`;
+        }
+
+        menu_report();
+
+        // Show menu report 
+        async function menu_report(){
+        let cr_user = JSON.parse(getCookie('user'));
+        let acc_report = await fetch(`/api/menu_report/${cr_user.id}` /*, options */)
+        .then((response) => response.json())
+        .then((data) => {
+            return data[0];
+        })
+        .catch((error) => {
+            console.warn(error);
+            return undefined;
+        });
+        var place = document.getElementById("report");
+        if(acc_report){
+                acc_report.forEach(e => {
+                    if(Number(e.status) == 1 && e.action === 'report_general'){
+                        place.innerHTML +=`
+                                        <a href="./report" class="btn btn-primary">Báo cáo tổng hợp</a>
+                                    `;
+                    }else if(Number(e.status) == 1 && e.action === 'report_bill'){
+                        place.innerHTML +=`
+                                        <a href="./bill" class="btn btn-primary">Báo cáo đơn hàng</a>
+                                    `;
+                    }else if(Number(e.status) == 1 && e.action === 'report_product'){
+                        place.innerHTML +=`
+                                        <a href="./rpp" class="btn btn-primary">Báo cáo hàng hóa</a>
+                                    `;
+                    }
+                })
+            }
         }
 
         function set_link_menu(m, t) {

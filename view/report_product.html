@@ -39,12 +39,12 @@
                 <div class="link_map" id="linkmenu">
                 </div>
                 <hr />
-                <div class="w-100 pt-3">
-                    <a href="./report" class="btn btn-primary">Báo cáo tổng hợp</a>
-                    <a href="./bill" class="btn btn-primary">Báo cáo đơn hàng</a>
+                <div class="w-100 pt-3"  id="report">
+                    <!-- <a href="./report" class="btn btn-primary">Báo cáo tổng hợp</a>
+                    <a href="./bill" class="btn btn-primary">Báo cáo đơn hàng</a> -->
                     <!-- <a href="#" class="btn btn-primary">Báo cáo nhân viên</a>
                     <a href="#" class="btn btn-primary">Báo cáo thu nhập</a> -->
-                    <a href="./rpp" class="btn btn-primary">Báo cáo hàng hóa</a>
+                    <!-- <a href="./rpp" class="btn btn-primary">Báo cáo hàng hóa</a> -->
                 </div>
                 <hr />
                 <div class="w-100 d-flex">
@@ -56,8 +56,8 @@
                     </div>
                     <div class="form-group w-50">
                         <label for="to_date">Đến ngày</label>
-                        <input type="date" class="form-control" name="to_date" id="to_date"
-                            aria-describedby="to_date" placeholder="yyyy-MM-dd">
+                        <input type="date" class="form-control" name="to_date" id="to_date" aria-describedby="to_date"
+                            placeholder="yyyy-MM-dd">
                         <!-- <small id="to_date" class="form-text text-muted">Chọn ngày</small> -->
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                 </div>
                 <div id="content">
                     <button class="btn btn-primary" data-toggle="modal" onclick="load_general_report()"
-                    data-target="#detailId">Tìm kiếm</button>
+                        data-target="#detailId">Tìm kiếm</button>
                     <table id="mainData" class="tablemanager table table-striped table-bordered table-sm"
                         cellspacing="0" width="100%">
                         <thead>
@@ -112,11 +112,45 @@
         load_general_report();
         function load_default_date() {
             var now_t = new Date();
-            var m = (now_t.getMonth()+1) < 10 ? `0${now_t.getMonth()+1}`:(now_t.getMonth()+1);
+            var m = (now_t.getMonth() + 1) < 10 ? `0${now_t.getMonth() + 1}` : (now_t.getMonth() + 1);
             var date = now_t.getDate();
             var y = now_t.getFullYear();
             document.getElementById('from_date').value = `${y}-${m}-01`;
             document.getElementById('to_date').value = `${y}-${m}-${date < 10 ? ('0' + date) : date}`;
+        }
+
+        menu_report();
+
+        // Show menu report 
+        async function menu_report() {
+            let cr_user = JSON.parse(getCookie('user'));
+            let acc_report = await fetch(`/api/menu_report/${cr_user.id}` /*, options */)
+                .then((response) => response.json())
+                .then((data) => {
+                    return data[0];
+                })
+                .catch((error) => {
+                    console.warn(error);
+                    return undefined;
+                });
+            var place = document.getElementById("report");
+            if (acc_report) {
+                acc_report.forEach(e => {
+                    if (Number(e.status) == 1 && e.action === 'report_general') {
+                        place.innerHTML += `
+                                        <a href="./report" class="btn btn-primary">Báo cáo tổng hợp</a>
+                                    `;
+                    } else if (Number(e.status) == 1 && e.action === 'report_bill') {
+                        place.innerHTML += `
+                                        <a href="./bill" class="btn btn-primary">Báo cáo đơn hàng</a>
+                                    `;
+                    } else if (Number(e.status) == 1 && e.action === 'report_product') {
+                        place.innerHTML += `
+                                        <a href="./rpp" class="btn btn-primary">Báo cáo hàng hóa</a>
+                                    `;
+                    }
+                })
+            }
         }
 
         function set_link_menu(m, t) {
@@ -140,13 +174,13 @@
 
             var from = document.getElementById('from_date').value;
             var to = document.getElementById('to_date').value;
-            var rs = await report_product(from,to);
+            var rs = await report_product(from, to);
 
             var tb = document.getElementById('mainData').querySelector('tbody');
             tb.innerHTML = '';
             if (rs != undefined) {
                 //product_id, quantity, total, ck, product_name, code
-                tb.innerHTML += allRow(rs, tb, ['product_id','group_name','product_name','code','quantity','total','ck'],false,[],false).innerHTML;
+                tb.innerHTML += allRow(rs, tb, ['product_id', 'group_name', 'product_name', 'code', 'quantity', 'total', 'ck'], false, [], false).innerHTML;
                 // covertTrueFalse(tb, 6, 'Hiện', 'Ẩn');
                 // if (is_first) load_list_user(rs[0]);
             }
