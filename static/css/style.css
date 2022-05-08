@@ -12,7 +12,21 @@ button{
 /* thead > tr :last-child{
     width: 200px;
 } */
-
+.bloder {
+    font-weight: 700;
+}
+.text_center{
+    text-align: center;
+}
+.size20{
+    font-size: 20px;
+}
+#img img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    margin-bottom: -25px;
+}
 .custom_scroll::-webkit-scrollbar {
     width: 8px;               /* width of the entire scrollbar */
     height: 8px;

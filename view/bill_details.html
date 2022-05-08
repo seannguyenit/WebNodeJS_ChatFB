@@ -40,14 +40,22 @@
                 </div>
                 <hr />
                 <div class="d-flex flex-wrap">
-                    <div class="w-25">Tên khách hàng: <label id="cus_name"></label></div>
-                    <div class="w-25">Tổng tiền: <label class="format_vnd" id="total"></label></div>
-                    <div class="w-25">Mã bill: <label id="code"></label></div>
-                    <div class="w-25">Thời gian: <label id="time"></label></div>
+                    <div class="w-25"><label class="bloder">Tài khoảng fb: </label> <label id="fb_name"></label></div>
+                    <div class="w-25"><label class="bloder">Tên khách hàng: </label> <label id="cus_name"></label></div>
+                    <!-- <div class="w-25">Tổng tiền: <label class="format_vnd" id="total"></label></div> -->
+                    <div class="w-25"><label class="bloder">Mã bill: </label> <label id="code"></label></div>
+                    <div class="w-25"><label class="bloder">Thời gian: </label> <label id="time"></label></div>
+                </div>
+                <div id="img">
                 </div>
                 <div id="content">
                     <table id="mainData" class="tablemanager table table-striped table-bordered table-sm"
                         cellspacing="0" width="100%">
+                        <thead >
+                            <tr>
+                                <td class="bloder text_center size20" colspan="4">CHI TIẾT ĐƠN HÀNG</td>
+                            </tr>
+                        </thead>
                         <thead>
                             <!-- ['id','total','ck','user','group_name','customer','cus_name'] -->
                             <tr>
@@ -62,6 +70,13 @@
                         <tbody>
 
                         </tbody>
+                        <thead>
+                            <tr>
+                                <td class="bloder" colspan="3">Tổng tiền</td>
+                                <td class="format_vnd bloder" id="total_money"></td>
+                            </tr>
+                        </thead>
+                        <caption id="showing"></caption>
                     </table>
 
                     <!-- <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detailId">Tạo mới</button> -->
@@ -111,10 +126,13 @@
             var rs = await get_bill_details(id);
 
             var tb = document.getElementById('mainData').querySelector('tbody');
+
+            var img = document.getElementById('img');
+
             tb.innerHTML = '';
             if (rs) {
                 var lst_ = await get_bill_products(id);
-                if(lst_){
+                if (lst_) {
                     lst_.forEach(item => {
                         tb.innerHTML += `<tr>
                             <td>${item.product_name}</td>
@@ -125,8 +143,16 @@
                         </tr>`;
                     });
                 }
+                if (Number(lst_.length) != 0) {
+                    document.getElementById('showing').innerHTML = "Showing " + lst_.length + " entries product";
+                } else {
+                    document.getElementById('showing').innerHTML = "";
+                }
+                // img.innerHTML = `<img src="https://img.thuthuattinhoc.vn/uploads/2019/01/25/anh-anime-chibi-boy_120351335.jpg">`;
+                img.innerHTML += `<img src="${rs.ava_url}" alt="avatar fb" title="avatar" >`;
                 document.getElementById('cus_name').innerText = rs.real_name;
-                document.getElementById('total').innerText = rs.total_bill;
+                document.getElementById('fb_name').innerText = rs.nick_fb;
+                document.getElementById('total_money').innerText = rs.total_bill;
                 document.getElementById('code').innerText = rs.code;
                 document.getElementById('time').innerText = rs.time;
             }

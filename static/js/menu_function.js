@@ -65,7 +65,7 @@ async function load_menu(token = 'test') {
         dt.forEach(e => {
              var action = e.action;
             if(action === 'report'){
-                action = "check_report";
+                action = 'check_report';
             }
             if (location.href.includes(action)) {
                 place.innerHTML += `<div class="menu_left menu_active" data-id="${action}">${e.name}</div>`;
