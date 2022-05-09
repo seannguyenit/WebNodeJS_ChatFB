@@ -180,7 +180,10 @@ module.exports = function (app) {
     .get(cusCtrl.detail);
 
   app.route('/api/customer_details/:fb_id')
-    .put(cusCtrl.update);
+  .put(cusCtrl.update);
+
+  app.route('/api/customer_dell/:id')
+    .delete(cusCtrl.delete);
 
   app.route('/api/money_count/:bill_id')
     .get(billCtrl.get_money_count);

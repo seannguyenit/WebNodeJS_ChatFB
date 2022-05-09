@@ -36,6 +36,8 @@ function check_current_admin() {
     if (cr_u.id == 7) return true;
     else return false;
 }
+
+// show list Data
 function allRow(dt, tbody, arrCol, no_active = false, add_more = [], has_panel = true) {
     for (var d = 0; d < dt.length; d++) {
         var dtr = dt[d];
@@ -53,6 +55,7 @@ function allRow(dt, tbody, arrCol, no_active = false, add_more = [], has_panel =
     return tbody;
 }
 
+// Function add Action Panel  ( Edit / Delete )
 function addActionPanel(has_panel, dt, no_active = false, add_more = []) {
     var str = '';
     if (add_more) {
@@ -61,8 +64,11 @@ function addActionPanel(has_panel, dt, no_active = false, add_more = []) {
         });
     }
     if (has_panel) {
-
+        if(dt.id_fb){
+            str += `<button class="btn btn-sm btn-primary ml-1" onclick="load_detail(${dt.id},${dt.id_fb})" data-toggle="modal" data-target="#detailId" data-action="edit" data-id="${dt.id}">Sửa</button>`;
+        }else{
         str += `<button class="btn btn-sm btn-primary ml-1" onclick="load_detail(${dt.id})" data-toggle="modal" data-target="#detailId" data-action="edit" data-id="${dt.id}">Sửa</button>`;
+        }
         if (!no_active) {
             str += `<button class="btn btn-sm btn-warning ml-1" data-action="active" onclick="change_active(${dt.is_active},${dt.id})" data-id="${dt.id}">Ẩn/Hiện</button>`;
         }
@@ -1032,6 +1038,70 @@ async function report_notice() {
 }
 
 /* report end */
+
+/** Cusomer */
+async function customer_list() {
+    return await fetch('/api/customer' /*, options */)
+    .then((response) => response.json())
+    .then((data) => {
+        if (data != undefined) {
+            return data;
+        }
+    })
+    .catch((error) => {
+        console.warn(error);
+    });
+}
+
+// move data to /api/customer  (insert Customer / edit Customer)
+async function customer_save(url, data, meth) {
+    return await fetch(url, {
+        method: meth, // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.json())
+        .then(result => {
+            return result;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+// Get List Data by it details
+async function customer_get_detail(id,id_fb) {
+    return await fetch(`/api/customer/${id}/${id_fb}` /*, options */)
+        .then((response) => response.json())
+        .then((data) => {
+            return data[0];
+        })
+        .catch((error) => {
+            console.warn(error);
+        });
+}
+
+// move id to /api/customer_dell (Delete Customer)
+async function customer_del(id) {
+    var url = `/api/customer_dell/${id}`;
+    var meth = 'delete';
+    return await fetch(url, {
+        method: meth, // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+        .then(response => response.json())
+        .then(result => {
+            return result;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+/* call api customer - end */
 
 /* call api method - end */
 

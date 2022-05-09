@@ -50,8 +50,7 @@ module.exports = {
     bill_details: (req, res) => {
         res.sendFile(path.join(__dirname,'../../view/bill_details.html'))
     },
-    // get_partial: (req,res)=>{
-    //     let action = [req.params.action];
-    //     res.sendFile(path.join(__dirname,`../../view/partial/${action}.html`))
-    // },
+    customer: (req,res)=>{
+        res.sendFile(path.join(__dirname,'../../view/customer.html'))
+    },
 }

@@ -13,14 +13,14 @@ module.exports = {
     //     })
     // },
     get: (req, res) => {
-        let sql = 'Call customer_get(null,null)'
+        let sql = 'Call customer_get(0)'
         db.query(sql, (err, response) => {
             if (err) throw err
             res.json(response[0])
         })
     },
     detail: (req, res) => {
-        let sql = 'SELECT * FROM customer where (? = ? or ? = id) and (? = null or id_fb = ?);'
+        let sql = 'SELECT * FROM customer where (? = ? or ? = id) and (? = null or id_fb = ?) limit 1;'
         db.query(sql, [Number(req.params.id),Number(0),Number(req.params.id),req.params.cus_id,req.params.cus_id], (err, response) => {
             if (err) throw err
             res.json(response)

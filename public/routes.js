@@ -38,6 +38,8 @@ module.exports = function (app) {
     .get(homeCtrl.report_product);
     app.route('/bill/details')
     .get(homeCtrl.bill_details);
+    app.route('/home/customer')
+    .get(homeCtrl.customer);
   // app.route('/Accounts/:id')
   //   .get(accCtrl.detail)
   //   .put(accCtrl.update)

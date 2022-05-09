@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Customer</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/table.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <section>
+        <div class="col-md-12 d-flex topbar section_header">
+            <div class="col-md-10 menu">
+                <div id="main_menu">
+                </div>
+                <!-- <button href="btn btn-primary">Thông tin tài khoản</button>
+                <button href="btn btn-primary" onclick="acc_logout()">Đăng xuất</button>
+                <a class="text-info" href="facebook.com">Hỗ trợ - 090xxxxxx</a> -->
+            </div>
+            <div class="col-md-2">
+                <img class="avata" src="../img/avatar.png" width="40" height="40" />
+                <a id="user_info" class="header_account">Nguyen van A - CTV</a>
+            </div>
+        </div>
+    </section>
+    <!-- Content Bar -->
+    <section>
+        <div class="col-md-12 pl-0 pr-0 d-flex">
+            <div class="col-md-12">
+                <div class="link_map" id="linkmenu">
+                </div>
+                <div class="text_title">
+                    Danh sách khách hàng
+                </div>
+                <div id="content">
+                    <table id="mainData" class="tablemanager table table-striped table-bordered table-sm"
+                        cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th class="disableSort">Id</th>
+                                <th>Id fb</th>
+                                <th>Name fb</th>
+                                <th>Full Name</th>
+                                <th>SĐT</th>
+                                <th>Địa chỉ</th>
+                                <th>Thành Phố</th>
+                                <th class="disableFilterBy">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary" data-toggle="modal" onclick="clearModal('detailId')"
+                        data-target="#detailId">Tạo mới</button>
+                    <!-- <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#detailId">Tạo mới</button> -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer Bar -->
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="detailId" tabindex="-1" group="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog" group="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thông tin khách hàng</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body d-flex flex-wrap text-center" style="justify-content: space-between;">
+                    <div class="form-group w-100 text_left">
+                        <input hidden id="id" value="0" />
+                        <label class="pdt" for="id_fb">ID fb</label>
+                        <input type="number" class="form-control" name="id_fb" id="id_fb" required
+                            aria-describedby="helpId" placeholder="">
+                        <label class="pdt-5" for="name_fb">Tên fb</label>
+                        <input type="text" class="form-control" name="name_fb" id="name_fb" required
+                            aria-describedby="helpId" placeholder="">
+                        <label class="pdt-5" for="name">Họ và tên</label>
+                        <input type="text" class="form-control" name="name" id="name" required
+                            aria-describedby="helpId" placeholder="">
+                        <label class="pdt-5" for="phone">Số Điện Thoại</label>
+                        <input type="number" class="form-control" name="phone" id="phone" required
+                            aria-describedby="helpId" placeholder="" maxlength="10">
+                        <label class="pdt-5" for="address">Địa Chỉ</label>
+                        <input type="text" class="form-control" name="address" id="address" required
+                            aria-describedby="helpId" placeholder="">
+                        <label class="pdt-5" for="city">Thành Phố</label>
+                        <input type="text" class="form-control" name="city" id="city" required
+                            aria-describedby="helpId" placeholder="">
+                        <label class="pdt-5" for="url_img">Link Ảnh</label>
+                        <input type="text" class="form-control" name="url_img" id="url_img" required
+                            aria-describedby="helpId" placeholder="" maxlength="10">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="save_acc()" data-dismiss="modal"
+                        class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section>
+
+    </section>
+    <!-- Optional JavaScript -->
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/menu_function.js"></script>
+    <script src="../js/table.js"></script>
+    <script>
+        var is_first = true;
+        load_customer();
+
+        //
+        function set_link_menu(m, t) {
+            var ae = document.createElement('a');
+            ae.href = '/';
+            ae.innerText = 'Trang chủ';
+            var me = document.createElement('a');
+            me.href = `/home/${m}`;
+            me.innerText = t || m;
+            var sign = document.createElement('span');
+            sign.innerText = ' > ';
+            var ct = document.getElementById('linkmenu');
+            ct.innerHTML = '';
+            ct.appendChild(ae);
+            ct.appendChild(sign);
+            ct.appendChild(me);
+        }
+
+        // Show all list Data Customer 
+        async function load_customer() {
+            set_link_menu('customer', 'Quản lý khách hàng');
+            var tb = document.getElementById('mainData').querySelector('tbody');
+            tb.innerHTML = '';
+            let rs = await customer_list();
+            tb.innerHTML += allRow(rs, tb, ['id', 'id_fb', 'nick_fb', 'real_name', 'phone', 'address', 'city'], true).innerHTML;
+            // load_detail(rs.)
+            if (is_first) {
+                $('.tablemanager').tablemanager({
+                    firstSort: [[3, 0], [2, 0], [1, 'asc']],
+                    disable: ["last"],
+                    appendFilterby: true,
+                    dateFormat: [[4, "mm-dd-yyyy"]],
+                    debug: true,
+                    vocabulary: {
+                        voc_filter_by: 'Lọc theo',
+                        voc_type_here_filter: 'từ khóa',
+                        voc_show_rows: 'Số dòng mỗi trang'
+                    },
+                    pagination: true,
+                    showrows: [20, 50, 100, 200],
+                    disableFilterBy: [1]
+                });
+            }
+            is_first = false;
+        }
+
+        // SHow LIST DATA by ID (customer detail) 
+        async function load_detail(id,id_fb) {
+            let rs = await customer_get_detail(id,id_fb);
+            document.getElementById('id').value = rs.id || 0;
+            document.getElementById('id_fb').value = rs.id_fb;
+            document.getElementById('name_fb').value = rs.nick_fb;
+            document.getElementById('name').value = rs.real_name;
+            document.getElementById('phone').value = rs.phone;
+            document.getElementById('address').value = rs.address;
+            document.getElementById('city').value = rs.city;
+        }
+
+        
+        async function clearModal(modal_id) {
+            var modal = document.getElementById(modal_id);
+            modal.querySelectorAll('input').forEach(e => { e.value = '' });
+        }
+
+        // get list data to form 'Thông Tin Khách Hàng'
+        async function save_acc(changeActive, change_id) {
+            if (confirm('Bạn có chắc chắn muốn thay đổi dữ liệu ?')) {
+            } else {
+                return;
+            }
+            var id = change_id || document.getElementById('id').value;
+            var id_fb= document.getElementById('id_fb').value;
+            var nick_fb = document.getElementById('name_fb').value;
+            var real_name = document.getElementById('name').value;
+            var phone = document.getElementById('phone').value;
+            var city = document.getElementById('city').value;
+            var address = document.getElementById('address').value;
+
+            // id = 0 call api (insert customer)
+            var url = `/api/customer`;
+            var meth = 'POST';
+            const formData = new FormData();
+
+            // id # 0 call api (edit customer)
+            if (id != 0) {
+                meth = 'PUT';
+                url = `/api/customer_details/${id_fb}`;
+            }
+
+            var data = {id_fb: id_fb, nick_fb: nick_fb, real_name: real_name, phone: phone, address: address, city: city};
+            let rs = await customer_save(url, data, meth);
+
+            var mess =  rs.message;
+            alert(mess);
+
+            load_customer();
+        }
+
+        // Delete Customer by id
+        async function del_acc(id) {
+            if (confirm('Bạn có chắc chắn muốn xóa dữ liệu ?')) {
+            } else {
+                return;
+            }
+            let rs = await customer_del(id);
+            var mess =  rs.message;
+            alert(mess);
+            load_customer();
+        }
+    </script>
+</body>
+
+</html>

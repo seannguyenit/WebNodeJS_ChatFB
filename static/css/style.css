@@ -21,6 +21,12 @@ button{
 .size20{
     font-size: 20px;
 }
+.text_left{
+    text-align: left;
+}
+.pdt-5{
+    padding-top: 5px;
+}
 #img img {
     border-radius: 50%;
     width: 80px;
